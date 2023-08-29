@@ -1,0 +1,7 @@
+<ion-list  lines="none" >
+  <ion-item *ngIf=" moduleName != 'newRequest'" button (click)="selectOption('Calender')" value="Calender">Calender</ion-item>
+  <ion-item *ngIf=" moduleName != 'newRequest'" button (click)="selectOption('Inventory')" value="Inventory">Inventory</ion-item>
+  <ion-item *ngIf=" moduleName != 'newRequest'" button (click)="selectOption('Attachment')" value="Attachment">Attachment</ion-item>
+  <ion-item *ngIf=" moduleName == 'newRequest'" button (click)="selectOption('labourTasks')" value="labourTasks">Labour Tasks</ion-item>
+  <ion-item *ngIf=" moduleName == 'newRequest'" button (click)="selectOption('addParts')" value="addParts">Add Parts</ion-item>
+</ion-list>

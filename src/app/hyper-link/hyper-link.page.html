@@ -1,0 +1,9 @@
+<!-- Text Input -->
+<ion-item class="template-field-input"*ngIf="incident.type == 'link'" lines="none">
+  <ion-label class="workflow-label" position="floating">
+    {{incident.label}}
+    <span class="req-star" *ngIf="incident.compulsory">*</span>
+  </ion-label>
+  <ion-input type="text" class="borderhidden border-bottom" [(ngModel)]="incident.value" [name]="name" autocomplete="off"
+    [maxlength]="incident.length" [required]="incident.compulsory" (ionBlur)="incident.value = common.removeSpace(incident.value)"></ion-input>
+</ion-item>

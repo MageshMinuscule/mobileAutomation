@@ -1,0 +1,210 @@
+
+    .text-center {
+      text-align: center;
+    }
+    .item-select .label {
+      max-width: 300px;
+    }
+    .search-results ion-label {
+      color: #384074;
+    }
+    ion-label[fixed] {
+      flex: 3 !important;
+      font-size: inherit !important;
+      max-width: 300px !important;
+   
+      
+    }
+    .toggle-md-white.toggle-checked .toggle-icon,
+    .toggle-md.toggle-checked .toggle-icon {
+      background-color: #445498 !important;
+    }
+  
+    .toggle-ios-white.toggle-checked .toggle-icon,
+    .toggle-ios.toggle-checked .toggle-icon {
+      background-color: #445498 !important;
+    }
+    .toggle-md {
+      width: 51px !important;
+      height: 32px !important;
+      .toggle-icon {
+        border-radius: 16px;
+      }
+      .toggle-inner {
+        left: 2px;
+        top: 2px;
+        border-radius: 14px;
+        position: absolute;
+        width: 28px;
+        height: 28px;
+        background-color: #fff !important;
+      }
+    }
+    .toggle-md.toggle-checked .toggle-inner {
+      -webkit-transform: translate3d(19px, 0, 0);
+      transform: translate3d(19px, 0, 0);
+    }
+    .ion-padding-start{
+      padding: 0px;
+    }
+  ion-label{
+    margin: 13px 8px 13px 0 !important;
+  }
+  // ion-item{
+  //   --padding-start: 0;
+  //   padding-left: 12px !important;
+  // }
+
+.rejectcard{
+  --background: #f2dede;
+}
+ion-title {
+  text-transform: initial;
+}
+
+.list-view-badge{
+  .badge-custom {
+      font-family: "Poppins";
+      float: left;
+      padding : 4px;
+      font-size: 12px;
+      min-width: 50px;
+      font-weight: 500;
+      border-radius: 20px;
+      height: 20px;
+      box-shadow: 0 2px 2px 0 rgb(0 0 0 / 14%), 
+                  0 3px 1px -2px rgb(0 0 0 / 20%),
+                  0 1px 5px 0 rgb(0 0 0 / 12%);
+  }
+  .list-view{
+      
+      padding: 5px 10px 10px 10px !important; 
+      
+      // background-color: rgb(243, 240, 240);
+  }
+      ion-item-divider {
+        padding: 10px 10px 0px 10px;
+        background: #FFFFFF;
+        border: 1px solid rgba(195, 197, 200, 0.5);
+        border-radius: 4px;
+      }
+  .cat-label {
+      font-family: "Poppins";
+      text-transform: uppercase;
+      font-weight: bold;
+      font-size: small;
+      color: rgb(119, 118, 118);
+  }
+  .location-label {
+      font-family: "Poppins";
+      color: rgb(119, 118, 118);
+      // padding-top: 13px;
+  }
+  .asset-detail {
+      min-height: 55vh;
+  }
+  .asset-info {
+      bottom: 0;
+      position: absolute;
+      margin-bottom: 8%;
+      margin-left: 5%;
+      color: rgb(119, 118, 118);
+      font-weight: 600;
+  }
+}
+
+// .list-view-badge{
+//   .badge-custom {
+//       font-family: "Poppins";
+//       float: left;
+//       padding : 4px;
+//       font-size: 12px;
+//       min-width: 50px;
+//       font-weight: 500;
+//       border-radius: 20px;
+//       height: 20px;
+//       box-shadow: 0 2px 2px 0 rgb(0 0 0 / 14%), 
+//                   0 3px 1px -2px rgb(0 0 0 / 20%),
+//                   0 1px 5px 0 rgb(0 0 0 / 12%);
+//   }
+//   .list-view{
+      
+//       padding: 5px 5px 0px 5px;
+//       background-color: rgb(243, 240, 240);
+//   }
+//   ion-item-divider{
+//       padding: 0px;
+//       border-radius: 8px;
+//   }
+//   .cat-label {
+//       font-family: "Poppins";
+//       text-transform: uppercase;
+//       font-weight: bold;
+//       font-size: small;
+//       color: rgb(119, 118, 118);
+//   }
+//   .location-label {
+//       font-family: "Poppins";
+//       color: rgb(119, 118, 118);
+//       // padding-top: 13px;
+//   }
+//   .asset-detail {
+//       min-height: 55vh;
+//   }
+//   .asset-info {
+//       bottom: 0;
+//       position: absolute;
+//       margin-bottom: 8%;
+//       margin-left: 5%;
+//       color: rgb(119, 118, 118);
+//       font-weight: 600;
+//   }
+// }
+.asset-add{
+  // margin-top: -80px;
+  padding: 0px;
+  padding-left: 0px;
+  padding-right: 0px;
+  margin-top: -24px;
+}
+.pencil-outline {
+margin-top: -56px;
+ padding-left: 0px;
+ padding-right: 0px;
+}
+.max-height {
+  max-height:40vh;
+  overflow: auto;
+}
+
+.list-view:nth-child(1n) .badge-custom {
+  background-color: #f4516c;
+}
+
+.list-view:nth-child(2n) .badge-custom {
+  background-color: #34bfa3;
+}
+
+.list-view:nth-child(3n) .badge-custom {
+  background-color: #36a3f7;
+}
+
+.list-view:nth-child(4n) .badge-custom {
+  background-color: #716aca;
+}
+
+.list-view-badge:nth-child(1n) .badge-custom {
+  background-color: #f4516c;
+}
+
+.list-view-badge:nth-child(2n) .badge-custom {
+  background-color: #34bfa3;
+}
+
+.list-view-badge:nth-child(3n) .badge-custom {
+  background-color: #36a3f7;
+}
+
+.list-view-badge:nth-child(4n) .badge-custom {
+  background-color: #716aca;
+}

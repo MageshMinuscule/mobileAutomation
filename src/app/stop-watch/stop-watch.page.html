@@ -1,0 +1,19 @@
+
+
+  <div>
+    <div>
+      <span style="position: relative;top:-5px;left:1em;right: .5em;">
+        <ion-button fill="clear" (click)="start()">
+          <ion-icon *ngIf="!running" slot="icon-only" color="secondary" name="play"></ion-icon>
+          <ion-icon *ngIf="running" slot="icon-only" color="secondary"name="pause"></ion-icon>
+        </ion-button>
+      </span>
+      <span class="ml-p5">
+        <span>{{hour }} : </span>
+        <span>{{min }} : </span>
+        <span>{{sec }} </span>
+        <!-- <span>{{milliSec }} </span> -->
+      </span>
+    </div>
+  </div>
+

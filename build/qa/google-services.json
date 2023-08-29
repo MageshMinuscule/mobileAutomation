@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "54177937009",
+    "firebase_url": "https://cmms-qa-79af5e2e.firebaseio.com",
+    "project_id": "cmms-qa-79af5e2e",
+    "storage_bucket": "cmms-qa-79af5e2e.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:54177937009:android:f1e6de6209d3a359",
+        "android_client_info": {
+          "package_name": "com.cryotos.qa"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "54177937009-04atosr50187g1v34dfe1of7o6cg36d3.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDuy7CKu0ORQgf776VI5qnwVkyu5NL0hDs"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

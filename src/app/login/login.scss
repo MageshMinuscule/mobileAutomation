@@ -1,0 +1,113 @@
+ion-content {
+  --background: #fff !important;
+  .button-block{
+    padding-top: 1.4em;
+    padding-bottom: 1.4em;
+}
+.ionlist{
+  background: transparent;
+  color: red;
+}
+ion-item{
+  --background: transparent;
+  color: #3C75C6;
+  --padding-start: 0px;
+  --border-color: red 1px; // default underline color
+        --highlight-color-invalid: red 1px; // invalid underline color
+        --highlight-color-valid: green 1px;
+        // --highlight-color :  #3C75C6;
+}
+ion-item.ion-touched
+ {
+    --border-color: #3C75C6;
+   }
+}
+.ion-padding{
+  padding: 0 8px;
+}
+ion-input{
+  margin: 10px 8px;
+    padding: 0;
+    margin-left: 1px;
+    font-family: "Poppins";
+    font-weight: 100;
+}
+.login-box {
+  padding: 0px;
+    margin: 71px 16px;
+}
+
+
+.login-title {
+  text-align: center;
+  padding: 0px;
+  background-color: transparent;
+  background-image: url(../../../src/assets/imgs/cryotos-logo.svg);
+  background-size: contain;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: 102px 138px;
+  height: 140px;
+  h5 {
+    margin: 20px 0 0px 0;
+    font-size: 3em;
+    font-weight: 300;
+  }
+
+  ion-icon {
+    font-size: 5em;
+    color: white !important;
+  }
+}
+
+.setting-bt {
+  padding: 1px 15px 1px 1px;
+  z-index: 5;
+  font-size: 30px;
+  float: right;
+  color: #3C75C6;
+  position: relative;
+  margin: 17px;
+  height: 24px;
+  width: 28px;
+}
+.native-input{
+  // background-color: #fff;
+  color: #333333!important;
+}
+.native-input.sc-ion-input-md:invalid{
+  color: #333333!important;
+}
+.ionlist span{
+  color: #333333;
+}
+.ionlist span a{
+  color: #3C75C6;
+  font-weight: 600;
+}
+.passwordIcon{
+  font-size:2rem !important;
+  position: relative !important;
+  top: 22px !important;
+  margin: 0 auto !important;
+}
+
+.type-toggle {
+  display: flex;
+  align-items: center;
+  position: absolute;
+  height: 100%;
+  top: .65rem;
+  right: 3rem;
+  padding-right: 1px;
+  z-index: 2;
+}
+ion-item {
+  ion-input {
+  background-color: transparent;
+}
+}
+ion-backdrop {
+opacity: 0.4;
+height: 100%;
+}

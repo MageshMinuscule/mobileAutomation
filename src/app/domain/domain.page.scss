@@ -1,0 +1,42 @@
+app-domain {
+    .item,
+    .item-md {
+        background: none;
+    }
+    .eg-text {
+        padding-left: 16px;
+        color: #fff!important;
+    }
+}
+.login-box{
+    margin-top: 23px;
+    padding: 26px;
+}
+ion-content {
+    font-family: "Poppins";
+    --background: linear-gradient(
+      to bottom, #0a0a0a, #445498
+    ) !important;
+    color: white;
+    padding: 16px;
+    font-size: 14px;
+}
+form, input, optgroup, select {
+    margin: 0;
+    font: inherit;
+    color: white;
+}
+ion-input{
+font-family: "Poppins";
+}
+ion-item{
+    --background: transparent;
+    color: white;
+    --padding-start: 0px;
+    --border-color: red 1px; // default underline color
+          --highlight-color-invalid: red 1px; // invalid underline color
+          --highlight-color-valid: green 1px; // valid underline color
+  }
+  .ion-padding{
+    padding: 15px 0px;
+  }

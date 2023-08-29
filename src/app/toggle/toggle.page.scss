@@ -1,0 +1,51 @@
+// toggle-view, toggle-reason {
+//     .toggle-md-white.toggle-checked .toggle-icon {
+//         // background-color: #ee83f5  !important;
+//         background-color: #445498  !important;
+//     }
+//     .toggle-ios-white.toggle-checked .toggle-icon {
+//         // background-color: #ee83f5  !important;
+//         background-color: #445498  !important;
+//     }
+//     .toggle-md {
+//         width: 51px !important;
+//         height: 32px !important;
+//         .toggle-icon {
+//             border-radius: 16px;
+//         }
+//         .toggle-inner {
+//             left: 2px;
+//             top: 2px;
+//             border-radius: 14px;
+//             position: absolute;
+//             width: 28px;
+//             height: 28px;
+//             background-color: #fff;
+//         }
+//     }
+//     .toggle-md.toggle-checked .toggle-inner {
+//         -webkit-transform: translate3d(19px, 0, 0);
+//         transform: translate3d(19px, 0, 0);
+//     }
+// }
+ion-item{
+    font-size: 12px;
+}
+ion-label{
+    opacity: 0.8;
+}
+ion-label:hover {
+    text-overflow: clip;
+    white-space: normal;
+    word-break: break-all;
+}
+ion-item{ 
+   // --border-color: 1px solid #7E7E7E !important; 
+  }
+// ion-toggle {
+//     --background:white;
+//     --background-checked: #445498;
+  
+//     --handle-background: #445498;
+//     --handle-background-checked:white;
+//   }

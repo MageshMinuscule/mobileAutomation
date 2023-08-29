@@ -1,0 +1,16 @@
+<!-- checkbox -->
+<ion-list class="check-box template-field-input">
+    <div *ngIf="incident.type == 'checkBox'" id="{{incident.label}}">
+        <ion-label position="floating" style="font-size: 15px !important;"class="workflow-label">{{incident.label}}
+            <span class="req-star" *ngIf="incident.compulsory">*</span>
+        </ion-label>
+        <ion-list lines="none">
+            <div>
+                <ion-item *ngFor="let index of templateProvider.keys(incident.options)" lines="none">
+                    <ion-label class="checkbox-option">{{ index }}</ion-label>
+                    <ion-checkbox style="margin-right: 5px;" slot="start" color="danger" class="checkboxsize" [checked]="incident.options[index]" (ionChange)="incident.options[index] = !incident.options[index]; addOption($event,index,incident)"></ion-checkbox>
+                </ion-item>
+            </div>
+        </ion-list>
+      </div>
+</ion-list>

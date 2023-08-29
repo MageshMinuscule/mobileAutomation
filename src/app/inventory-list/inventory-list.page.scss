@@ -1,0 +1,88 @@
+ion-title{
+    font-family: "Roboto";
+}
+ion-col{
+    padding: 1px;
+}
+.cat-label {
+    font-family: "Roboto";
+    text-transform: uppercase;
+    color: #333333;
+    font-weight: 500;
+    font-size: 16px;
+}
+.location-label {
+    font-family: "Roboto";
+    color: #7E7E7E;
+    font-size: 15px;
+    // padding-top: 13px;
+}
+.badge-custom{
+    font-family: "Roboto";
+    font-weight: 400;
+    box-shadow: 0 2px 2px 0 rgb(0 0 0 / 14%), 
+                0 3px 1px -2px rgb(0 0 0 / 20%),
+                0 1px 5px 0 rgb(0 0 0 / 12%);
+}
+.list-view:nth-child(1n) .badge-custom {
+    background-color: #f4516c;
+}
+
+.list-view:nth-child(2n) .badge-custom {
+    background-color: #34bfa3;
+}
+
+.list-view:nth-child(3n) .badge-custom {
+    background-color: #36a3f7;
+}
+
+.list-view:nth-child(4n) .badge-custom {
+    background-color: #716aca;
+}
+
+.list-view-badge:nth-child(1n) .badge-custom {
+    background-color: #f4516c;
+}
+
+.list-view-badge:nth-child(2n) .badge-custom {
+    background-color: #34bfa3;
+}
+
+.list-view-badge:nth-child(3n) .badge-custom {
+    background-color: #36a3f7;
+}
+
+.list-view-badge:nth-child(4n) .badge-custom {
+    background-color: #716aca;
+}
+.reject-card{
+    --background: #f2dede;
+ }
+.inventory-box
+{
+    border: 1px solid #C3C5C880;
+    border-radius: 4px;
+    padding: 10px;
+    // margin-bottom: 12px;
+}
+.ml-11px
+{
+    margin-left: 11px;
+}
+.mt-13px
+{
+    margin-top: 13px;
+}
+.mt-15px
+{
+    margin-top: 15px;
+}
+.inventory-image
+{
+    width: 100px !important;
+    height: 100px !important;
+    border-radius: 4px;
+    padding: 10px;
+    border: 1px solid #C3C5C8;
+    background: #F3F8FF;
+}

@@ -1,0 +1,33 @@
+// app-datetime {
+//     ion-datetime,
+//     ion-label {
+//         -webkit-text-fill-color: initial !important;
+//         opacity: 1 !important;
+//         font-size: 1.2rem !important;
+//     }
+// }
+ion-item{ 
+   // --border-color: 1px solid #7E7E7E !important; 
+  }
+// ion-item{
+//     font-family: "Poppins";
+//     font-size: 13px;
+//     color: black;
+// }
+ion-label{
+    opacity: 0.8;
+    color: black;
+    
+}
+ion-datetime{
+    color: black;
+}
+.pad-lft {
+    padding-left: 16px;
+    .item-md {
+        padding-left: 0;
+    }
+    .pad-lft {
+        padding-left: 0;
+    }
+}

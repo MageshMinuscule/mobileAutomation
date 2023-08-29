@@ -1,0 +1,61 @@
+<ion-header>
+  <ion-toolbar color="secondary">
+    <ion-title mode="md">{{'Add Report Email' | translate}}</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="dismiss()">
+        {{'cancel' | translate}}
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+  <ion-fab vertical="bottom" horizontal="end" slot="fixed">
+    <ion-fab-button (click)="addControl()" color="danger">
+      <ion-icon name="add"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
+  <ion-list>
+
+    <form #emailListForm="ngForm">
+
+      <ion-grid>
+        <ion-row *ngFor="let control of emailList; let i = index">
+          <ion-col size="10">
+            <ion-item>
+              <ion-input type="email" [(ngModel)]="control.email" [name]="control.name"
+                placeholder="{{ control.field }}" autocomplete="off" email clearInput required>
+              </ion-input>
+            </ion-item>
+          </ion-col>
+          <ion-col size="2">
+            <ion-icon (click)="removeControl(i)" class="remove-email" size="large" name="close-circle" *ngIf="emailList.length > 1">
+            </ion-icon>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </form>
+  </ion-list>
+</ion-content>
+
+<ion-footer>
+  <ion-toolbar>
+    <!-- <ion-buttons end class="footer-btn"> -->
+      <ion-row class="footer-btn">
+        <ion-col size="6">
+          <ion-button color="danger" Expand="full"  (click)="skip()" style="margin:0px">
+            {{'Skip' | translate}}
+          </ion-button>
+        </ion-col>
+        <ion-col size="6">
+          <ion-button  color="primary"  Expand="full"  [disabled]="!emailListForm.form.valid"
+          (click)="submitRequest()" style="margin:0px">
+          {{'Confirm Emails' | translate}}
+        </ion-button>
+        </ion-col>
+      </ion-row>
+
+
+    <!-- </ion-buttons> -->
+  </ion-toolbar>
+</ion-footer>

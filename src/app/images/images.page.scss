@@ -1,0 +1,153 @@
+ion-icon {
+    color: rgb(120, 120, 224);
+  }
+
+  img {
+    display: block;
+    margin: 0 auto;
+    height: 122px;
+  }
+
+  img.centered {
+    display: block;
+    margin: 0 auto;
+  }
+
+  .chooseimage {
+    position: absolute;
+    opacity: 0;
+  }
+
+.imageIcon {
+    text-align: center;
+    border: 1px solid rgba(195, 197, 200, 0.5019607843);
+    border-radius: 4px;
+    border-collapse: collapse;
+    height: 96px;
+    width: 100px;
+    background-color: #F3F8FF;
+  }
+  .imageIcon ion-icon {
+    font-size: 3rem;
+  }
+
+  .imagesbrowser {
+    text-align: center;
+    border: 1px solid #C3C5C880;
+    border-radius: 4px;
+    border-collapse: collapse;
+    height: 96px;
+    width: 100px;
+    background-color: #F3F8FF;
+  }
+
+  .imagesbrowser ion-icon {
+    font-size: 3rem;
+  }
+
+  ion-icon {
+    color: rgb(120, 120, 224);
+    
+  }
+  ion-col{
+    font-family: "Poppins";
+  }
+  .imageIcon {
+    text-align: center;
+    border: 1px solid #C3C5C880;
+    border-radius: 4px;
+    border-collapse: collapse;
+    height: 96px;
+    width: 100px;
+    background-color: #F3F8FF;
+    ion-icon {
+        font-size: 3rem;
+    }
+}
+.upload-row {
+    border-radius: 4px;
+    margin-bottom: .5em;
+    // margin-top: 10px;
+    background: #F3F8FF;
+}
+.uploadpadding {
+    margin-top: 10px;
+}
+.imagetext {
+    font-size: 12px;
+    color: #333333;
+    margin-top: 24px;
+    font-weight: 400;
+    font-family: "Roboto";
+    position: relative;
+    top:-14px
+}
+.singleimage {
+    color: #1b5b8a;
+}
+.takephoto {
+    color: #1b5b8a;
+}
+.downloadicon {
+    border: 1px solid gray;
+    border-radius: 10px;
+}
+.border {
+    text-align: center;
+    margin-top: 30px;
+    margin-left: -8px;
+    ion-icon {
+        font-size: 3rem;
+    }
+}
+.imgDelete {
+    font-size: 25px;
+    margin-top: 13%;
+    color: #fd4b57;
+    padding: 3px;
+}
+.trash-icon {
+    font-size: 25px
+}
+.imgSingleDelete {
+    font-size: 25px; // margin-top: 13%;
+    color: #fd4b57;
+    padding: 3px;
+    padding-left: 20px;
+    ion-item {
+        border-bottom: 1px solid #8080806b;
+        padding: 0;
+        .text-input {
+            margin: 22px 8px 22px 0px;
+        }
+    }
+}
+.deleteicon {
+    position: absolute;
+    padding-left: 4px;
+    font-size: 15px;
+    padding-top: 5px;
+}
+.uploadpadding ion-col {
+
+    position: initial;
+
+}    
+ion-grid ion-row button {
+    white-space: normal;
+} 
+// .preview-img img {
+//     height: 94px;
+// }
+.sign-pad {
+    border: 1px solid gray;
+    border-radius: 10px;
+}
+  image-desc {
+    font-size: 14px !important;
+  }
+
+  .icon-info {
+    margin-left: 8rem !important;
+    color: gray !important;
+  }

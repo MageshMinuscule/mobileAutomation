@@ -1,0 +1,88 @@
+<ion-backdrop tappable="false" *ngIf="backDropDismiss"></ion-backdrop>
+<div class="ion-page">
+  <ion-header>
+    <ion-toolbar color="secondary">
+      <ion-title *ngIf="!showSearchBar" mode="md">{{"partManagement" | translate}}</ion-title>
+     <ion-buttons slot="start">
+       <ion-button (click)="back()">
+         <ion-icon slot="icon-only" name="chevron-back-outline"></ion-icon>
+       </ion-button>
+     </ion-buttons>
+     <ion-searchbar *ngIf="showSearchBar" [(ngModel)]="searchKeyword" (click)="focusButton()"(keyup.enter)="filterResult($event)" (ionCancel)="onCancel($event)"
+     #searchBar (ionBlur)="closeOption()" (ionClear)="onClear($event)"placeholder="Search Parts">
+     </ion-searchbar>
+     <ion-buttons slot="end">
+      <ion-button (click)="showSearchBar = !showSearchBar">
+        <ion-icon slot="icon-only" name="search"></ion-icon>
+      </ion-button>
+     </ion-buttons>
+    </ion-toolbar>
+  </ion-header>
+  
+  <ion-content >
+    <ion-fab vertical="bottom" horizontal="end" slot="fixed">
+      <ion-fab-button (click)="scanInventory()" color="secondary">
+        <ion-icon name="scan-outline"></ion-icon>
+      </ion-fab-button>
+    </ion-fab>
+    <div class="autocomplete">
+
+      <ion-list>
+        <div *ngIf="!results.length && noRecords">
+          <app-no-record></app-no-record>
+        </div>
+        <ion-item *ngFor="let part of inventoryList" (click)="addPart(part)">
+          <span class="list-item"></span>
+          {{ part.name }}
+        </ion-item>
+      </ion-list>
+    </div>
+    <ion-list style="height: 88%;">
+
+      <form #partForm="ngForm">
+      </form>
+    </ion-list>
+    <ion-infinite-scroll threshold="50%" position="bottom" (ionInfinite)="pageLoad($event)" [disabled]="isScroll">
+      <ion-infinite-scroll-content loadingSpinner="bubbles" loadingText="Loading more data..."></ion-infinite-scroll-content>
+    </ion-infinite-scroll>
+  </ion-content>
+  <ion-footer>
+  </ion-footer>
+</div>
+<div class="custom-footer" *ngIf="currentPart">
+  <ion-grid fixed>
+    <ion-row>
+      <ion-col size="12">
+        <span>{{currentPart.name}}</span>
+      </ion-col>
+    </ion-row>
+    <ion-row style="margin-left:4em !important;">
+      <ion-col size="4">
+        <ion-button fill="clear" (click)="reduceCount(currentPart)">
+          <ion-icon class="icon-cls" name="remove-circle" color="secondary"></ion-icon>
+        </ion-button>
+      </ion-col>
+      <ion-col size="4">
+        <span class="part-no">{{currentPart.consumedQuantity}}</span>
+      </ion-col>
+      <ion-col size="4">
+        <ion-button (click)="addCount(currentPart)" fill="clear">
+          <ion-icon class="icon-cls" name="add-circle" color="secondary"></ion-icon>
+        </ion-button>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col size="6">
+        <ion-button class="clear-btn"(click)="clear()" expand="block" color="white">
+          Clear
+        </ion-button>
+      </ion-col>
+      <ion-col size="6">
+        <ion-button (click)="updateParts()" expand="block" color="secondary">
+         Add
+        </ion-button>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</div>
+

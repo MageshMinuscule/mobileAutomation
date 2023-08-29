@@ -1,0 +1,71 @@
+<ion-header>
+  <ion-toolbar color="secondary">
+    <ion-title>My Activity</ion-title>
+    <ion-buttons slot="start">
+      <ion-button (click)="back()">
+        <ion-icon slot="icon-only" name="chevron-back-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+
+</ion-header>
+
+<ion-content>
+  <ion-row>
+    <ion-col style="margin-left:1em;"size="12">
+      <span class="chartHead">Total Completed Task
+        <span class="chartHead-side">(Last 5 months )</span>
+      </span>
+    </ion-col>
+  </ion-row>
+  <div>
+    <canvas #LineChart style="position: relative; height:12vh; width:50vw;padding-left:1.5em;padding-right:1.5em;"></canvas>
+  </div>
+    
+  <!-- </ion-card> -->
+  <div class="box-label">
+    <ion-row>
+      <ion-col size="5">
+        <div class="dis-fit">
+          <canvas #barChart style="position: relative; height:100px !important; width:40vw"></canvas>
+        </div>
+      </ion-col>
+      <ion-col style="display: grid;justify-content: center;"size="7">
+        <ion-item lines="none">
+          <span class="r-blue"></span>
+          <ion-label class="dis-text">Work Order
+            <span class="dis-num">40</span>
+          </ion-label>
+        </ion-item>
+        <ion-item lines="none">
+          <span class="r-dblue"></span>
+          <ion-label class="dis-text">Preventive
+            <span class="dis-num">60</span>
+          </ion-label>
+        </ion-item>
+      </ion-col>
+    </ion-row>
+    <div class="line-code"></div>
+    <ion-row>
+      <ion-col class="grid-view"size="6">
+        <span style="color: #127701;margin-left:4em;margin-top:1em;margin-bottom:1em;">10</span>
+        <span class="sub-label">On Time</span>
+      </ion-col>
+      <ion-col class="grid-view" size="6">
+        <span style="color:#FF0000;margin-left:4em;margin-top:1em;margin-bottom:1em;">90</span>
+        <span class="sub-label">Over Due</span>
+      </ion-col>
+    </ion-row>
+  </div>
+  <div class="box-label">
+    <ion-row style="margin-left:1em;margin-top:1em">
+      <ion-col size="12">
+        <span class="time-label">2h 00m</span>
+      </ion-col>
+      <ion-col size="12">
+        <span class="time-note">Average Time To Complete a Task</span>
+      </ion-col>
+    </ion-row>
+  </div>
+
+</ion-content>

@@ -1,0 +1,8 @@
+<ion-item *ngIf="incident.type == 'textInput'" style="margin-left:.5em;margin-right:.5em;" lines="none">
+  <ion-label class="workflow-label ion-text-wrap" position="floating">
+    {{incident.label}}
+    <span class="req-star" *ngIf="incident.compulsory">*</span>
+  </ion-label>
+  <ion-input type="text" class="borderhidden border-bottom" [(ngModel)]="incident.value" (ionInput)="Blur($event)" [readonly]="incident.readOnly" [name]="name" autocomplete="off" [maxlength]="incident.length"
+    [required]="incident.compulsory" (ionBlur)="incident.value = common.removeSpace(incident.value)" ></ion-input>
+</ion-item>

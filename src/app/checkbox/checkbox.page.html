@@ -1,0 +1,24 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title mode="md">checkbox</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-list lines="full">
+    <ion-item>
+      <ion-label><strong>Superheroes - Select All</strong></ion-label>
+      <ion-checkbox slot="start" [(ngModel)]="checkParent" [indeterminate]="indeterminateState"
+        (click)="checkCheckbox($event)"></ion-checkbox>
+    </ion-item>
+  </ion-list>
+  
+  <ion-list>
+    <ion-item *ngFor="let checkboxes of Checkboxes">
+      <ion-label>{{checkboxes.value}}</ion-label>
+      <ion-checkbox slot="start" [(ngModel)]="checkboxes.isItemChecked" (ionChange)="verifyEvent()">
+      </ion-checkbox>
+    </ion-item>
+  </ion-list>
+</ion-content>
+<!-- <div style="border: 1px solid #7E7E7E;"></div> -->

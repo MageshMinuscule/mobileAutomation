@@ -1,0 +1,104 @@
+ion-title{
+    font-family: "Roboto";
+}
+ion-content{
+    // padding-left: 25px;
+    top: -19px;
+}
+.ion-item-space
+{
+    --border-color: 1px solid #7E7E7E !important; 
+}
+
+.contactlabel:active{
+    // margin-bottom: -25px;
+    font-family: 'Roboto';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 15px !important;
+    line-height: 12px;
+    color: #3C75C6;
+    opacity: 0.87;
+}
+.contactlabel{
+    // margin-bottom: -25px;
+    font-family: 'Roboto';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 15px !important;
+    line-height: 12px;
+    color: #333333;
+    opacity: 0.87;
+}
+
+
+.contactinput{
+    font-family: "Roboto" !important;
+    margin: 30px 0px -2px 0px;
+    font-size: 16px !important;
+    font-weight: 400 !important;
+    color: #333333 !important;
+
+}
+.req-star {
+    color: red;
+    display: inline-block;
+}
+.selectwidth {
+    width: 100%;
+    max-width: 100% !important;
+    
+    padding: 11px 8px 11px 0 !important;
+    .select-ios {
+        padding: 11px 8px 11px 0;
+    }
+}
+.asset-add{
+    margin-left:.5em !important;
+    margin-right:.5em !important;
+    margin-top:1em !important;
+  }
+.error
+{
+    color: #dc3545 !important;
+}
+.workreq-label {
+    font-size: 16px !important;
+    font-weight: 600 !important;
+}
+.img-algin {
+    top: 1em !important;
+    position: absolute;
+    left:50% !important;
+    margin: auto !important;
+}
+ion-datetime {
+font-family: 'Roboto';
+font-style: normal;
+font-weight: 400;
+font-size: 14px;
+line-height: 18px;
+color: #333333;
+border-bottom: 1px solid #7E7E7E !important; 
+}
+ion-input {
+font-family: 'Roboto';
+font-style: normal;
+font-weight: 400;
+font-size: 14px;
+line-height: 18px;
+color: #333333;
+border-bottom: 1px solid #7E7E7E !important; 
+}
+ion-select {
+font-family: 'Roboto';
+font-style: normal;
+font-weight: 400;
+font-size: 14px;
+line-height: 18px;
+color: #333333;
+ border-bottom: 1px solid #7E7E7E !important; 
+}
+// ion-item{ 
+//    --border-color: 1px solid #7E7E7E !important; 
+// }

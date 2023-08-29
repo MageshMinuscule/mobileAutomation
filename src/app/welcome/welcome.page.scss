@@ -1,0 +1,81 @@
+ion-content {
+    --background: #5367b9 !important;
+    --color: #fff !important;
+    font-family: "Poppins";
+}
+h2 {
+    padding-top: 10vh;
+    font-size: 30px;
+    font-weight: 700;
+    text-align: center;
+}
+.logo-img {
+    border: 1px solid gainsboro;
+    background-color: #fff;
+    border-radius: 50%;
+    max-width: 35vh;
+    height: 35vh;
+    margin: auto;
+    position: relative;
+    margin-top: 4vh;
+    img {
+        max-height: 50%;
+        max-width: 100%;
+        width: auto;
+        height: auto;
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        margin: auto;
+    }
+}
+.welcome-text {
+    padding: 25px;
+    font-size: 14px;
+    text-align: center;
+    margin-bottom: 7vh;
+    font-weight: 700;
+}
+.get-started {
+    text-align: center;
+    button{
+    color: #fff;
+    border-color: #fff;
+    border: 1px solid;
+    border-radius: 50px;
+    background-color: #5266b9;
+    -webkit-box-shadow: none;
+    box-shadow: none;
+    width: 70vw;
+    margin: auto;
+    padding-top: 22px;
+    padding-bottom: 22px;
+    text-transform: capitalize;
+    font-weight: 700;
+    }
+    // .button {
+    //     color: #fff;
+    //     border-color: #fff;
+    //     border: 1px solid;
+    //     border-radius: 50px;
+    //     background-color: #5266b9;
+    //     box-shadow: none;
+    //     width: 70vw;
+    //     margin: auto;
+    //     padding-top: 22px;
+    //     padding-bottom: 22px;
+    //     text-transform: capitalize;
+    //     font-weight: 700;
+    // }
+}
+ion-spinner {
+    position: relative;
+    display: grid !important;
+    width: 28px;
+    height: 28px;
+    top: 40%;
+    margin: auto;
+    vertical-align: middle;
+}

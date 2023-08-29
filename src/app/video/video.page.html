@@ -1,0 +1,44 @@
+<!-- Video Upload -->
+<ion-grid *ngIf="incident.type == 'video'" class="template-field">
+  <ion-row class="uploadpadding">
+      <ion-col size="12" class="workflow-label">
+          {{incident.label}}
+          <span class="req-star" *ngIf="incident.compulsory">*</span>
+      </ion-col>
+      <ion-col class="imageIcon"  *ngIf="!incident.cameraOnly" style="margin-right:10px;">
+        <ion-button  style="margin-top:1em;"(click)="openGalleryVideo(incident)" *ngIf="!isBrowser" fill="clear">
+          <ion-icon class="singleimage" color="secondary" slot="icon-only" name="film-outline"></ion-icon>
+        </ion-button>
+        <ion-button  style="margin-top:1em;" *ngIf="isBrowser" fill="clear">
+          <ion-icon class="singleimage" color="secondary" slot="icon-only" name="film-outline"></ion-icon>
+        </ion-button>
+          <div class="imagetext" *ngIf="isBrowser">{{'Browse Video' | translate}}</div>
+          <div class="imagetext" *ngIf="!isBrowser">{{'Browse Video' | translate}}</div>
+      </ion-col>
+      <ion-col class="imageIcon">
+        <ion-button  style="margin-top:1em;"(click)="takeVideo(incident)" fill="clear">
+          <ion-icon slot="icon-only" color="secondary" name="videocam-outline"></ion-icon>
+        </ion-button>
+          <div class="imagetext">{{'Capture Video' | translate}}</div>
+      </ion-col>
+  </ion-row>
+  <div style="height:0px;overflow:hidden">
+    <ion-input  #fileVideoInput  type="file" accept="video/*" placeholder="Awesome Input" (click)="this.value = null" (ionChange)="selectBrowserVideo($event, incident)"></ion-input>
+  </div>
+</ion-grid>
+<ion-row *ngIf="incident.type == 'video' && incident.value" class="video-preview">
+  <ion-col (click)="playVideo()" class="preview-img" size="4">
+    <p>
+      <ion-icon name="film-outline"></ion-icon>
+  </p>
+  </ion-col>
+  <ion-col class="imgSingleDelete" size="8">
+    <div (click)="deleteVideo(incident)">
+      <ion-icon name="trash" class="trash-icon" color="danger"> </ion-icon>
+      <span class="deleteicon">{{'Delete' | translate}}</span>
+  </div>
+  </ion-col>
+
+
+
+</ion-row>

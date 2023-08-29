@@ -1,0 +1,39 @@
+<div class="gallery-button" style="margin-left:1.25em !important;margin-right: 1.25em !important;" *ngIf="incident.type == 'signatureOnly'">
+  <ion-row>
+    <ion-col size="12">
+      <ion-label class="workflow-label" style="font-size: 15px !important;float: left;">{{incident.label}}
+        <span class="req-star" *ngIf="incident.compulsory">*</span>
+    </ion-label>
+    </ion-col>
+    <ion-col size="12" *ngIf="!incident.value" class="sign-board">
+        <ion-button class="clipboardbtn" color="dark" *ngIf="!incident.value" (click)="templateProvider.presentSignModal(incident)" fill="clear">
+            <!-- <ion-icon slot="icon-only" name="clipboard-outline"></ion-icon> -->
+            <ion-img src="assets/imgs/drawing.png"></ion-img>
+          </ion-button>
+    </ion-col>
+  </ion-row>
+
+</div>
+
+<ion-grid class="template-field" *ngIf="incident.type == 'signatureOnly' && incident.value">
+
+  <ion-row class="uploadpadding">
+      <ion-col size="12" class="sign-pad">
+          <ion-button (click)="templateProvider.getOnlineSignImg(incident)" class="downloadicon" *ngIf="incident.value && incident.value?.length < 50" fill="clear">
+              <ion-icon slot="icon-only" name="download"></ion-icon>
+          </ion-button>
+          <div *ngIf="incident.value && incident.value?.length > 60" class="preview-img">
+              <img [src]="'data:image/jpeg;base64,'+incident.value" style="height:80px;margin: 0 auto;width: 100px;display: block"
+                  (click)="templateProvider.presentSignModal(incident)">
+          </div>
+      </ion-col>
+      <ion-col size="12" class="imgSingleDelete" *ngIf="incident.value">
+        <ion-list>
+            <ion-item style="--padding-start: 0;">
+                <ion-input style="font-size: 12px;" type="text" placeholder="Name"
+                    [(ngModel)]="incident.customerName" [name]="name" (ionBlur)="incident.customerName = common.removeSpace(incident.customerName)"></ion-input>
+            </ion-item>
+        </ion-list>
+      </ion-col>
+  </ion-row>
+</ion-grid>

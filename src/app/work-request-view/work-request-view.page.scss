@@ -1,0 +1,40 @@
+ion-header{
+    background: #445498;
+}
+ion-title{
+    padding-left: 6px;
+}
+    ion-badge{
+       
+        border-radius: 50%;
+        font-weight: 800;
+        margin-top: 10px;
+     }
+     ion-row{
+        font-family: "Poppins";
+     }
+    .form-image {
+        height: 100px;
+        width: 100px;
+        border: 1px solid gray;
+        border-radius: 10px;
+    }
+    .view{
+        font-family: "Poppins";
+        font-weight: 900 ;
+        color: rgb(134, 133, 133);
+    }
+    ion-button{
+        --border-radius: 6px;
+    }
+    .ack-button1{
+        font-family: "Poppins";
+        font-size: 12px;
+        font-weight: 600;
+        height: 2.3rem;
+        //background-color :#2dd36f;
+    }
+    .btn-color {
+        color:#3C75C6
+    }
+    

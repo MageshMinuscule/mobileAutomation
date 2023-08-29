@@ -1,0 +1,109 @@
+<ion-header>
+  <ion-toolbar color="secondary">
+    <ion-title mode="md" text-left *ngIf="!showSearchBar">{{'My Creations'| translate}}</ion-title>
+    <ion-buttons slot="start">
+      <ion-button (click)="back()">
+        <ion-icon slot="icon-only" name="chevron-back-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    
+    <ion-searchbar style="margin-left:1em;top: 8px;right: 18px;"*ngIf="showSearchBar" #searchBar [(ngModel)]="searchKeyword" [debounce]="2500"
+     show-clear-button="always"  showCancelButton="always" mode="ios" (ionCancel)="searchCancel()" (keyup.enter)="filterResult($event)" (ionClear)="onCancel($event)"
+    placeholder="{{ 'Search By Id' | translate}}">
+  </ion-searchbar>
+     <ion-buttons slot="end">
+       <ion-button *ngIf="!showSearchBar"(click)="beginSearch()">
+        <ion-icon ios="search" md="search"></ion-icon>
+      </ion-button>
+     </ion-buttons>  
+  </ion-toolbar>
+  <ion-toolbar color="secondary">
+    <ion-segment value="drafts" 	swipe-gesture="true" (ionChange)="tabChange($event)">
+      <ion-segment-button value="drafts">
+        <ion-label>{{'Drafts' | translate}}</ion-label>
+      </ion-segment-button>
+      <ion-segment-button value="progress">
+        <ion-label>{{'Progress' | translate}}</ion-label>
+      </ion-segment-button>
+    </ion-segment>
+  </ion-toolbar>
+
+</ion-header>
+
+<ion-content>
+  <div *ngIf="progressShown && noRecordFound && incidentList && incidentList.length == 0">
+    <ion-card>
+      <ion-item class="reject-card">
+        {{'notFound' | translate}}
+      </ion-item>
+    </ion-card>
+  </div>
+  <div *ngIf="draftShown && noRecordFound && drafts && drafts.length == 0">
+    <ion-card>
+      <ion-item class="reject-card">
+        {{'notFound' | translate}}
+      </ion-item>
+    </ion-card>
+  </div>
+  <ion-card *ngIf="progressShown && !noRecordFound && !incidentList.length">
+    <ion-item>
+      <ion-spinner name="lines"></ion-spinner><span style="margin-left:14px" class="loading">Loading</span>
+    </ion-item>
+  </ion-card>
+  <ion-card *ngIf="draftShown && !noRecordFound && !drafts.length">
+    <ion-item>
+      <ion-spinner name="lines"></ion-spinner><span style="margin-left:14px" class="loading">Loading</span>
+    </ion-item>
+  </ion-card>
+  <ion-list>
+    <div *ngIf="draftShown" class="list-view-badge" style="position: relative;left: -16px;" >
+      <ion-item *ngFor="let incident of drafts" lines="none" class="card-tile">
+        <div class="card-space">
+           <ion-item button (click)="editRequest(incident)" lines="none" class="child-item card" tappable [ngClass]="{
+            'card-blue': incident.priority === 'NORMAL' || incident.priority == null ,
+            'card-orange': incident.priority === 'IMPORTANT' || incident.priority === 'URGENT',
+            'card-red': incident.priority === 'CRITICAL'
+          }">
+             <app-myrequest-list style="margin-left: -12px;width: 110%;margin-right: -12px;" [incident]="incident" type="draft"></app-myrequest-list>
+           </ion-item>
+        </div>
+      <div></div>
+      </ion-item>
+    </div>
+    <div  *ngIf="progressShown" class="list-view-badge" style="position: relative;left: -16px;">
+      <ion-item *ngFor="let incident of incidentList" lines="none" class="card-tile">
+      <div class="card-space" >
+        
+        <ion-item class="list-view card" lines="none" (click)="goDetailPage(incident,false)" tappable [ngClass]="{
+          'card-blue': incident.priority === 'NORMAL' || incident.priority == null,
+          'card-orange': incident.priority === 'IMPORTANT' || incident.priority === 'URGENT',
+          'card-red': incident.priority === 'CRITICAL'
+        }">
+        <app-myrequest-list style="margin-left: -12px;width: 110%;margin-right: -12px;" [incident]="incident" type="online" ></app-myrequest-list>
+        </ion-item>
+      </div>
+      <div></div>
+  </ion-item>
+</div>
+  </ion-list>
+  <ion-infinite-scroll threshold="25%"  position="bottom" (ionInfinite)="onIonInfinite($event)">
+    <ion-infinite-scroll-content loadingSpinner="bubbles" loadingText="{{ 'loading more data' | translate }}">
+    </ion-infinite-scroll-content>
+  </ion-infinite-scroll>
+  <!-- <ion-list>
+    <ion-virtual-scroll [items]="drafts" class="list-view-badge" style="position: relative;left: -16px;" >
+      <ion-item *virtualItem="let incident" lines="none">
+           <ion-item   button (click)="editRequest(incident)" class="child-item">
+             <app-myrequest-list [incident]="incident" type="draft"></app-myrequest-list>
+           </ion-item>
+      </ion-item>
+    </ion-virtual-scroll>
+    <ion-virtual-scroll [items]="incidentList" class="list-view-badge" style="position: relative;left: -16px;">
+      <ion-item *virtualItem="let incident" lines="none">
+      <ion-item class="list-view" button (click)="goDetailPage(incident,false)" tappable>
+        <app-myrequest-list  [incident]="incident" type="online" ></app-myrequest-list>
+      </ion-item>
+  </ion-item>
+  </ion-virtual-scroll>
+  </ion-list> -->
+</ion-content>

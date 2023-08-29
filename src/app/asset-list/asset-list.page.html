@@ -1,0 +1,108 @@
+
+<ion-header>
+  <ion-toolbar color="secondary">
+    <ion-title mode="md"*ngIf="!showSearchBar">{{ 'Asset Lists' | translate }}</ion-title>
+    <ion-searchbar placeholder="{{'Search by Name/S.No' | translate}}" inputmode="search" type="search" *ngIf="showSearchBar" #searchBar
+      [(ngModel)]="searchKeyword" (ionCancel)="onCancel($event)" [debounce]="500" (ionInput)="filterAssetResult($event)"
+      [showCancelButton]="shouldShowCancel"></ion-searchbar>
+    <ion-buttons slot="start">
+      <ion-button (click)="back()">
+        <ion-icon slot="icon-only" name="chevron-back-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-buttons slot="end">
+      <ion-button (click)="beginSearch()">
+        <ion-icon slot="start" ios="search-outline" md="search-sharp"></ion-icon>
+      </ion-button>
+      <ion-button *ngIf="!showSearchBar" (click)="beginFilter()" [disabled]="!isFetched">
+        <ion-icon ios="funnel-outline" md="funnel-sharp"></ion-icon>
+      </ion-button>
+      <ion-badge class="bdg-cls"*ngIf="!showSearchBar && filterCount > 0" color="danger" mode="ios">{{filterCount}}</ion-badge>
+    </ion-buttons>
+  </ion-toolbar>
+
+</ion-header>
+<ion-content mode="md">
+  <ion-card *ngIf="!assets.length && noRecordfound && isFetched">
+    <ion-item class="reject-card">
+      {{ "notFound" | translate }}
+    </ion-item>
+  </ion-card>
+  <ion-card *ngIf="!isFetched">
+    <ion-item>
+      <ion-spinner class="spin" name="circles" color="danger" size="large"></ion-spinner>
+    </ion-item>
+  </ion-card>
+<ion-fab vertical="bottom" horizontal="end" slot="fixed">
+  <ion-fab-button color="white" (click)="scanAsset()"><ion-icon  color="secondary"name="scan-outline"></ion-icon></ion-fab-button>
+  <!-- <ion-fab-button class="caret-upcolor" color="success">
+    <ion-icon class="fabcolor" name="caret-up-outline"></ion-icon>
+  </ion-fab-button>
+  <ion-fab-list side="top">
+    
+  </ion-fab-list> -->
+</ion-fab>
+  <div *ngFor="let item of assets"  style="padding: 10px 10px 0px 10px;">
+    <ion-item-group mode="md" class="list-view" (click)="gotoAssetDetail(item.id)">
+      <!-- <ion-item-divider> -->
+        <ion-grid fixed>
+          <ion-row class="padding-10 inventory-box">
+            <ion-col size="3" style="margin-top: 6px !important">
+              <!-- <ion-avatar> -->
+                <img src="assets/imgs/no-image.png" class="inventory-image" *ngIf="!item.s3ImageId" />
+                <img src="{{item.singedUrl}}" class="inventory-image" *ngIf="item.s3ImageId" />
+              <!-- </ion-avatar> -->
+            </ion-col>
+            <ion-col size="9">
+              <ion-row class="padding-10 sec-1">
+                <ion-col class="field-1"size="4">
+                  <div>
+                    # {{ item.id }}
+                    <!-- <ion-badge color="primary" mode="ios" class="badge-custom">{{ item.id }}</ion-badge> -->
+                  </div>
+                </ion-col>
+                <ion-col size="8">
+                  <div class="cat-label field-1">{{ item.assetName ? item.assetName : item.name }}</div>
+                </ion-col>
+              </ion-row>
+              <ion-row class="padding-10 sec-2">
+                <ion-col size="12">
+                  <div class="category-label fiels-1">
+                    <!-- {{'Category' | translate}}: {{ categoryName }}  -->
+                    {{'Category' | translate}} : {{ item.categoryName }}
+                  </div>
+                </ion-col>
+              </ion-row>
+              <ion-row class="padding-10 sec-2">
+                <ion-col size="12">
+                  <div class="category-label fiels-1">
+                    <!-- {{'Category' | translate}}: {{ categoryName }}  -->
+                    {{'Serial No' | translate}} : {{ item.assetSerialNo }}
+                  </div>
+                </ion-col>
+              </ion-row>
+              <ion-row class="padding-10 sec-3">
+                <ion-col size="6">
+                  <div class="location-label field-1">
+                    <ion-icon name="location"></ion-icon> <!--outline-->
+                    <span class="icon-gap">{{ item.locationName }}</span>
+                  </div>
+                </ion-col>
+                <ion-col size="6">
+                  <div class="location-label field-1">
+                    <ion-icon name="business-outline" class="location-icon"></ion-icon>
+                    <span class="icon-gap text-truncate">{{item.customerName }}</span>
+                  </div>
+                </ion-col>
+              </ion-row>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+      <!-- </ion-item-divider> -->
+    </ion-item-group>
+  </div>
+  <ion-infinite-scroll threshold="50%" position="bottom" [disabled]=isScroll (ionInfinite)="doInfinite($event)">
+    <ion-infinite-scroll-content loadingSpinner="bubbles" loadingText="Loading more data...">
+    </ion-infinite-scroll-content>
+  </ion-infinite-scroll>
+</ion-content>

@@ -1,0 +1,121 @@
+ion-header {
+    background: #445498;
+    font-family: "Poppins";
+}
+ion-title {
+    padding-right: 50px;
+    font-family: "Poppins";
+}
+.list-view-badge{
+.badge-custom {
+    font-family: "Poppins";
+    float: left;
+    padding : 4px;
+    font-size: 12px;
+    min-width: 50px;
+    font-weight: 500;
+    border-radius: 20px;
+    height: 20px;
+    box-shadow: 0 2px 2px 0 rgb(0 0 0 / 14%), 
+                0 3px 1px -2px rgb(0 0 0 / 20%),
+                0 1px 5px 0 rgb(0 0 0 / 12%);
+}
+.list-view{
+    
+    padding: 5px 5px 0px 5px;
+    background-color: rgb(243, 240, 240);
+}
+
+
+ion-item-divider{
+    padding: 0px;
+    border-radius: 8px;
+}
+.cat-label {
+    font-family: "Poppins";
+    text-transform: uppercase;
+    font-weight: bold;
+    font-size: small;
+    color: rgb(119, 118, 118);
+}
+.location-label {
+    font-family: "Poppins";
+    color: rgb(119, 118, 118);
+    // padding-top: 13px;
+}
+.asset-detail {
+    min-height: 55vh;
+}
+.asset-info {
+    bottom: 0;
+    position: absolute;
+    margin-bottom: 8%;
+    margin-left: 5%;
+    color: rgb(119, 118, 118);
+    font-weight: 600;
+}
+}
+.workflowlists
+{
+   
+    color:#445498;
+    font-family: "Poppins";
+    padding: 6px;
+    span{
+        margin-left: 5px;
+    }
+}
+ion-icon
+{
+    font-size: 15px;
+}
+.list-view:nth-child(1n) .badge-custom {
+    background-color: #f4516c;
+}
+
+.list-view:nth-child(2n) .badge-custom {
+    background-color: #34bfa3;
+}
+
+.list-view:nth-child(3n) .badge-custom {
+    background-color: #36a3f7;
+}
+
+.list-view:nth-child(4n) .badge-custom {
+    background-color: #716aca;
+}
+
+.list-view-badge:nth-child(1n) .badge-custom {
+    background-color: #f4516c;
+}
+
+.list-view-badge:nth-child(2n) .badge-custom {
+    background-color: #34bfa3;
+}
+
+.list-view-badge:nth-child(3n) .badge-custom {
+    background-color: #36a3f7;
+}
+
+.list-view-badge:nth-child(4n) .badge-custom {
+    background-color: #716aca;
+}
+.reject-card {
+    --background: #f2dede;
+}
+// .ionicon s-ion-icon{
+//     margin-top:2px !important;
+// }
+// .gradient {
+    
+//     margin-top: 200px;
+//     ion-item {
+//      --background: linear-gradient( 135deg, #43CBFF 10%, #9708CC 100%) !important;
+//     }
+//      // background-color:linear-gradient( 135deg, #43CBFF 10%, #9708CC 100%);
+//  }
+//  .img {
+//      height: 153px;
+//      margin: 20px;
+//      background-position: center;
+//  }

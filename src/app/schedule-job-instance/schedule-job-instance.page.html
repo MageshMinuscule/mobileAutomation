@@ -1,0 +1,161 @@
+
+<ion-header>
+  <ion-toolbar color ="secondary">
+    <ion-title mode="md">{{'Shedule Job Instance' | translate}} </ion-title>
+    <ion-buttons slot="start">
+      <ion-button (click)="back()">
+        <ion-icon slot="icon-only" name="chevron-back-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+<ion-content>   
+  <ion-fab vertical="top" horizontal="end"  size="small" slot="fixed"  *ngIf="scheduleInstance.requestId">
+    <ion-fab-button (click)="goToDetail(scheduleInstance.requestId)">
+      <ion-icon size="small"name="link"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>   
+  <div class="asset-detail" >
+    <ion-card style="border-radius: 20px !important;">
+      
+    <ion-item class="list-view" >
+
+      <ion-grid class="asset-detail">
+        <ion-row>
+          <ion-col size="4"><div>
+            <ion-badge color="danger" class="badge-custom" mode="ios">{{ scheduleInstance.id }}</ion-badge>
+             </div> 
+          </ion-col>
+          <ion-col class="ion-padding-top" size="8" >
+            <div class="cat-label">
+              {{ scheduleInstance.name }}</div>
+          </ion-col>
+        </ion-row>
+        <ion-row class="ion-padding-top">
+          <ion-col size="6">
+            <div *ngIf="scheduleInstance.assetName">
+              {{'Assets'}}
+            </div>
+          </ion-col>
+          
+          <ion-col size="6">
+            <div class="location-label" *ngIf="scheduleInstance.assetName">
+              <span class="custom-serial">{{ scheduleInstance.assetName }}</span>
+            </div>
+          </ion-col>
+        </ion-row>
+        <ion-row class="ion-padding-top">
+          <ion-col size="6">
+            <div>
+              {{'Customer'}}
+            </div>
+          </ion-col>
+          
+          <ion-col size="6">
+            <div class="location-label">
+              <span>{{scheduleInstance.companyName }}</span>
+            </div>
+          </ion-col>            
+        </ion-row>
+        <ion-row class="ion-padding-top">
+          <ion-col size="6">
+            <div>
+              {{'Location'}}
+            </div>
+          </ion-col>
+          
+          <ion-col size="6">
+            <div class="location-label">
+              <span>{{ scheduleInstance.startLocationName }}</span>
+            </div>
+          </ion-col>            
+        </ion-row>
+        <ion-row class="ion-padding-top">
+          <ion-col size="6">
+            <div>
+              {{'workFlow'}}
+            </div>
+          </ion-col>
+          
+          <ion-col size="6">
+            <div class="location-label">
+              <span>{{ scheduleInstance.workflowName }}</span>
+            </div>
+          </ion-col>            
+        </ion-row>          
+        <ion-row class="ion-padding-top" *ngIf="scheduleInstance.description">
+          <ion-col size="6">
+            <div>
+              {{'Description'}}
+            </div>
+          </ion-col>
+          
+          <ion-col size="6">
+            <div class="location-label">
+              <span>{{ scheduleInstance.description }}</span>
+            </div>
+          </ion-col>            
+        </ion-row>
+        <ion-row class="ion-padding-top" *ngIf="scheduleInstance.tagName">
+          <ion-col size="6">
+            <div>
+              {{'Tag' }}
+            </div>
+          </ion-col>
+          
+          <ion-col size="6">
+            <div class="location-label">
+              <span>{{ scheduleInstance.tagName }}</span>
+            </div>
+          </ion-col>            
+        </ion-row>
+        <ion-row class="ion-padding-top">
+          <ion-col size="6">
+            <div>
+              {{'Start Date Time' }}
+            </div>
+          </ion-col>
+          
+          <ion-col size="6">
+            <div class="location-label">
+              <span>{{ scheduleInstance.startDateTime | date: 'medium' }}</span>
+            </div>
+          </ion-col>
+        </ion-row>
+        <ion-row class="ion-padding-top">
+          <ion-col size="6">
+            <div>
+              {{'End Date Time'}}
+            </div>
+          </ion-col>
+          
+          <ion-col size="6">
+            <div class="location-label">
+              <span>{{ scheduleInstance.endDateTime | date: 'medium' }}</span>
+            </div>
+          </ion-col>            
+        </ion-row>
+        <ion-row class="ion-padding-top">
+          <ion-col size="6">
+            <div>
+              {{'User or Usergroup'}}
+            </div>
+          </ion-col>
+          
+          <ion-col size="6">
+            <div style="font-weight: bold;
+            " *ngFor="let user of scheduleInstance.userNamesList" class="location-label">
+              <span><ion-icon class="icon-person" size="small" name="person"></ion-icon>{{ user }}</span>
+            </div>
+            <div style="font-weight: bold;
+            "  class="location-label" *ngFor="let userGroup of scheduleInstance.usergroupNamesList">
+              <span><ion-icon class="icon-people" size="small" name="people"></ion-icon>{{ userGroup.name }}</span>
+            </div>
+          </ion-col>            
+        </ion-row>
+      </ion-grid>
+
+    </ion-item>
+    </ion-card>
+  </div>
+</ion-content>

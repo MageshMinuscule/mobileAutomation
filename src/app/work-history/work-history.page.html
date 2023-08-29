@@ -1,0 +1,27 @@
+<ion-header>
+  <ion-toolbar color="secondary">
+    <ion-title mode="md">{{'Asset History' | translate}}</ion-title>
+    <ion-buttons slot="start">
+      <ion-button (click)="back()">
+        <ion-icon slot="icon-only" name="chevron-back-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-card *ngIf=" !noRecordFound && !incidents.length">
+    <ion-item >
+      <ion-label>{{'Loading...' | translate}}</ion-label>
+      <ion-spinner primary="dark" name="lines-sharp"></ion-spinner>
+    </ion-item>
+  </ion-card>
+  <div *ngIf="incidents.length == 0 && noRecordFound">
+    <app-no-record></app-no-record>
+  </div>
+  <div *ngFor="let incident of incidents" class="list-view-badge">
+    <ion-item class="labour-item" (click)="goDetailPage(incident)">
+      <app-jobs-list [incident]="incident" [name]="'assetHistory'"></app-jobs-list>
+    </ion-item>
+  </div>
+</ion-content>

@@ -1,0 +1,75 @@
+ion-title{
+    font-family: "Poppins";
+}
+.self-user {
+    ion-avatar {
+        background: #485075;
+    }
+    .lable {
+        margin: 0px !important;
+    }
+    padding-left: 50px;
+}
+.other-user {
+    padding-left: 50px;
+    ion-avatar {
+        background: #b3bbdc;
+    }
+}
+ion-label{
+    margin-top: 4px;
+}
+h2 {
+    font-family: "Poppins";
+    text-transform: capitalize;
+    margin: 2px 0;
+    font-size: 16px;
+    font-weight: normal;
+}
+ion-item-divider{
+    ion-item {
+        padding-left: 0px !important;
+        margin: 13px 8px 13px 0;
+        font-family: "Poppins";
+    }
+}
+ion-avatar {
+    text-align: center;
+    border: 1px solid #b3bbdc;
+    border-radius: 50%;
+    margin: 8px 16px 8px 0;
+    ion-icon {
+        font-size: 2.2em;
+        color: #fff;
+    }
+}
+p {
+    font-family: "Poppins";
+    margin: 0 0 2px;
+    overflow: inherit;
+    font-size: 14px;
+    line-height: normal;
+    text-overflow: inherit;
+    color: #666;
+}
+.item-inner {
+    border: 0 !important;
+}
+.msg-content {
+    padding-left: 48px;
+    font-style: italic;
+}
+.chat-box {
+    border-top: 0.5px solid #445498;
+}
+.chat-outer {
+    p {
+        margin: 0;
+        padding-top: 0;
+    }
+    ion-textarea {
+        border: none;
+        border-bottom: 2px solid grey;
+    }
+}
+

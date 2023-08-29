@@ -1,0 +1,67 @@
+<!-- Image Upload with Multiple Images -->
+<ion-grid class="template-field" *ngIf="incident.type == 'imageWithAnnotation' || incident.type == 'Image Upload'">
+    <ion-row class="uploadpadding">
+        <ion-col class="workflow-label" size="12" style="font-size: 14px;">
+            {{incident.label}}
+            <span class="req-star" *ngIf="incident.compulsory">*</span>
+        </ion-col>
+        <ion-col class="imageIcon" *ngIf="!incident.cameraOnly" style="margin-right: 10px;">
+            <ion-button style="margin-top: 10px;" (click)="openGallery(incident)"   *ngIf="!isBrowser"fill="clear">
+                <iconify-icon icon="uil:image-upload" style="color: #3c75c6;font-size: 33px;"></iconify-icon>
+            </ion-button>
+            <ion-button  style="margin-top: 10px;"(click)="open()" *ngIf="isBrowser"fill="clear">
+                <iconify-icon icon="uil:image-upload" style="color: #3c75c6;font-size: 33px;"></iconify-icon>
+                <ion-input class="image_Opacity" #fileInput type="file" id="fileInput" accept="image/*" onclick="this.value = null"
+            (change)="selectBrowserImage($event, incident)"></ion-input>
+            </ion-button>
+            <div class="imagetext" *ngIf="isBrowser">{{'BrowsePhotos' | translate}}</div>
+            <div class="imagetext" *ngIf="!isBrowser">{{'BrowsePhotos' | translate}}</div>
+        </ion-col>
+        <ion-col class="imageIcon">
+            <ion-button style="margin-top: 10px;" (click)="takePicture(incident)"  fill="clear">
+                <iconify-icon icon="ic:outline-add-a-photo" style="color: #3c75c6;font-size: 33px;"></iconify-icon>
+            </ion-button>
+            <div class="imagetext">{{'TakePhotos' | translate}}</div>
+        </ion-col>
+        <ion-col *ngIf="msg" size="12">
+            <div class="imagetext">{{msg | translate}}</div>
+          </ion-col>
+    </ion-row>
+    <!-- <div *ngIf="openBrowser"style="overflow:hidden">
+        <ion-input #fileInput type="file" id="fileInput" accept="image/*" onclick="this.value = null"
+            (change)="selectBrowserImage($event, incident)"></ion-input>
+    </div> -->
+  </ion-grid>
+  <ion-grid *ngIf="(incident.type == 'imageWithAnnotation' || incident.type == 'Image Upload') && incident.images">
+    <ion-row class="uploadpadding Upload-row" *ngFor="let img of incident.images; let i=index" >
+        <ion-col size="12" *ngIf="img && img.src?.length > 10">
+            <!-- <ion-icon name="trash-outline" color="secondary"></ion-icon> -->
+            <span style="position:relative;float:right;color:#3C75C6" (click)="deleteSingleImg(incident,i)">{{'Delete' | translate}}</span>
+        </ion-col>
+        <ion-col size="12"  style="height:100px"  *ngIf="img">
+            <ion-button class="border"  class="downloadicon" (click)="getOnlineImg(incident,i)"fill="clear" *ngIf="img && img.src?.length < 50">
+                <ion-icon slot="icon-only"  name="cloud-download-outline"></ion-icon>
+            </ion-button>
+            <div *ngIf="img && img.src?.length > 60" class="preview-img">
+                <ion-img [src]="'data:image/jpeg;base64,'+img.src" style="height:94px; margin: 0 auto; text-align:center;margin-left: -9px;margin-top:-3px"
+                (click)="presentImgViewModal(incident, img.src, i)"></ion-img>
+            </div>
+        </ion-col>
+        <!-- <ion-col size="2" class="imgSingleDelete" *ngIf="img && img.src?.length > 10" class="ion-no-padding">
+            <div (click)="deleteSingleImg(incident,i)">
+                
+                <ion-icon name="trash" class="trash-icon" color="danger"> </ion-icon>
+                <span class="deleteicon">Delete</span>
+            </div>
+        </ion-col> -->
+        <ion-col size="12" *ngIf="!workRequest">
+            <ion-list class="template-field">
+                <ion-item style="--padding-start: 0;">
+                    <ion-input class="image-desc"style="font-size: 12px;" type="text" placeholder="Image Description"
+                        [(ngModel)]="img.description" (ionBlur)="img.description = common.removeSpace(img.description)" name="description-{{i}}-{{incident.label}}"></ion-input>
+                </ion-item>
+            </ion-list>
+        </ion-col>
+    </ion-row>
+  </ion-grid>
+  

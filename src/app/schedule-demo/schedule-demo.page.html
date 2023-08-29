@@ -1,0 +1,57 @@
+<ion-header>
+  <ion-toolbar color="secondary" >
+    <ion-title>{{ 'Schedule Demo' | translate}}</ion-title>
+    <ion-buttons slot="start">
+      <ion-button (click)="back()">
+        <ion-icon slot="icon-only" name="chevron-back-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="login-content forget-password account-form" padding>
+  <div class="login-box box-outer sd-demo">
+    <form (ngSubmit)="forgotPwd()" #forgetForm="ngForm">
+      <ion-row>
+        <ion-col>
+          <div class="eg-text">
+            <p>{{ 'Enter your mail here' | translate}}</p>
+          </div>
+          <ion-item>
+            <ion-input type="email" name="email" [(ngModel)]="forgot.email" email placeholder="{{'Email' | translate}}"
+              clearInput required></ion-input>
+          </ion-item>
+          <ion-item>
+            <ion-input type="tel" name="contact" maxlength="15" minlength="4" [(ngModel)]="forgot.contact" contact placeholder="Contact Number"
+              clearInput required></ion-input>
+          </ion-item>
+          <ion-list>
+            <ion-item>
+              <ion-select placeholder="Looking for...">
+                <ion-select-option value="ams">Asset Management Software</ion-select-option>
+                <ion-select-option value="fsms">Field Service Management Software</ion-select-option>
+                <ion-select-option value="fms">Facility Management Software</ion-select-option>
+                <ion-select-option value="others">Others...</ion-select-option>
+              </ion-select>
+            </ion-item>
+          </ion-list>
+        </ion-col>
+      </ion-row>
+      <!-- <span class="alert-info"><ion-icon name="alert" style="margin-bottom: -1px;margin-left: 18px;"></ion-icon>
+        <span class="iconify" data-icon="akar-icons:circle-alert"></span>Check your mail ID to reset your password
+      </span> -->
+      <!-- <ion-row class="ion-padding">
+        <ion-col class="signup-col">
+          <ion-button class="submit-btn"expand="block" color="danger" type="submit" [disabled]="!forgetForm.form.valid">
+            {{'Send Link' | translate}}
+          </ion-button>
+        </ion-col>
+      </ion-row> -->
+      <ion-row class="ion-padding">
+      <ion-col class="signup-col">
+        <ion-button size="large" class="submit-btn" color="white"  id="login" fill="clear"expand="full" type="submit" [disabled]="!forgetForm.form.valid">{{'submit' | translate}}</ion-button>
+      </ion-col>
+    </ion-row>
+    </form>
+  </div>
+</ion-content>

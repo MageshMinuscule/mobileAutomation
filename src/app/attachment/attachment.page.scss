@@ -1,0 +1,100 @@
+
+    .hint-title {
+        background: #6070b4; // #445498;
+        color: white;
+    }
+    ion-col{
+        padding: 0px!important;
+    }
+    ion-button{
+        font-family: "Poppins";
+        font-weight: 600;
+    }
+    .icon-col {
+        margin: auto;
+        display: block;
+        text-align: center;
+        font-size: 25px;
+        padding: 2px;
+    }
+    .badge-custom {
+        --border-radius:20px;
+        font-size: 11px;
+        font-family: "Poppins";
+        padding: -1px;
+    }
+    .cat-label {
+        font-family: "Poppins";
+        text-transform: uppercase;
+        font-weight: bold;
+        color: #6d6e70;
+        font-size: small;
+        margin-top: 5px;
+    }
+    .location-label {
+        font-family: "Poppins";
+        color: #8e9093;
+        // padding-top: 13px;
+    }
+    .gradient {
+    
+        margin-top: 200px;
+        ion-item {
+         --background: linear-gradient( 135deg, #43CBFF 10%, #9708CC 100%) !important;
+        }
+         // background-color:linear-gradient( 135deg, #43CBFF 10%, #9708CC 100%);
+     }
+     .img {
+         height: 153px;
+         margin: 20px;
+         background-position: center;
+     }
+     .reject-card{
+        --background: #f2dede;
+     }
+     .labour-item {
+        background: rgb(255 255 255) !important;
+        border: 1px solid rgb(195 197 200 / 50%) !important;
+        border-radius: 4px !important;
+        margin-left: 1em !important;
+        margin-right: 1em !important;
+        margin-top:1em !important;
+    }
+    .labour-var {
+        font-family: 'Roboto';
+        font-style: normal;
+        font-weight: 400;
+        font-size: 15px;
+        line-height: 14px;
+        color: #7E7E7E;
+    }
+    .labour-var-value {
+        font-family: 'Roboto';
+        font-style: normal;
+        font-weight: 500;
+        font-size: 15px;
+        line-height: 14px;
+        color: #333333;
+    }
+    .labour-heading {
+        font-family: 'Roboto';
+        font-style: normal;
+        font-weight: 500;
+        font-size: 16px;
+        line-height: 16px;
+        text-align: right;
+        color: #333333;
+    }
+    .labour-sub-heading {
+        font-family: 'Roboto';
+        font-style: normal;
+        font-weight: 500;
+        font-size: 13px;
+        line-height: 16px;
+        text-align: right;
+        color: #333333;
+        margin-left: 1em;
+    }
+    ion-col {
+        margin-bottom:1em !important;
+    }

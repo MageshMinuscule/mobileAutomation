@@ -1,0 +1,52 @@
+.uploadpadding {
+    margin-top: 10px;
+    
+  }
+  .uploadpadding ion-col {
+    position: initial;
+} 
+.imagetext {
+    font-size: 13px;
+    color: gray;
+}
+.singleimage {
+    color: #1b5b8a;
+}
+
+    .video-preview p {
+        margin-left: 30px;
+        ion-icon {
+            padding: 5px;
+            font-size: 18px;
+            color: gray;
+        }
+    }
+    .preview-img img {
+        height: 100px;
+    }
+    .imageIcon {
+        text-align: center;
+        border: 1px solid #C3C5C880;
+        border-radius: 4px;
+        border-collapse: collapse;
+        height: 96px;
+        width: 100px;
+        background-color: #F3F8FF;
+        ion-icon {
+            font-size: 3rem;
+        }
+    }
+    .imgSingleDelete {
+        font-size: 16px !important; // margin-top: 13%;
+        color: #fd4b57;
+        padding-left: 50px !important;
+        padding-top: 26px !important;
+        position: relative;
+        ion-item {
+            border-bottom: 1px solid #8080806b;
+            padding: 0;
+            .text-input {
+                margin: 22px 8px 22px 0px;
+            }
+        }
+    }

@@ -1,0 +1,97 @@
+<ion-header>
+    <ion-toolbar color="secondary">
+        <ion-title *ngIf="!task" mode="md">{{ "Add Labour Tasks" | translate }}</ion-title>
+        <ion-title *ngIf="task" mode="md">{{ "Edit Labour Tasks" | translate }}</ion-title>
+        <ion-buttons slot="start">
+            <ion-button (click)="back()">
+                <ion-icon slot="icon-only" name="chevron-back-outline"></ion-icon>
+            </ion-button>
+        </ion-buttons>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+    <form (ngSubmit)="addTasks()" #labourTaskForm="ngForm">
+        <ion-list class="asset-add">
+            <ion-item class="labour-item">
+                <ion-label position="floating" color="secondary">{{ "User" | translate }}
+                    <span class="req-star">*</span>
+                </ion-label>
+                <ion-input type="text" (input)="filterUserResult($event)" (ionFocus)="fieldOnFocus('User')" name="user"
+                    (focusout)="clearResults('User')" [(ngModel)]="labourTask.userName" [disabled]="isReadOnly"
+                    required>
+                </ion-input>
+            </ion-item>
+            <ion-list class="search-results max-height">
+                <ion-item *ngFor="let user of filteruserList" (click)="selectUser(user)" class="ion-padding-left ">
+                    {{ user.firstName }}
+                </ion-item>
+            </ion-list>
+            <ion-row>
+                <ion-col size="6">
+                    <ion-item class="labour-item" tappable>
+                        <ion-label position="floating" color="secondary"> {{ 'Log In ' | translate }} <span class="req-star"
+                                *ngIf="true">*</span>
+                        </ion-label>
+                        <ion-datetime #datePicker displayFormat="MMM DD YYYY HH:mm" pickerFormat="DD MMM YYYY HH:mm"
+                            [(ngModel)]="labourTask.loginTime" name="logInTime" [required]="true"
+                            [max]="labourTask.logoutTime"
+                            (ionBlur)="logIn($event)">
+                        </ion-datetime>
+                    </ion-item>
+                </ion-col>
+                <ion-col size="6">
+                    <ion-item class="labour-item" tappable>
+                        <ion-label position="floating" color="secondary"> {{ 'Log Out' | translate }} <span class="req-star"
+                                *ngIf="true">*</span>
+                        </ion-label>
+                        <ion-datetime #datePicker displayFormat="MMM DD YYYY HH:mm" pickerFormat="DD MMM YYYY HH:mm"
+                            [(ngModel)]="labourTask.logoutTime" name="LogOutTime" [required]="true"
+                            [min]="labourTask.loginTime"
+                            (ionBlur)="logIn($event)">
+                        </ion-datetime>
+                    </ion-item>
+                </ion-col>
+            </ion-row>
+
+
+
+            <ion-item class="labour-item">
+                <ion-label position="floating" color="secondary">{{ "Actual Hours" | translate }}
+                    <span class="req-star" *ngIf="required">*</span>
+                </ion-label>
+                <ion-input type="number" name="workingHours" (input)="validateInput($event)"
+                    [(ngModel)]="labourTask.hoursWorked" [required]="true" disabled>
+                </ion-input>
+                <ion-note slot="helper">In Numbers</ion-note>
+            </ion-item>
+            <ion-item class="labour-item">
+                <ion-label position="floating" color="secondary">{{ "Description" | translate }}
+                    <span class="req-star" *ngIf="required">*</span>
+                </ion-label>
+                <ion-input type="text" name="description" (input)="validateInput($event)"
+                    [(ngModel)]="labourTask.description" (input)="validateInput($event)" [required]="true">
+                </ion-input>
+            </ion-item>
+        </ion-list>
+        <ion-row class="footer">
+            <ion-col *ngIf="!task" size="6">
+                <ion-button expand="block" class="signup-col-clear" color="white" (click)="clearLabourtask()">
+                    {{ "Clear" | translate }}
+                </ion-button>
+            </ion-col>
+            <ion-col *ngIf="!task" size="6" class="signup-col">
+                <ion-button expand="block" block color="secondary" type="submit"
+                    [disabled]="!labourTaskForm.form.valid">
+                    {{ "Addlabour" | translate }}
+                </ion-button>
+            </ion-col>
+            <ion-col *ngIf="task" size="12" class="signup-col">
+                <ion-button expand="block" block color="secondary" type="submit"
+                    [disabled]="!labourTaskForm.form.valid">
+                    {{ "Update" | translate }}
+                </ion-button>
+            </ion-col>
+        </ion-row>
+    </form>
+</ion-content>

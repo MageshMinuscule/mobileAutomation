@@ -1,0 +1,350 @@
+<ion-header>
+    <ion-toolbar color="secondary">
+      <ion-title>{{'requestDetail' | translate}}</ion-title>
+      <ion-buttons slot="start">
+          <ion-button (click)="back()">
+              <ion-icon slot="icon-only" name="chevron-back-outline"></ion-icon>
+          </ion-button>
+      </ion-buttons>
+    </ion-toolbar>
+  </ion-header>
+  
+  <ion-content>
+    <div style="padding: 13px;"> 
+        <ion-grid>
+            <ion-row>
+                <ion-col size="8" class="ion-head">
+                    {{template.form.title}}
+                </ion-col>
+                <ion-col size="4" class="update-user" text-right>{{'updatedBy' | translate}} :
+                    {{template.submittedByLogin? template.submittedByLogin: (raisedBy ? raisedBy : 'Admin')}}</ion-col>
+            </ion-row>
+        </ion-grid>
+        <div *ngIf="index == 0 && requestDetail.requestType == 'WORK_REQUEST'">
+            <h5 class="hint-titles" >
+                {{'Basic Information' | translate  }}
+            </h5>
+            <ion-grid>
+                <ion-row justify-content-start>                   
+                    <ion-col size="5" class = "ion-label-left">{{'Priority' | translate}}</ion-col>
+                    <ion-col size="1" class = "ion-label-left">:</ion-col>
+                    <ion-col size="6" class = "ion-label-right">{{ requestDetail.requestPriority ? requestDetail.requestPriority : requestDetail.priority }}</ion-col>
+                </ion-row>
+            </ion-grid>
+            <ion-grid>
+                <ion-row justify-content-start>                   
+                    <ion-col size="5" class = "ion-label-left">{{'Description' | translate}}</ion-col>
+                    <ion-col size="1" class = "ion-label-left">:</ion-col>
+                    <ion-col size="6" class = "ion-label-right">{{ requestDetail.requestDescription ? requestDetail.requestDescription : requestDetail.description }}</ion-col>
+                </ion-row>
+            </ion-grid>
+        </div>       
+        <div *ngFor="let section of template.form.formSection | keys ">
+            <h5 class="hint-titles" *ngIf="section.key == 'Work Instruction'">
+                {{section.key | translate  }}
+            </h5>
+            <h5 class="hint-titles" *ngIf="section.key !== 'Work Instruction'">
+                {{section.key}}
+            </h5>
+            <div *ngFor="let incident of section.value | keys">
+                <!-- {{section | json}} -->
+                <!-- {{incident | json}} -->
+               <!-- <p> value - {{incident.value.value}}</p> -->
+               
+              
+                <div *ngIf="((incident.value.type == 'textArea'|| incident.value.type == 'textEditor' || incident.value.type == 'textInput' || incident.value.type == 'radioButton'  || incident.value.type == 'numeric'  || incident.value.type == 'dropDown' ) && incident.value.value) || (incident.value.type == 'numeric')">
+                    <ion-grid>
+                        <ion-row justify-content-start >
+                            <ion-col *ngIf ="template.form.title == 'Static' && (incident.value.label == 'Priority' || incident.value.label == 'Work instruction' )" size="5" class = "ion-label-left">{{incident.value.label | translate}}</ion-col>
+                            <ion-col *ngIf ="template.form.title !== 'Static' && incident.value.label != 'File Upload'"size="5" class = "ion-label-left">{{incident.value.label}}</ion-col>
+                            <ion-col size="1" class = "ion-label-left">:</ion-col>
+                            <ion-col [innerHTML]="incident.value.value" style="position: relative;top: -13px !important;" *ngIf ="template.form.title == 'Static' && incident.value.type == 'textEditor'" size="6" class = "ion-label-right">
+                            </ion-col>
+                            <ion-col size="6"  *ngIf ="incident.value.type != 'textEditor' && incident.value.label != 'File Upload'"class = "ion-label-right">{{ incident.value.value}} {{incident.value.notes}}</ion-col>
+                        </ion-row>
+                    </ion-grid>                    
+                </div>
+                <div *ngIf="(incident.value.type == 'audit' || incident.value.type == 'auditPF')">
+                    <ion-grid fixed>
+                        <ion-row justify-content-start>
+                            <ion-col size="5" class = "ion-label-left">{{incident.value.label | translate}}</ion-col>
+                            <ion-col size="1" class = "ion-label-left">:</ion-col>
+                            <ion-col size="6" class = "ion-label-right">{{ incident.value.value }}</ion-col>
+                            <span *ngIf="incident.value && incident.value.reason">(notes: {{incident.value.reason}})</span>
+                        </ion-row>
+                    </ion-grid>
+                </div>
+                <div *ngIf="incident.value.type == 'checkBox'">
+                    <ion-grid>
+                        <ion-row justify-content-start>
+                            <ion-col size="5" class = "ion-label-left">{{incident.value.label}}</ion-col>
+                            <ion-col size="1" class = "ion-label-left">:</ion-col>
+                            <ion-col size="12">
+                                <ion-item *ngFor="let index of incident.value.options | keys" lines="none">
+                                    <ion-label class="checkbox-option" [ngClass]="{'strike-line': !index.value}">
+                                        {{ index.key }}</ion-label>
+                                    <ion-checkbox color="danger" slot="start"  [checked]="index.value"
+                                        disabled></ion-checkbox>
+                                </ion-item>
+                            </ion-col>
+                        </ion-row>
+                    </ion-grid>
+                </div>
+                <!-- {{ incident.value.value ? incident.value.value.replace('T', ' ') : '' }} -->
+                <div *ngIf="incident.value.type == 'dateTime'">
+                    <ion-grid>
+                        <ion-row justify-content-start>
+                            <ion-col size="5" class = "ion-label-left">{{incident.value.label}}</ion-col>
+                            <ion-col size="1" class = "ion-label-left">:</ion-col>
+                            <ion-col *ngIf="incident && incident.value && incident.value.value" size="6" class = "ion-label-right">{{ incident.value.value | date:
+                                'dd MMM yy' :'' }} {{incident.value.value | date:
+                                'shortTime'}}
+                            </ion-col>
+                        </ion-row>
+                    </ion-grid>
+                </div>
+                <div *ngIf="incident.value.type == 'date'">
+                    <ion-grid>
+                        <ion-row justify-content-start>
+                            <ion-col size="5" class = "ion-label-left">{{incident.value.label}}</ion-col>
+                            <ion-col size="1" class = "ion-label-left">:</ion-col>
+                            <ion-col *ngIf="incident && incident.value && incident.value.value" size="6" class = "ion-label-right">{{ incident.value.value | date:
+                                'mediumDate' :'' }} 
+                            </ion-col>
+                        </ion-row>
+                    </ion-grid>
+                </div>
+
+                <div *ngIf="incident.value.type == 'textEditor' && template.form.title !== 'Static'">
+                    <ion-grid>
+                        <ion-row justify-content-start>
+                            <ion-col size="5" class = "ion-label-left"><u>{{incident.value.label}}:</u></ion-col>
+                            <ion-col size="12" [innerHtml]="incident.value.value">
+                            </ion-col>
+                        </ion-row>
+                    </ion-grid>
+                </div>
+  
+                <!-- Hyperlink -->
+                <div *ngIf="incident.value.type == 'link'">
+                    <ion-grid>
+                        <ion-row justify-content-start>
+                            <ion-col size="5" class = "ion-label-left">{{incident.value.label}}:</ion-col>
+                            <ion-col size="12">
+                                <a (click)="openLink(incident.value.value)">
+                                    <u>{{ incident.value.value }}</u>
+                                </a>
+                            </ion-col>
+                        </ion-row>
+                    </ion-grid>
+                </div>
+  
+                <!-- StaticLink -->
+                <div *ngIf="incident.value.type == 'staticLink'">
+                    <ion-grid>
+                        <ion-row justify-content-start>
+                            <ion-col size="5" class = "ion-label-left">{{incident.value.label}}:</ion-col>
+                            <ion-col size="12">
+                                <a (click)="openLink(incident.value.value)">
+                                    <u>Click to View</u>
+                                </a>
+                            </ion-col>
+                        </ion-row>
+                    </ion-grid>
+                </div>
+  
+                <!-- Table -->
+                <ion-grid *ngIf="incident.value.type == 'table'" class="table-list">
+                    <ion-label>{{incident.value.label}}
+                    </ion-label>
+                    <ion-row class="head" *ngIf="incident.value.options && incident.value.options.length">
+                        <ion-col class="head-label"
+                            *ngFor="let index of templateProvider.keys(incident.value.options[0])">
+                            <span>{{ index }}</span></ion-col>
+                    </ion-row>
+                    <ion-row class="table-data" *ngFor="let row of incident.value.options; let index = index">
+                        <ion-col *ngFor="let i of templateProvider.keys(row)">
+                            {{ row[i] }}
+                        </ion-col>
+                    </ion-row>
+                </ion-grid>
+  
+                <div *ngIf="incident.value.type == 'toggle'">
+                    <ion-grid>
+                        <ion-row justify-content-start>
+                            <ion-col size="5" class = "ion-label-left">{{incident.value.label}}</ion-col>
+                            <ion-col size="1" class = "ion-label-left">:</ion-col>
+                            <ion-col size="6" class = "ion-label-right">
+                                {{ incident.value.value && incident.value.value.toString() == 'true' ? 'Yes' : 'No' }}
+                            </ion-col>
+                        </ion-row>
+                    </ion-grid>
+                </div>
+  
+                <div *ngIf="incident.value.type == 'toggleWithReason'">
+                    <ion-grid>
+                        <ion-row justify-content-start>
+                            <ion-col size="5" class = "ion-label-left">{{incident.value.label}}</ion-col>
+                            <ion-col size="1" class = "ion-label-left">:</ion-col>
+                            <ion-col size="5" class = "ion-label-left">
+                                {{ incident.value.value && incident.value.value.toString() == 'true' ? 'Yes' : 'No' }}
+                            </ion-col>
+                            <ion-col size="5" class = "ion-label-left" *ngIf="incident.value.reason">Reason</ion-col>
+                            <ion-col size="1" class = "ion-label-left" *ngIf="incident.value.reason">:</ion-col>
+                            <ion-col size="5" class = "ion-label-left" *ngIf="incident.value.reason">
+                                {{incident.value.reason}}
+                            </ion-col>
+                        </ion-row>
+                    </ion-grid>
+                </div>
+  
+                <div *ngIf="(incident.value.type == 'signatureOnly' || incident.value.type == 'signaturewithSatisfactory') && incident.value.value">
+            
+                    <ion-grid>
+                        <ion-label>{{incident.value.label }}</ion-label>
+                        <div *ngIf="incident.value.customerName">
+                            <ion-row>
+                                <ion-col size="5" class = "ion-label-left">{{'Customer Name' | translate}}</ion-col>
+                                <ion-col size="1" class = "ion-label-left">:</ion-col>
+                                <ion-col size="6" class = "ion-label-right">
+                                    {{ incident.value.customerName }}
+                                </ion-col>
+                            </ion-row>
+                        </div>
+                        <ion-row>
+                            <!-- <p>{{incident.value.value}}</p> -->
+                            <ion-col size="5" class = "ion-label-left">Customer Sign</ion-col>
+                            <ion-col size="1" class = "ion-label-left">:</ion-col>
+                            <ion-col size="6" class = "ion-label-right">
+                                <img [src]="'data:image/jpeg;base64,'+incident.value.value" class="form-image"
+                                (click)="presentSignModal(incident.value)"
+                                *ngIf="incident.value.value && incident.value.value?.length > 60">
+                                <ion-icon name="images" *ngIf="!incident.value.value"></ion-icon>
+                                <ion-spinner name="dots"
+                                    *ngIf="incident.value.value && incident.value.value?.length < 60"></ion-spinner>
+                            </ion-col>
+                        </ion-row>
+                    </ion-grid>
+                </div>
+                <div style="margin-left: 5px;"
+                    *ngIf="incident.value.type == 'imageWithAnnotation' && incident.value.images && incident.value.images.length">
+                    <ion-grid>
+                        <ion-label>{{incident.value.label }}</ion-label>
+                        <ion-row *ngFor="let img of incident.value.images; let i= index" style="margin-left: -6px;">
+                            <ion-col size="5" class = "ion-label-left">{{ 'Image' | translate }}</ion-col>
+                            <ion-col size="1" class = "ion-label-left">:</ion-col>
+                            <ion-col size="6" class = "ion-label-right">
+                                <img [src]="'data:image/jpeg;base64,'+img.src" class="form-image"
+                                    (click)="presentModal(incident.value.images, i, img.src)"
+                                    *ngIf="img.src && img.src?.length > 60">
+                                <ion-icon name="images" *ngIf="!img.src"></ion-icon>
+                                <ion-spinner name="bubbles" *ngIf="img.src && img.src?.length < 60"></ion-spinner>
+                            </ion-col>
+                            <ion-col size="5" class = "ion-label-left">{{ 'Image Description' | translate }}</ion-col>
+                            <ion-col size="1" class = "ion-label-left">:</ion-col>
+                            <ion-col size="6" class = "ion-label-right">{{img.description}}</ion-col>
+                        </ion-row>
+                    </ion-grid>
+                </div>
+                <div style="margin-left: 5px;"
+                    *ngIf="incident.value.type == 'images' && incident.value.images && incident.value.images.length">
+                    <ion-grid>
+                        <ion-label>{{incident.value.label }}</ion-label>
+                        <ion-row *ngFor="let img of incident.value.images; let i= index" style="margin-left: -6px;">
+                            <ion-col size="5" class = "ion-label-left">{{ 'Image' | translate }}</ion-col>
+                            <ion-col size="1" class = "ion-label-left">:</ion-col>
+                            <ion-col size="6" class = "ion-label-right">
+                                <img [src]="'data:image/jpeg;base64,'+img.src" class="form-image"
+                                    (click)="presentModal(incident.value.images, i, img.src)"
+                                    *ngIf="img.src && img.src?.length > 60">
+                                <ion-icon name="images" *ngIf="!img.src"></ion-icon>
+                                <ion-spinner name="bubbles" *ngIf="img.src && img.src?.length < 60"></ion-spinner>
+                            </ion-col>
+                            <ion-col size="5" class = "ion-label-left">{{ 'Image Description' | translate }}</ion-col>
+                            <ion-col size="1" class = "ion-label-left">:</ion-col>
+                            <ion-col size="6" class = "ion-label-right">{{img.description}}</ion-col>
+                        </ion-row>
+                    </ion-grid>
+                </div>
+                <div *ngIf="incident.value.type == 'video' && incident.value.value && incident.value.value.length">
+                    <ion-grid>
+                        <ion-label>{{incident.value.label }}</ion-label>
+                        <ion-row>
+                            <video [src]="'https://s3.ap-south-1.amazonaws.com/cmms-video/'+incident.value.value"
+                                height="300" width="380" controls></video>
+                        </ion-row>
+                    </ion-grid>
+                </div>
+                <ion-grid
+                    *ngIf="(incident.value.type == 'signaturewithSatisfactory') || incident.value.type == 'satisfactoryOnly'">
+                    <ion-label>
+                        {{ incident.value.type == 'satisfactoryOnly'? incident.value.label : 'Customer Feedback' }}
+                    </ion-label>
+                    <ion-row class="emoji">
+                        <ion-col size="2" [ngClass]="getFeedback(incident.value) =='Very Unsatisfied' ? 'selected' : ''">
+                            <div>
+                                <ion-img src="assets/imgs/emoji/em1.png"></ion-img>
+                            </div>
+                            <p class="emoji-text">{{'Very Unsatisfied' | translate}}</p>
+                        </ion-col>
+                        <ion-col size="2" [ngClass]="getFeedback(incident.value) =='Unsatisfied' ? 'selected' : ''">
+                            <div>
+                                <ion-img src="assets/imgs/emoji/em2.png"></ion-img>
+                            </div>
+                            <p class="emoji-text">{{'Unsatisfied' | translate}}</p>
+                        </ion-col>
+                        <ion-col size="2" [ngClass]="getFeedback(incident.value) =='Neutral' ? 'selected' : ''">
+                            <div>
+                                <ion-img src="assets/imgs/emoji/em3.png"></ion-img>
+                            </div>
+                            <p class="emoji-text">{{'Neutral' | translate}}</p>
+                        </ion-col>
+                        <ion-col size="2" [ngClass]="getFeedback(incident.value)  =='Satisfied' ? 'selected' : ''">
+                            <div>
+                                <ion-img src="assets/imgs/emoji/em4.png"></ion-img>
+                            </div>
+                            <p class="emoji-text">{{'Satisfied' | translate}}</p>
+                        </ion-col>
+                        <ion-col size="2"
+                            [ngClass]="getFeedback(incident.value) =='Extremely Satisfied' ? 'selected' : ''">
+                            <div>
+                                <ion-img src="assets/imgs/emoji/em5.png"></ion-img>
+                            </div>
+                            <p class="emoji-text">{{'Extremely Satisfied' | translate}}</p>
+                        </ion-col>
+                    </ion-row>
+                    <ion-row *ngIf="incident.value.reason">
+                        <ion-col size="5" class = "ion-label-left">{{'Reason' | translate}}</ion-col>
+                        <ion-col size="1" class = "ion-label-left">:</ion-col>
+                        <ion-col size="6" class = "ion-label-right">{{ incident.value.reason }}</ion-col>
+                    </ion-row>
+                </ion-grid>
+            </div>
+            <!-- pendingWithSpare rejectComment-->
+            <ion-grid *ngIf="template.form.rejectComment">
+                <ion-label>Reason and Comments</ion-label>
+                <ion-row *ngIf="Pending">
+                    <ion-col size="5" class = "ion-label-left">Reason</ion-col>
+                    <ion-col size="1" class = "ion-label-left">:</ion-col>
+                    <ion-col size="6" class = "ion-label-right">{{Pending.reason ? Pending.reason : Pending.comment}}</ion-col>
+                </ion-row>
+                <ion-row *ngIf="PendingComment">
+                    <ion-col size="5" class = "ion-label-left">Comment</ion-col>
+                    <ion-col size="1" class = "ion-label-left">:</ion-col>
+                    <ion-col size="6" class = "ion-label-right">{{PendingComment.comment}}</ion-col>
+                </ion-row>
+                <ion-row *ngIf="!Pending">
+                    <ion-col size="5" class = "ion-label-left">Reason</ion-col>
+                    <ion-col size="1" class = "ion-label-left">:</ion-col>
+                    <ion-col size="6" class = "ion-label-right">{{template.form.rejectReason}}</ion-col>
+                </ion-row>
+                <ion-row *ngIf="!pending && !PendingComment">
+                    <ion-col size="5" class = "ion-label-left">Comment</ion-col>
+                    <ion-col size="1" class = "ion-label-left">:</ion-col>
+                    <ion-col size="6" class = "ion-label-right">{{template.form.rejectComment}}</ion-col>
+                </ion-row>
+            </ion-grid>
+        </div>
+        
+    </div>
+  </ion-content>

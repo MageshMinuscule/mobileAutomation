@@ -1,0 +1,89 @@
+<ion-header>
+  <ion-toolbar color="secondary">
+    <ion-title mode="md">{{'Update inventory' | translate}}</ion-title>
+    <ion-buttons slot="start">
+      <ion-button (click)="back()">
+        <ion-icon slot="icon-only" name="chevron-back-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <form (ngSubmit)="addParts()" #inventoryForm="ngForm">
+    <ion-list class="asset-add">
+      <div>
+        <ion-item>
+          <ion-label position="floating" class="contactlabel">{{ 'Inventory Name' | translate}}
+            <span class="req-star" *ngIf="required">*</span>
+          </ion-label>
+          <ion-input class="contactinput" type="text" name="inventoryName" (input)="validateInput($event)" [(ngModel)]="inventory.name"
+            [required]="required"></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-label position="stacked" class="contactlabel">
+            {{ "Direction" | translate }}
+            <span class="req-star" *ngIf="required">*</span>
+          </ion-label>
+          <ion-select class="contactinput" [(ngModel)]="inventory.direction" name="direction" mode="ios"  justify="start">
+            <ion-select-option [value]="option" *ngFor="let option of directions">{{option | translate}}</ion-select-option>
+          </ion-select>
+        </ion-item>
+        <ion-item>
+          <ion-label position="floating" class="contactlabel">{{ "quantity" | translate }}
+            <span class="req-star" *ngIf="required">*</span>
+          </ion-label>
+          <ion-input class="contactinput" type="number" name="quantity" [(ngModel)]="inventory.consumedQuantity"
+            (input)="validateInput($event)" [required]="true">
+          </ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-label position="floating" class="contactlabel">{{ "Available Quantity" | translate}}</ion-label>
+
+          <ion-input class="contactinput" type="number" name="availableQuantity" [(ngModel)]="inventory.availableQuantity"
+            (input)="validateInput($event)" [disabled]="true">
+          </ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-label position="floating" class="contactlabel">{{ "Notes" | translate }}</ion-label>
+          <ion-input class="contactinput" type="text" name="remarks" [(ngModel)]="inventory.remarks" (input)="validateInput($event)">
+          </ion-input>
+        </ion-item>
+        <ion-item *ngIf="inventory.direction == 'INWARD'">
+          <ion-label position="floating" class="contactlabel">{{ "Supplier" | translate }}</ion-label>
+          <ion-input type="text" 
+          (ionFocus)="fieldOnFocus('supplier')" (focusout)="clearResults('supplier')"(input)="filterSupplierResult($event)" name="supplier"
+          [(ngModel)]="inventory.supplierName" >
+      </ion-input>
+        </ion-item>
+        <ion-list  *ngIf="inventory.direction == 'INWARD'"class="ion-padding-start" class="search-results">
+          <ion-item *ngFor="let res of results" (click)="selectSupplier(res)" class="ion-padding-start">
+              {{ res.name }}
+          </ion-item>
+        </ion-list>
+          <ion-item *ngIf="inventory.direction == 'OUTWARD'">
+            <ion-row>
+              <ion-col size="9">
+                <ion-label position="floating" class="contactlabel">{{ "Delivery Person Detail" | translate }}</ion-label>
+                <ion-input class="contactinput" type="text" name="DeliveryPerson" [(ngModel)]="inventory.deliveryPersonDetail" (input)="validateInput($event)">
+                </ion-input>
+              </ion-col>
+              <ion-col class="visible" size="3">
+                <ion-button class="scan"(click)="ScanUser()" fill="clear">
+                  <ion-icon size="large"name="scan-circle-outline"></ion-icon>
+                </ion-button>
+              </ion-col>
+            </ion-row>
+          </ion-item>
+      </div>
+    </ion-list>
+    <ion-row class="ion-padding">
+      <ion-col>
+        <ion-button  expand="block"  type="submit" color="secondary"
+          [disabled]="!inventoryForm.form.valid">
+          {{ "update" | translate }}
+        </ion-button>
+      </ion-col>
+    </ion-row>
+  </form>
+</ion-content>

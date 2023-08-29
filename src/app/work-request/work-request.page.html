@@ -1,0 +1,162 @@
+<ion-header>
+  <ion-toolbar color="secondary">
+    <ion-title mode="md">{{ "CreateWorkRequest" | translate }}</ion-title>
+    <ion-buttons slot="start">
+      <ion-button (click)="back()">
+        <ion-icon slot="icon-only" name="chevron-back-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+<ion-content>
+  <ion-list  class="asset-add" *ngIf="workRequestJson && workRequestJson.length > 0">
+    <div *ngFor="let item of workRequestJson[0].predefined;let index = index">
+
+      <ion-item class="mb-p5" *ngIf="item.enable && item.fieldName == 'Priority'" lines="none">
+        <ion-label position="floating" class="contactlabel">{{ item.fieldName }}
+          <span class="req-star" *ngIf="item.compulsory">*</span>
+        </ion-label>
+        <ion-select class="selectwidth border-bottom" (ionChange)="onInputKeyPressed($event,index,'predefined')" [(ngModel)]="workRequest.priority" mode="ios"  justify="start"
+          [required]="item.compulsory">
+          <ion-select-option [value]="option" *ngFor="let option of priorities">{{option}}</ion-select-option>
+        </ion-select>
+      </ion-item>
+
+      <ion-item class="mb-p5" *ngIf="item.enable && item.fieldName == 'Description'" lines="none">
+        <ion-label position="floating" class="contactlabel">{{ item.fieldName }}
+          <span class="req-star" *ngIf="item.compulsory">*</span>
+        </ion-label>
+        <ion-input type="text"  
+          [required]="item.compulsory" (input)="onInputKeyPressed($event,index,'predefined')" [(ngModel)]="workRequest.description"></ion-input>
+      </ion-item>
+
+      <ion-item class="mb-p5"  *ngIf="item.enable && item.fieldName == 'Category'" lines="none">
+        <ion-label position="floating" class="contactlabel">{{ "Category" | translate }}
+            <span class="req-star" *ngIf="item.compulsory">*</span></ion-label>
+        <ion-input type="text" 
+            (ionFocus)="fieldOnFocus()" (input)="filterCategoryResult($event)" name="category"
+            [(ngModel)]="workRequest.categoryName"  [required]="item.compulsory" [disabled] = "isCategory">
+        </ion-input>
+    </ion-item>
+    <ion-list  class="search-results" *ngIf="item.enable && item.fieldName == 'Category'">
+        <ion-item class="" *ngFor="let category of categoryList" (click)="selectCategory(category)" class="ion-padding-start">
+            {{ category.name }}
+        </ion-item>
+    </ion-list>
+
+      <ion-item class="mb-p5" *ngIf="item.enable && item.fieldName == 'Invoice Reference Number'" lines="none">
+        <ion-label position="floating" class="contactlabel">{{ item.fieldName }}
+          <span class="req-star" *ngIf="item.compulsory">*</span>
+        </ion-label>
+        <ion-input type="text" 
+          [required]="item.compulsory" (input)="onInputKeyPressed($event,index,'predefined')" [(ngModel)]="workRequest.invoiceReferenceNumber"></ion-input>
+      </ion-item>
+      <ion-item class="mb-p5" *ngIf="item.enable && item.fieldName == 'Contact Name'" lines="none">
+        <ion-label position="floating" class="contactlabel">{{ item.fieldName }}
+          <span class="req-star" *ngIf="item.compulsory">*</span>
+        </ion-label>
+        <ion-input type="text"
+          [required]="item.compulsory" (input)="onInputKeyPressed($event,index,'predefined')" [(ngModel)]="workRequest.contactName"></ion-input>
+      </ion-item>
+      <ion-item class="mb-p5" *ngIf="item.enable && item.fieldName == 'Contact Number'" lines="none">
+        <ion-label position="floating" class="contactlabel">{{ item.fieldName }}
+          <span class="req-star" *ngIf="item.compulsory">*</span>
+        </ion-label>
+        <ion-input type="number"  
+          [required]="item.compulsory" (input)="onInputKeyPressed($event,index,'predefined','number')" [(ngModel)]="workRequest.contactNumber"></ion-input>
+      </ion-item>
+      <!-- <span class="error ion-padding" *ngIf="item.enable && item.fieldName == 'Contact Number''"
+        > {{item.fieldName}} required</span> -->
+
+      <ion-item class="mb-p5" *ngIf="item.enable && item.fieldName == 'Project Reference Number'" lines="none">
+        <ion-label position="floating" class="contactlabel">{{ item.fieldName }}
+          <span class="req-star" *ngIf="item.compulsory">*</span>
+        </ion-label>
+        <ion-input type="text" 
+          [required]="item.compulsory" (input)="onInputKeyPressed($event,index,'predefined')" [(ngModel)]="workRequest.projectReferenceNumber"></ion-input>
+      </ion-item>
+      <!-- <span class="error ion-padding" *ngIf="item.enable && item.fieldName == 'Project Reference Number'"
+        > {{item.fieldName}} required</span> -->
+
+      
+      <!-- <span class="error ion-padding" *ngIf="item.enable && item.fieldName == 'Priority'"
+        > {{item.fieldName}} required</span> -->
+
+      <ion-item lines="none" class="mb-p5"  style="margin-top: 10px; margin-left: -28px;margin-right:-28px ;" (input)="onInputKeyPressed($event,index,'predefined','','image')" *ngIf="item.enable && item.fieldName == 'File Upload'">
+        <ion-label class="req-star img-algin" *ngIf="item.compulsory">*</ion-label>
+        <app-image-annotation (click)="imageEvent($event,index,'predefined','','image')" [workRequest]="true" [incident]="incident" [name]="'image'"></app-image-annotation>
+      </ion-item>
+      <!-- <span class="error ion-padding" *ngIf="item.enable && item.fieldName == 'File Upload'"
+        > {{item.fieldName}} required</span> -->
+      <span class="error ion-padding" *ngIf="item.enable && item.compulsory && isSubmitted && !item.value && item.fieldName != 'Asset'"
+    > {{item.fieldName}} required</span>
+    </div>
+
+    <div *ngFor="let item of workRequestJson[0].custom;let index = index">
+      <ion-item class="mb-p5" *ngIf="item.enable && item.type == 'Text Input'" lines="none">
+        <ion-label position="floating" class="contactlabel">{{ item.fieldName }}
+          <span class="req-star" *ngIf="item.compulsory">*</span>
+        </ion-label>
+        <ion-input type="text" 
+          [required]="item.compulsory" [(ngModel)]="item.value" (input)="onInputKeyPressed($event,index,'custom')"></ion-input>
+      </ion-item>
+      <ion-item class="mb-p5" *ngIf="item.enable && item.type == 'Number Input'" lines="none">
+        <ion-label position="floating" class="contactlabel">{{ item.fieldName }}
+          <span class="req-star" *ngIf="item.compulsory">*</span>
+        </ion-label>
+        <ion-input type="number"  
+          [required]="item.compulsory" [(ngModel)]="item.value" (input)="onInputKeyPressed($event,index,'custom','number')"></ion-input>
+      </ion-item>
+      <ion-item lines="none" class="mb-p5" *ngIf="item.enable && item.type == 'Date And Time'">
+        <ion-label position="floating" class="contactlabel">{{ item.fieldName }}
+          <span class="req-star" *ngIf="item.compulsory">*</span>
+        </ion-label>
+        <ion-datetime #datePicker displayFormat="MMM DD YYYY HH:mm" pickerFormat="DD MMM YYYY HH:mm" 
+          [(ngModel)]="item.value" name="expectedDate" placeholder="Date" [required]="item.compulsory">
+          
+        </ion-datetime>
+        <span class="type-toggle" >
+          <ion-icon name="calendar-number-outline" color="secondary"></ion-icon>
+        </span>
+        
+      </ion-item>
+
+      <span class="error ion-padding" *ngIf="item.enable && item.compulsory && isSubmitted && !item.value"
+    > {{item.fieldName}} required</span>
+    </div>
+    
+    <!-- <ion-item class="">
+        <ion-label position="floating" class="contactlabel">
+            {{ "Priority" | translate }} 
+            <span class="req-star" *ngIf="required">*</span>
+        </ion-label>
+        <ion-select class="selectwidth contactinput" [(ngModel)]="workRequest.priority" formControlName="priority" interface="popover" [required]="item.compulsory">
+            <ion-select-option [value]="option" *ngFor="let option of priorities">{{option}}</ion-select-option>
+        </ion-select>
+        <span class="error ion-padding" *ngIf="item.enable && item.fieldName == 'Description'"  *ngIf="isSubmitted && errorControl.priority.errors?.required"> option reqired</span>
+    </ion-item> -->
+    <!-- <ion-item class=""  tappable>
+        <ion-label> {{ 'Expected Date' | translate }} <span class="req-star" *ngIf="required">*</span>
+        </ion-label>
+        <ion-datetime #datePicker displayFormat="MMM DD YYYY HH:mm" pickerFormat="DD MMM YYYY HH:mm" 
+          [(ngModel)]="workRequest.expectedDate" name="expectedDate" placeholder="Date" [required]="item.compulsory"></ion-datetime>
+      </ion-item> -->
+    <!-- <ion-item class="">
+        <ion-label position="floating" class="contactlabel">{{ "Description" | translate }} 
+          <span class="req-star" *ngIf="required">*</span>
+        </ion-label>
+        <ion-input type="text" class="contactinput" formControlName="description" [required]="item.compulsory"  [(ngModel)]="workRequest.description"></ion-input>
+    </ion-item> -->
+    <!-- <span class="error ion-padding"  *ngIf="isSubmitted && errorControl.description.errors?.required">description required</span> -->
+    <!-- <app-image-annotation [incident]="incident" [name]="'image'"></app-image-annotation> -->
+  </ion-list>
+  <ion-row class="ion-padding" *ngIf="shownSubmitBtn">
+    <ion-col>
+      <ion-button  expand="block" color="secondary" type="submit" [disabled]="shownButton" (click)="createWorkRequest()">
+        {{ "submit" | translate }}
+      </ion-button>
+    </ion-col>
+  </ion-row>
+  <!-- </form> -->
+
+</ion-content>

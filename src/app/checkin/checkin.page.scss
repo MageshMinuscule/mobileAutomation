@@ -1,0 +1,58 @@
+.imageIcon ion-icon {
+    font-size: 82px;
+    color: #f4465b;
+}
+.gps-view {
+    text-align: center;
+    height: 60vh;
+    ion-icon {
+        vertical-align: -webkit-baseline-middle;
+        color: #f4465b;
+    }
+}
+.uploadpadding {
+    padding: 35vw;
+}
+.imagetext {
+    font-size: 15px;
+    color: #000;
+}
+.singleimage {
+  
+    font-size: 32px;
+    color: #f4465b;
+}
+.takephoto {
+    color: #f4465b;
+}
+.downloadicon {
+    font-size: 51px;
+    text-align: center;
+    color: gray;
+    border: 1px solid;
+    width: 100%;
+}
+.imgDelete {
+    font-size: 25px;
+    margin-top: 13%;
+    color: #fd4b57;
+    padding: 3px;
+}
+.deleteicon {
+    padding-left: 4px;
+    font-size: 20px;
+}
+ion-toolbar {
+    padding:0px;
+    margin:0px;
+}
+.ion-toolbar.ion-segment-button.segment-activated {
+    border-bottom: 3px solid #ff4b4b;
+    color: #fff;
+    background-color:#ff4b4b;
+}
+
+ion-segment-button{
+    margin: 2px;
+    padding: 1px;
+  }

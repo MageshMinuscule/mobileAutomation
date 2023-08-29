@@ -1,0 +1,37 @@
+ion-title{
+font-family: "Poppins";
+}
+
+  ion-button {
+    font-family: "Poppins";
+    font-size: 18px;
+    height: 55px;
+    font-weight: 600;
+}
+.clearbutton {
+  border-color: transparent;
+  color: #46a794;
+  background-color: transparent;
+}
+annotate {
+  canvas {
+      canvas {
+          border: 1px dashed #fff !important;
+      }
+  }
+}
+.annotate-img-outer {
+  width: 100%;
+  overflow: auto;
+}
+.no-scroll .scroll-content {
+  overflow: hidden;
+}
+@media only screen and (min-height: 600px) and (min-width: 768px) {
+  .no-scroll .scroll-content {
+      overflow-y: scroll;
+  }
+}
+.grid {
+  border: 1px solid #445498;
+}

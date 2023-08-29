@@ -1,0 +1,8 @@
+<ion-item *ngIf="incident.type == 'numeric'" class="template-field-input" lines="none">
+  <ion-label class="workflow-label" position='floating'>
+    {{incident.label}}
+    <span class="req-star" *ngIf="incident.compulsory">*</span>
+  </ion-label>
+  <ion-input type="number" class="borderhidden border-bottom" [(ngModel)]="incident.value" [name]="name"
+    autocomplete="off" (keypress)="templateProvider.validateInput($event, incident)" [required]="incident.compulsory" (ionBlur)="incident.value = common.removeSpace(incident.value)"></ion-input>
+</ion-item>

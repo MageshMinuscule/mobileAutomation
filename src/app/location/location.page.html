@@ -1,0 +1,35 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title mode="md" *ngIf="!showSearchBar">{{'Work Location' | translate}}</ion-title>
+    
+    <ion-buttons slot="start">
+      <ion-button (click)="back()">
+        <ion-icon slot="icon-only" name="chevron-back-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-searchbar *ngIf="showSearchBar" [(ngModel)]="searchKeyword" (ionInput)="filterResult($event)"
+      (ionCancel)="onCancel($event)" placeholder="Search">
+    </ion-searchbar>
+    <ion-buttons slot="end">
+      <ion-button (click)="beginSearch()">
+        <ion-icon slot="icon-only" name="search"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <div *ngIf="!results.length">
+    <app-no-record></app-no-record>
+  </div>
+  <ion-list radio-group [(ngModel)]="location" *ngIf="results.length">
+    <ion-list-header>
+      {{'Available Locations' | translate}}
+    </ion-list-header>
+
+    <ion-item *ngFor="let location of results" (click)="showLocationConfirmation(location.name)" tappable>
+      <ion-label>{{ location.name }}</ion-label>
+      <ion-radio value="{{ location.id }}" (click)="showLocationConfirmation(location.name)"></ion-radio>
+    </ion-item>
+  </ion-list>
+</ion-content>

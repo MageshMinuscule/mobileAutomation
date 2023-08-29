@@ -1,0 +1,107 @@
+<ion-header>
+  <ion-toolbar color="secondary">
+    <ion-title mode="md">{{'Meter Reading' | translate}}</ion-title>
+    <ion-buttons slot="start">
+      <ion-button (click)="back()">
+        <ion-icon slot="icon-only" name="chevron-back-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-content>
+    <!-- <ion-fab vertical="bottom" horizontal="end" slot="fixed" *ngIf="action == 'Update Parts'">
+      <ion-fab-button (click)="addInventory()" color="danger">
+        <ion-icon name="add"></ion-icon>
+      </ion-fab-button>
+    </ion-fab> -->
+    <ion-fab vertical="bottom" horizontal="end" slot="fixed" >
+      <ion-fab-button (click)="scanMeter()" color="secondary">
+        <ion-icon name="scan"></ion-icon>
+      </ion-fab-button>
+    </ion-fab>
+    <div *ngIf="!meterReadings.length && noRecordFound">
+      <ion-card >
+        <ion-item class="reject-card">
+          {{ "notFound" | translate }}
+        </ion-item>
+      </ion-card>
+      <!-- <ion-card class="gradient">
+        <ion-item >
+          {{(requestId == null ? 'notFound' : 'No Inventory Mapped') | translate}}
+        </ion-item>
+        <ion-item >
+          <img class="img" src="assets/imgs/notfound.svg">
+        </ion-item>
+      </ion-card> -->
+    </div>
+  
+    <div *ngFor="let item of meterReadings" class="list-view-badge" style="padding: 10px 10px 0px 10px;">
+      <ion-item-group mode="md"class="list-view" (click)="updateMeter(item)">
+        <!-- <ion-item-divider> -->
+          <ion-grid>
+            <ion-row class="inventory-box">
+              <ion-col size="3" >
+                <!-- <ion-avatar> -->
+                  <img src="../../assets/imgs/no-image.png" class="inventory-image" *ngIf="!item.s3ImageId"
+                    />
+                  <img src="{{item.singedUrl}}" class="inventory-image"
+                    *ngIf="item.s3ImageId" />
+                <!-- </ion-avatar> -->
+              </ion-col>
+              <ion-col size="9">
+                <ion-row>
+                  <ion-col size="3">
+                    <div>
+                      <span>{{ item.id }}</span>
+                      <!-- <ion-badge class="badge-custom" mode="ios">{{ item.id }}</ion-badge> -->
+                    </div>
+                  </ion-col>
+                  <ion-col size="9">
+                    <div class="cat-label text-truncate">{{ item.name}}</div>
+                  </ion-col>
+                </ion-row>
+                <!-- <ion-row *ngIf="inventorySerialNo">
+                  <ion-col size="12">
+                    <div class="location-label">
+                      {{'Serial No' | translate}}: {{ item.inventorySerialNo }}
+                    </div>
+                  </ion-col>
+                </ion-row>
+                <ion-row>
+                  <ion-col size="12">
+                    <div class="location-label">
+                      {{'Available Qty' | translate}}: {{ item.availableQuantity }}
+                    </div>
+                  </ion-col>
+                </ion-row>
+                <ion-row>
+                  <ion-col size="12">
+                    <div class="location-label">
+                      {{'Consumed Qty' | translate}}:
+                      <span class="custom-serial">{{ item.consumedQuantity }}</span>
+                    </div>
+                  </ion-col>
+                </ion-row> -->
+                <ion-row style="margin-top: 15px">
+                  <ion-col size="6">
+                    <div class="location-label">
+                      {{'Asset Name' | translate}}  &nbsp;&nbsp;:  &nbsp;&nbsp;
+                      
+                    </div>
+                  </ion-col>
+                  <ion-col size="6">
+                    <div class="location-label text-truncate">
+                      <span style="color: #333333;font-weight: 500"> {{ item.assetName }}</span>
+                    </div>
+                  </ion-col>
+                </ion-row>
+              </ion-col>
+            </ion-row>
+          </ion-grid>
+        <!-- </ion-item-divider> -->
+      </ion-item-group>
+    </div>
+  </ion-content>
+</ion-content>

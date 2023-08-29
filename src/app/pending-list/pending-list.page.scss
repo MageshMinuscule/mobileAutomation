@@ -1,0 +1,326 @@
+
+ion-content{
+  font-family:"Poppins";
+}
+ion-title{
+  font-family: 'Roboto';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 12px;
+  color: #F3F8FF;
+  margin-left: -1.5em;
+  margin-bottom: 0.5em;
+}
+.headerbutton{
+  font-family: "Poppins";
+  width: 50%;
+  span{
+    margin-right: 75px;
+    font-size: 12px;
+  }
+  ion-badge{
+    position: absolute;
+    font-size: 12px;
+    border-radius: 50%;
+    margin-left: 60px;
+  }
+  }
+  .headerbutton2{
+    width: 50%;
+    font-family: "Poppins";
+    span{
+      margin-right: 74px;
+      font-size: 12px;
+    }
+    ion-badge{
+    position: absolute;
+      font-size: 12px;
+      border-radius: 50%;
+      margin-left: 94px;
+    }
+    }
+    
+.filer-tag ion-button{
+    font-size: 10px;
+    padding: 0px;
+    border-width:1px;
+    border-style:solid;
+    border-color: rgb(124, 122, 122);
+    border-radius: 30px;
+    margin-left: 11px;
+    font-weight:500;
+    
+  }
+  ion-badge {
+    padding: 3px 8px;
+    text-align: center;
+    display: inline-block;
+    min-width: 10px;
+    font-size: 12px;
+    font-weight: bold;
+    line-height: 1;
+    white-space: nowrap;
+    vertical-align: baseline;
+    border-radius: 25px;
+    
+}
+
+ion-searchbar {
+  // padding-left: 9px !important;
+  // --icon-color:#fff;
+}
+ion-toolbar {
+  ion-segment-button {
+  font-size: 16px;
+    color:  #fff;
+    border: 0px;
+    border-radius: 0px;
+  }
+}
+// ion-toolbar .segment-button-checked {
+//   background-color: transparent !important;
+//   border-color: #f7f7f7;
+//   color: #fff;
+//   border-bottom: 3px solid #ed4e52;
+//   border-radius: 0px;
+// }
+  .login {
+    font-family: "Poppins";
+    letter-spacing: 2px;
+    width: 280px;
+    height: 50px;
+    display: block;
+    border-radius: 4px;
+  }
+  
+    ion-row {
+      padding: 3px;
+    }
+    .sort-icon {
+      font-size: x-large;
+      padding-right: 10px;
+      margin-top: 5px;
+      line-height: 2rem !important;
+    }
+    .list-ios > .item-block:first-child {
+      border-top: 0;
+    }
+    .button-inner {
+      font-size: 1px; // white-space: pre-wrap;
+      text-align: center;
+    }
+    .button-outline {
+      padding: 0 1.1rem;
+      margin-left: auto;
+      margin-right: auto;
+      display: block;
+    }
+    .button-outline-md:hover:not(.disable-hover),
+    .filter-active {
+      border-width:2px;
+      border-style:solid;
+      border-color: #3C75C6!important;
+      background: #3C75C6;
+      color: white;
+    }
+    .filer-tag {
+      border-bottom: 2px solid #bdbdbd;
+      padding: 0px;
+      background-color: #f3f3f3;
+      button {
+        text-transform: uppercase;
+      }
+      .button-inner {
+        font-size: smaller;
+        white-space: nowrap;
+      }
+    }
+    .filter-tag-search {
+      padding-top: 20px !important;
+    }
+    .sort-class {
+      padding: 17px;
+      font-size: 20px;
+      .tag-box {
+        padding-left: 20px;
+      }
+      .action-sheet-title {
+        text-align: center !important;
+        background: #323e70 !important;
+        color: #fbf9f9;
+        font-size: 1.4rem !important;
+      }
+      .action-sheet-button {
+        font-size: 1.2rem;
+      }
+      .action-sheet-md .action-sheet-group .button-inner {
+        justify-content: center;
+      }
+      span {
+        padding-left: 10px;
+        padding-right: 10px;
+      }
+    
+    .selection-content ion-grid ion-row button {
+      text-align: left;
+    }
+    .toolbar-md {
+      min-height: auto;
+      padding: 10px 0 0 0;
+    }
+// .filer-tag .button-ios .button-inner {
+    //     font-size: 11px;
+    // }
+    // .filer-tag .button-ios {
+    //     height: 3.6rem;
+    // }
+    .filer-tag .button-outline {
+      padding: 0 6px;
+    }
+    .requestId-label {
+      font-size: medium;
+    }
+    .subCount {
+      font-size: 7px;
+      padding-left: 3px;
+    }
+ 
+    .action-sheet-group {
+      padding-top: 0 !important;
+    }
+    .action-sheet-group .button-inner {
+      justify-content: start !important;
+    }
+    .filter {
+      color: currentColor;
+    }
+    .filter-deactive {
+      border-color: darkgray;
+    }
+    .segtxtcase {
+      text-transform: uppercase;
+    }
+    .ack-buttoncheckin {
+      background-color: #189f87;
+    }
+    .tag-view {
+      display: flex;
+      background-color: initial;
+      border-style: solid;
+      border-width: 0;
+      box-sizing: border-box;
+      color: initial;
+      flex-basis: auto;
+      font-size: medium;
+      font-weight: 400;
+      line-height: normal;
+      list-style: none;
+      margin: 0;
+      min-height: 0;
+      min-width: 0;
+      padding: 0;
+      position: relative;
+      text-align: initial;
+      text-decoration: initial;
+      word-wrap: break-word;
+      word-break: break-word;
+    }
+    .tag-container {
+      margin-right: 5px; // margin-top: 10px;
+      align-items: center;
+    }
+    .tag-box {
+      flex-wrap: wrap;
+    }
+    .tag-content {
+      flex-shrink: 1;
+    }
+    .tag-text {
+      font-size: 15px;
+      color: white;
+      border-radius: 3px; // max-width: 100px;
+      overflow: hidden;
+      min-width: 100px;
+      line-height: 20px;
+      text-align: center;
+      white-space: nowrap;
+      padding-left: 5px;
+      padding-right: 5px;
+      text-overflow: ellipsis;
+    }
+    .action-sheet-custom-button {
+      color: red !important;
+    }
+    .action-sort-sheet .action-sheet-group .button-inner {
+      justify-content: start !important;
+    }
+    .action-sheet-button {
+      min-height: 3.8rem !important;
+    }
+    ion-footer {
+      background: #efefef;
+    }
+    .Monthly {
+      color: #30bfbf;
+    }
+  }
+  
+  .Daily {
+    color: #00aaff !important;
+  }
+  
+  .Monthly {
+    color: #d93651 !important;
+  }
+  
+  .Quaterly {
+    color: #30bfbf !important;
+  }
+  
+  .Weekly {
+    color: #8f7ee6 !important;
+  }
+  
+  .clear {
+    color: red !important;
+  }
+  
+  .sortBy {
+    color: #222 !important;
+  }
+  
+  .Machine {
+    color: #47cc8a !important;
+  }
+  
+  .Fortnight {
+    color: rgb(0, 94, 255) !important;
+  }
+  
+  .clear-filter {
+    float: right;
+    padding-right: 20px;
+    font-size: 25px;
+    font-weight: 600;
+  }
+  .ack-button {
+    font-size: 1.2rem;
+    padding: 0;
+    width: 90%;
+}
+.bdg-cls {
+  margin-top: -2em !important;
+  margin-left: -2em !important;
+}
+ion-subTitle {
+  font-family: 'Roboto';
+  font-style: normal;
+  font-weight: 600;
+  font-size: 16px;
+  line-height: 16px;
+  letter-spacing: 0.001em;
+  
+  color: #FFFFFF;
+}
+  

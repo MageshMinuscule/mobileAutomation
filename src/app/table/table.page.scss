@@ -1,0 +1,101 @@
+
+   ion-label{
+    font-size: 15px!important;
+}
+ion-row{
+    font-size: 14px!important;
+}
+.table-list {
+    //  padding: 0px 8px 0px 8px;
+     ion-col {
+         border: 1px solid #C3C5C8;
+         position: initial;
+     }
+     .footer-btn {
+         .add {
+             font-size: 2em;
+             padding-top: 4px;
+             padding-right: 7px;
+             color: #445498;
+         }
+         .blank {
+             border: 0px solid #c5b8b8;
+         }
+     }
+     .head {
+         text-align-last: center;
+         ion-col {
+            background-color: #EFEFEF;
+         }
+         .head-label {
+            // font-family: 'Open Sans';
+            font-style: normal;
+            font-weight: 600;
+            font-size: 14px;
+            line-height: 24px;
+            color: #333333; 
+
+         }
+         .head-icon {
+             color: white;
+             font-size: 2em;
+             padding: 0px 10px;
+             border: 1px solid #c5b8b8;
+             border-left: 1px solid #fff;
+             background-color: #C3C5C8;
+         }
+     }
+     .remove {
+        font-size: 2em;
+        padding: 14px 23.5px;
+        // border: 1px solid #C3C5C8;
+     }
+     .inclass {
+         .text-input-md {
+             margin: 0px;
+         }
+     }
+     .none {
+         font-size: 2em;
+         padding: 0px 10px;
+         margin-top: 3px;
+         color: white;
+     }
+     ion-textarea {
+         padding: 0px;
+         margin-bottom: 0px;
+         border: none;
+     }
+     .text-input {
+         width: 100%
+     }
+     textarea.text-input {
+         resize: none;
+     }
+     .item-inner {
+         border: none !important;
+         padding: 0px !important;
+     }
+     .item {
+         padding-left: 0px;
+     }
+ }
+ ion-label{
+     opacity: 0.8;
+     margin: 13px 8px 13px 0;
+ }
+ .table-list ion-textarea {
+     padding: 0px;
+     margin-bottom: 0px;
+     border: none;
+ }
+ .table-list .item-inner {
+     border: none !important;
+     padding: 0px !important;
+ }
+ .inclass{
+     padding: 0;
+ }
+ ion-item{ 
+   // --border-color: 1px solid #7E7E7E !important; 
+  }

@@ -1,0 +1,16 @@
+<ion-content class="ion-padding">
+  <h2 text-center>{{'Welcome' | translate}}</h2>
+  <div class="logo-img">
+
+        <ion-spinner *ngIf="spinShown" name="bubbles" color="danger"></ion-spinner>
+
+   
+      <img [src]="logoSrc" *ngIf="logoSrc">
+  </div>
+  <div class="welcome-text">
+      {{'welcome-text' | translate}}
+  </div>
+  <div class="get-started">
+      <button ion-button block padding-vertical (click)="gotoHome()" [disabled]="disabled">{{'Get Started' | translate}}</button>
+  </div>
+</ion-content>

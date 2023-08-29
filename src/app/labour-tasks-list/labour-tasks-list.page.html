@@ -1,0 +1,150 @@
+<ion-header>
+  <ion-toolbar color="secondary">
+    <ion-title mode="md">{{'Labour Tasks' | translate}}</ion-title>
+    <ion-buttons slot="start">
+      <ion-button (click)="back()">
+        <ion-icon slot="icon-only" name="chevron-back-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-buttons slot="end">
+      <ion-button (click)="info()">
+        <ion-icon name="information-circle-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-no-padding">
+
+  <ion-fab vertical="bottom" horizontal="end" slot="fixed">
+    <ion-fab-button (click)="addLabourTask()" color="secondary">
+      <ion-icon name="add"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
+  <div *ngIf="!labourTasks.length && noRecordFound" class="gard-item">
+    <ion-card>
+      <!-- <app-no-record></app-no-record> -->
+      <ion-item  class="reject-card">
+        {{'notFound' | translate}}
+      </ion-item>
+    </ion-card>
+  </div>
+
+
+  <div *ngFor="let item of labourTasks" class="list-view-badge">
+    <ion-list>
+      <ion-item-sliding>
+      <ion-item class="labour-item"(click)="editLabourTask(item)" >
+        <ion-grid fixed>
+          <ion-row>
+            <ion-col size="12">
+              <span class="labour-heading"> {{ item.userName}} </span>
+              <span class="labour-sub-heading">{{ item.id }}</span>
+            </ion-col>
+            <ion-col size="5">
+              <span class="labour-var">{{'Hours Worked' | translate}}</span>
+            </ion-col>
+            <ion-col size="1">
+              <span>:</span>
+            </ion-col>
+            <ion-col size="6">
+              <span class="labour-var-value">{{ item.hoursWorked }}</span>
+            </ion-col>
+            <ion-col size="5">
+              <span class="labour-var">{{'Log In ' | translate}}</span>
+            </ion-col>
+            <ion-col size="1">
+              <span>:</span>
+            </ion-col>
+            <ion-col size="6">
+              <span class="labour-var-value">{{item.loginTime | date: 'dd MMM yy'}} {{item.loginTime | date:'shortTime'}}</span>
+            </ion-col>
+            <ion-col size="5">
+              <span class="labour-var">{{'Log Out ' | translate}}</span>
+            </ion-col>
+            <ion-col size="1">
+              <span>:</span>
+            </ion-col>
+            <ion-col size="6">
+              <span class="labour-var-value">{{item.logoutTime | date: 'dd MMM yy'}} {{item.logoutTime | date:'shortTime'}}</span>
+            </ion-col>
+            <ion-col size="5">
+              <span class="labour-var">{{'Created On ' | translate}}</span>
+            </ion-col>
+            <ion-col size="1">
+              <span>:</span>
+            </ion-col>
+            <ion-col size="6">
+              <span class="labour-var-value">{{ item.creationDate | date: 'dd MMM yy' }}</span>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+      </ion-item>
+      <ion-item-options>
+        <ion-item-option *ngIf="isAdmin || (status != 'Closed' && status != 'Reject')"(click)="showDeleteConformation(item)"color="danger">
+          <ion-icon  slot="icon-only" name="trash"></ion-icon>
+        </ion-item-option>
+      </ion-item-options>
+    </ion-item-sliding>
+    </ion-list>
+    <!-- <ion-item-group mode="md"class="list-view">
+      <ion-item-divider>
+        <ion-grid>
+          <ion-row>
+            <ion-col size="3" style="margin-top: 20px !important">
+              <ion-icon name="people" style="font-size: 3.2em !important; color: #445498;"></ion-icon>
+            </ion-col>
+            <ion-col size="9">
+              <div (click)="editLabourTask(item)">
+                <ion-row>
+                  <ion-col size="3">
+                    <ion-badge color="danger" mode="ios">{{ item.id }}</ion-badge>
+                   
+                  </ion-col>
+                  <ion-col size="9">
+                    <div class="cat-label">{{ item.userName}}</div>
+                  </ion-col>
+                </ion-row>
+                <ion-row>
+                  <ion-col size="6">
+                    <div class="location-label">
+                      {{'Hours Worked' | translate}}: {{ item.hoursWorked }}
+                    </div>
+                  </ion-col>
+                </ion-row>
+                <ion-row>
+                  <ion-col size="6">
+                    <div class="location-label">
+                      {{'Log In ' | translate}}: {{item.loginTime | date: 'dd MMM yy'}} {{item.loginTime | date:
+                      'shortTime'}}
+                    </div>
+                  </ion-col>
+                  <ion-col size="6">
+                    <div class="location-label">
+                      {{'Log Out' | translate}}: {{item.logoutTime | date: 'dd MMM yy'}} {{item.logoutTime | date:
+                      'shortTime'}}
+                    </div>
+                  </ion-col>
+                </ion-row>
+                <ion-row>
+                  <ion-col size="12">
+                    <div class="location-label">
+                      {{'Created On' | translate}}:
+                      <span class="custom-serial">{{ item.creationDate | date: 'dd MMM yy' }}</span>
+                    </div>
+                  </ion-col>
+                </ion-row>
+              </div>
+              <ion-row *ngIf="isAdmin || (status != 'Closed' && status != 'Reject')">
+                <ion-col class="ack" size="6" style="text-align: left !important">
+                  <ion-button color="danger" class="ack-button" (click)="showDeleteConformation(item)">
+                    {{'Delete' | translate}}</ion-button>
+                </ion-col>
+              </ion-row>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+      </ion-item-divider>
+    </ion-item-group> -->
+  </div>
+</ion-content>

@@ -1,0 +1,50 @@
+{
+  "project_info": {
+    "project_number": "749447955380",
+    "firebase_url": "https://cmms-production-895632147.firebaseio.com",
+    "project_id": "cmms-production-895632147",
+    "storage_bucket": "cmms-production-895632147.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:749447955380:android:d6e4f42f2be2cdd2",
+        "android_client_info": {
+          "package_name": "com.multitenant.cryotos"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "749447955380-gbpkqdqit54ci6hm372n2q2rjg78m65u.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCUxPvwNUChVX5BW2uhoOllI-993QRaENE"
+        },
+        {
+          "current_key": "AIzaSyCNWdWwYkxj7zMfpDyXqCHcrYzwvNKV-2Q"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "749447955380-gbpkqdqit54ci6hm372n2q2rjg78m65u.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "749447955380-9kh8am476g5ssqvejoq3qmidrhvq33ug.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.piqotech.cryotos"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

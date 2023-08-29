@@ -1,0 +1,61 @@
+<!-- <ion-backdrop *ngIf="backDropDismiss" [visible]="true"></ion-backdrop> -->
+<ion-content class="login account-form">
+  <div class="login-box box-outer">
+    <div class="login-title">
+    </div>
+    <form (ngSubmit)="userLogin()" #registerForm="ngForm" class="login-form">
+      <ion-list class="ionlist mb-18">
+      <ion-item class="mb-8">
+        <ion-label position="floating">{{'Email' | translate}}</ion-label>
+          <ion-input  type="email" name="email" id="email" autofocus="true" (keyup.enter)="focusPassword()" (ionChange)="validateEmail(loginCredentials.email)" autocomplete="on" [(ngModel)]="loginCredentials.email" (ngModelChange)="loginCredentials.email = $event.toLocaleLowerCase();validateEmail(loginCredentials.email)" email
+          clearInput required></ion-input>
+          <!-- clearInput  -->
+      </ion-item>
+      <ion-note color="danger"*ngIf="errorMsg">
+        <span *ngIf="errorMsg" class="error-danger" style="position: relative;top: 0px;left: 3px;">{{msg}}</span>
+      </ion-note>
+      
+      <ion-item>
+        <ion-label position="floating">{{'password' | translate}}</ion-label>
+          <ion-input type="password" #password id="password" (keyup.enter)="log()" (ionChange)="validPassword(loginCredentials.password)" name="password" clearInput
+          [(ngModel)]="loginCredentials.password" required>
+
+        </ion-input>
+        <span *ngIf="loginCredentials && loginCredentials.password"class="type-toggle" (click)="toggleShow()">
+          <ion-icon class="show-option" style="font-size:18px"color="secondary" [hidden]="showPassword" name="eye-off-outline" align-self-end></ion-icon>
+          <ion-icon class="hide-option" style="font-size:18px"color="secondary" [hidden]="!showPassword"  name="eye-outline" align-self-end></ion-icon>
+        </span>
+        </ion-item>
+        <ion-note color="danger"*ngIf="passwordinvalid">
+          <span *ngIf="passwordinvalid" class="error-danger" style="position: relative;top: 0px;left: 3px;">{{passworderrormsg}}</span>
+        </ion-note>
+        <span type="submit" id="forgot-btn" (click)="gotoForgotPwdPage()">{{'Forgot Password' | translate}}?</span>
+      </ion-list>
+        <!-- <ion-row class="ion-padding">
+          <ion-col class="signup-col">
+            <ion-button class="submit-btn" color="white"  id="login"fill="clear"expand="full" (click)="log()"
+              [disabled]="!registerForm.form.valid">SIGN IN</ion-button>
+          </ion-col>
+        </ion-row> -->
+        <ion-list>
+          <ion-button size="large" class="submit-btn" color="white"  id="login" fill="clear"expand="full" (click)="userLogin()">{{'Login' | translate}}</ion-button>
+        </ion-list>
+        <ion-list>
+          <ion-button size="large" class="submit-btn-sec" color="white"  id="login" fill="clear" expand="full" (click)="gotoScheduleDemoPage()">{{'Schedule a demo' | translate}}</ion-button>
+        </ion-list>
+      </form> 
+      <ion-item>
+      <span class="signup-link" type="submit" id="forgot-btn">{{'Don’t have an account' | translate}}?<a (click)="gotoSingup()"> {{'Sign up' | translate}}</a></span> 
+      </ion-item>
+      <!-- <ion-row>
+        <ion-col size="12">
+          <label type="submit" id="forgot-btn" (click)="gotoForgotPwdPage()"><u>Forgot Password?</u></label>
+        </ion-col>
+        <ion-col size="12">
+          <label type="submit" id="forgot-btn" (click)="signupforfree()"><u>SignUp?</u></label>
+        </ion-col>
+      </ion-row> -->
+     
+     
+  </div>
+</ion-content>

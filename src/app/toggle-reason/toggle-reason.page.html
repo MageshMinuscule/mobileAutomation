@@ -1,0 +1,16 @@
+<!-- Toggle with Reason -->
+<ion-item style="margin-left:.75em !important;margin-right: .75em!important;" *ngIf="incident.type == 'toggleWithReason'" lines="none">
+    <ion-label class="ellip-rm-hover workflow-label">{{incident.label}}
+        <span class="req-star" *ngIf="incident.compulsory">*</span>
+    </ion-label>
+    <ion-toggle mode="ios" color="primary" class="tooglebgcolor" [(ngModel)]="incident.value" (ionChange)="incident.isToggled = !incident.isToggled"
+        [name]="name" [required]="incident.compulsory"></ion-toggle>
+  </ion-item>
+  <ion-item *ngIf="incident.type == 'toggleWithReason' && incident.isToggled" lines="none">
+    <ion-label position="floating" class="workflow-label">
+        {{"Reason"}} <span class="req-star"> *</span>
+    </ion-label>
+    <ion-textarea class="borderhidden" autocomplete="off" (ionChange)="removeSpecialCharacter($event)" [(ngModel)]="incident.reason" [required]="true" [name]="name"
+        [maxlength]="400" (ionBlur)="incident.reason = common.removeSpace(incident.reason)">
+    </ion-textarea>
+  </ion-item>

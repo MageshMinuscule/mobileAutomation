@@ -1,0 +1,9 @@
+
+  <ion-item *ngIf="incident.type == 'textArea'" class="ion-text-wrap template-field-input" lines="none">
+    <ion-label class="workflow-label"position="floating" color="secondary"> {{incident.label}}
+        <span class="req-star" *ngIf="incident.compulsory">*</span>
+    </ion-label>
+    <ion-textarea type="text" lines="none"class="borderhidden border-bottom" autocomplete="off" [readonly]="incident.readOnly" (ionInput)="Blur($event)" [(ngModel)]="incident.value" [required]="incident.compulsory"
+        [name]="name" [maxlength]="incident.length" (ionBlur)="incident.value = common.removeSpace(incident.value)" autoGrow="true">
+    </ion-textarea>
+  </ion-item>

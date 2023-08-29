@@ -1,0 +1,158 @@
+ion-item {
+    background: none !important;
+}
+
+.chartHead{
+    font-family: 'Roboto';
+font-style: normal;
+font-weight: 500;
+font-size: 14px;
+line-height: 18px;
+/* identical to box height, or 129% */
+
+letter-spacing: 0.4px;
+
+color: #333333;
+}
+.chartHead-side{
+    font-family: 'Roboto';
+font-style: normal;
+font-weight: 500;
+font-size: 14px;
+line-height: 18px;
+/* identical to box height, or 129% */
+
+letter-spacing: 0.4px;
+
+color: #999999;
+}
+.line-code {
+    width: 100% !important;
+    border: 1px solid rgba(195, 197, 200, 0.5);
+}
+.grid-view {
+    display: grid !important;
+}
+.sub-label {
+    margin-bottom:1em;
+    font-family: 'Roboto';
+font-style: normal;
+font-weight: 400;
+font-size: 14px;
+line-height: 14px;
+/* identical to box height */
+
+
+color: #333333;
+
+
+/* Inside auto layout */
+
+flex: none;
+order: 1;
+flex-grow: 0;
+margin-left:4em;
+// margin-top:1em;
+}
+.box-label {
+background: #FFFFFF;
+border: 1px solid #C3C5C8;
+border-radius: 4px;
+margin-left:1.5em;
+margin-right:1.5em;
+margin-top:1.5em;
+}
+.dis-fit {
+    margin-left:1em;
+    margin-right:.5em;
+    margin-top:.5em;
+    margin-bottom: .5em;
+}
+.time-label {
+    font-family: 'Roboto';
+font-style: normal;
+font-weight: 500;
+font-size: 24px;
+line-height: 28px;
+
+color: #3C75C6;
+
+
+/* Inside auto layout */
+
+flex: none;
+order: 0;
+flex-grow: 0;
+}
+.time-note {
+    font-family: 'Roboto';
+font-style: normal;
+font-weight: 400;
+font-size: 12px;
+line-height: 18px;
+/* identical to box height, or 150% */
+
+
+/* Text / Weak */
+
+color: #3E3E3C;
+
+
+/* Inside auto layout */
+
+flex: none;
+order: 1;
+flex-grow: 0;
+}
+
+.r-blue {
+    border-radius: 50%;
+    width: 12px;
+   height: 12px;
+   background: #A0BDE7;
+   margin-right:.5em;
+}
+.r-dblue {
+    border-radius: 50%;
+    width: 12px;
+   height: 12px;
+   margin-right:.5em;
+   background: #3C75C6;
+}
+.dis-text {
+    // width: 62px;
+// height: 18px;
+
+/* 02 - Label / Default */
+
+font-family: 'Segoe UI';
+font-style: normal;
+font-weight: 400;
+font-size: 14px;
+line-height: 18px;
+/* identical to box height, or 150% */
+
+
+/* Text / Weak */
+
+color: #3E3E3C;
+
+
+/* Inside auto layout */
+
+flex: none;
+order: 0;
+flex-grow: 0;
+}
+.dis-num {
+    font-family: 'Segoe UI';
+    font-style: normal;
+    font-weight: 600;
+    font-size: 14px;
+    line-height: 16px;
+    color: #333333;    
+    flex: none;
+    order: 1;
+    flex-grow: 0;
+    margin-left:3em;
+}

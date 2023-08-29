@@ -1,0 +1,87 @@
+
+<div   *ngFor="let form of templateForm | keys">
+  <div *ngIf="form.key != 'hasNext'">
+      <h5 class="hint-title">
+          {{form.key}}
+          <span class="req-star" *ngIf="form.key == 'Priority'">*</span>
+      </h5>
+      <div class="asset-add" *ngFor="let incident of form.value | keys">
+        <!-- Text Area -->
+        <app-text-area [incident]="incident.value" [name]="incident.key"
+            *ngIf="incident.value.type == 'textArea'">
+        </app-text-area>
+        <!-- Text Input -->
+        <app-text-input [incident]="incident.value" [name]="incident.key"
+            *ngIf="incident.value.type == 'textInput'">
+        </app-text-input>
+        <!-- Hyperlink -->
+        <app-hyper-link [incident]="incident.value" [name]="incident.key" *ngIf="incident.value.type == 'link'">
+        </app-hyper-link>
+        <!-- Staticlink -->
+        <app-static-link [incident]="incident.value" [name]="incident.key"
+            *ngIf="incident.value.type == 'staticLink'">
+        </app-static-link>
+        <!-- Numeric Input -->
+        <app-number-input [incident]="incident.value" [name]="incident.key" *ngIf="incident.value.type == 'numeric'">
+        </app-number-input>
+        <!-- Radio Button -->
+        <app-radio-button [incident]="incident.value" [name]="incident.key"
+            *ngIf="incident.value.type == 'radioButton'">
+        </app-radio-button>
+        <!-- Dropdown -->
+        <app-dropdown [incident]="incident.value" [name]="incident.key" *ngIf="incident.value.type == 'dropDown'">
+        </app-dropdown>
+        <!-- checkbox -->
+        <app-checkbox-view [incident]="incident.value" [name]="incident.key" *ngIf="incident.value.type == 'checkBox'">
+        </app-checkbox-view>
+        <!-- Images -->
+        <app-images [incident]="incident.value" [name]="incident.key"
+              *ngIf="incident.value.type == 'images'"></app-images>
+        <!-- Image Upload with Multiple Images -->
+        <app-image-annotation [incident]="incident.value" [name]="incident.key"
+            *ngIf="incident.value.type == 'imageWithAnnotation'"></app-image-annotation>
+        <!-- Table -->
+        <app-table [incident]="incident.value" [name]="incident.key" *ngIf="incident.value.type == 'table'">
+        </app-table>
+        <!-- Signature with Satisfactory -->
+        <app-sign-satisfactory [incident]="incident.value" [name]="incident.key"
+            *ngIf="incident.value.type == 'signaturewithSatisfactory'"></app-sign-satisfactory>
+        <!-- Signature Only -->
+        <app-signature [incident]="incident.value" [name]="incident.key" *ngIf="incident.value.type == 'signatureOnly'">
+        </app-signature>
+        <!-- Satisfactory Only -->
+        <app-satisfactory [incident]="incident.value" [name]="incident.key"
+            *ngIf="incident.value.type == 'satisfactoryOnly'">
+        </app-satisfactory>
+        <!-- Toggle -->
+        <app-toggle [incident]="incident.value" [name]="incident.key" *ngIf="incident.value.type == 'toggle'">
+        </app-toggle>
+        <!-- Toggle with Reason -->
+        <app-toggle-reason [incident]="incident.value" [name]="incident.key"
+            *ngIf="incident.value.type == 'toggleWithReason'"></app-toggle-reason>
+        <!-- Video Upload -->
+        <app-video [incident]="incident.value" [name]="incident.key" *ngIf="incident.value.type == 'video'">
+        </app-video>
+        <!-- Date Time Filed -->
+        <app-datetime [incident]="incident.value" [name]="incident.key" [templatedata]="templateForm"
+            *ngIf="(incident.value.type == 'dateTime' || incident.value.type == 'date')"></app-datetime>
+        <app-audit [incident]="incident.value" [name]="incident.key" *ngIf="incident.value.type == 'audit'"></app-audit>
+        <app-audit-pf [incident]="incident.value" [name]="incident.key" *ngIf="incident.value.type == 'auditPF'"></app-audit-pf>
+    </div>
+</div>
+</div>
+<div  *ngIf="nextSection && nextSection.length && nextSection.length > nextCount" class="ion-padding">
+<ion-row>
+    <ion-col size="6">
+        <ion-button (click)="showNext()" expand="block" >
+          {{"Next" | translate}}
+        </ion-button>
+    </ion-col>
+</ion-row> 
+</div>
+<div class="ion-padding" *ngIf="(nextSection && !nextSection.length) || (nextSection && nextSection.length <= nextCount)">
+<ion-grid>
+    <app-button [type]="type" [buttons]="buttons" [templatedata]="templatedata" [requestData]="requestData"
+        [draftRequest]="draftRequest" [form]="form" [workRequest]="workRequest" [requestTimer]="requestTimer"></app-button>
+</ion-grid>
+</div>

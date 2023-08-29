@@ -1,0 +1,46 @@
+<!-- Satisfactory Only -->
+<ion-grid *ngIf="incident.type == 'satisfactoryOnly'" class="template-field-input">
+    <ion-label class="workflow-label" style="font-size: 15px !important;">{{incident.label}}
+        <span class="req-star" *ngIf="incident.compulsory">*</span>
+    </ion-label>
+    <ion-row class="emoji">
+        <ion-col size="2.4" (click)="templateProvider.selectEmoji('Very Unsatisfied', incident)" tappable [ngClass]="incident.value && incident.value === 'Very Unsatisfied' ? 'selected' : ''">
+            <div>
+                <img src="assets/imgs/emoji/em1.png">
+            </div>
+            <p class="emoji-text">{{'Very Unsatisfied'}}</p>
+        </ion-col>
+        <ion-col size="2.4" (click)="templateProvider.selectEmoji('Unsatisfied', incident)" tappable [ngClass]=" incident.value === 'Unsatisfied' ? 'selected' : ''">
+            <div>
+                <img src="assets/imgs/emoji/em2.png">
+            </div>
+            <p class="emoji-text">{{'Unsatisfied'}}</p>
+        </ion-col>
+        <ion-col size="2.4" button (click)="templateProvider.selectEmoji('Neutral', incident)" tappable [ngClass]="incident.value && incident.value=='Neutral' ? 'selected' : ''">
+            <div>
+                <img src="assets/imgs/emoji/em3.png">
+            </div>
+            <p class="emoji-text">{{'Neutral'}}</p>
+        </ion-col>
+        <ion-col size="2.4" button (click)="templateProvider.selectEmoji('Satisfied', incident)" tappable [ngClass]="incident.value && incident.value  =='Satisfied' ? 'selected' : ''">
+            <div>
+                <img src="assets/imgs/emoji/em4.png">
+            </div>
+            <p class="emoji-text">{{'Satisfied'}}</p>
+        </ion-col>
+        <ion-col size="2.4" button (click)="templateProvider.selectEmoji('Extremely Satisfied', incident)" tappable [ngClass]="incident.value && incident.value =='Extremely Satisfied' ? 'selected' : ''">
+            <div>
+                <img src="assets/imgs/emoji/em5.png">
+            </div>
+            <p class="emoji-text">{{'Extremely Satisfied'}}</p>
+        </ion-col>
+    </ion-row>
+  </ion-grid>
+  <ion-item class="reason-txt" *ngIf="incident.type == 'satisfactoryOnly' && incident.value && (incident.value =='Very Unsatisfied' || incident.value =='Unsatisfied')">
+    <ion-label position="stacked">
+        {{ 'Reason'}}
+        <span class="req-star">*</span>
+    </ion-label>
+    <ion-input type="text"[(ngModel)]="incident.reason" [name]="name" (ionBlur)="incident.reason = common.removeSpace(incident.reason)" required></ion-input>
+  </ion-item>
+  

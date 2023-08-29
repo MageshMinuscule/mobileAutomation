@@ -1,0 +1,7 @@
+<!-- Toggle -->
+<ion-item class="template-field-input" style="margin-left:.75em !important;margin-right:.75em !important;"*ngIf="incident.type == 'toggle'" lines="none">
+  <ion-label class="workflow-label">{{incident.label}}
+      <span class="req-star" *ngIf="incident.compulsory">*</span>
+  </ion-label>
+  <ion-toggle mode="ios" color="primary" class="tooglebgcolor" [(ngModel)]="incident.value" [name]="name" [required]="incident.compulsory"></ion-toggle>
+</ion-item>

@@ -1,0 +1,98 @@
+<ion-header>
+  <ion-toolbar color="secondary">
+    <ion-title [ngClass]="{'tittle-request': subHeader!= null}" mode="md">{{ requestTitle | translate }}</ion-title>
+    <ion-subtitle  *ngIf="subHeader">{{subHeader | translate}}</ion-subtitle>
+    <ion-buttons slot="start">
+      <ion-button (click)="back()">
+        <ion-icon slot="icon-only" name="chevron-back-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-buttons slot="end" *ngIf="module == 'job-list' && selectedRequest?.requestStatus == 'Closed'">
+      <ion-button (click)="downloadReport()">
+        <ion-icon slot="icon-only" name="cloud-download-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="selection-content">
+  <!-- <ion-fab  vertical="bottom" horizontal="end" slot="fixed">
+    <ion-fab-button class="caret-upcolor" color="secondary">
+      <ion-icon  class="fabcolor" name="caret-up-outline" ></ion-icon>
+    </ion-fab-button>
+    <ion-fab-list side="top">
+      <ion-fab-button (click)="gotoAdd('update')" class="outline-icon" *ngIf="workFlowType == 'asset' && type == 'pending'" color="white">
+        <ion-icon  class="icon-size" color="secondary" name="pencil-outline"></ion-icon>
+      </ion-fab-button>
+      <ion-label style="right: 1em;" *ngIf="workFlowType == 'asset' && type == 'pending'">Asset</ion-label>
+      <ion-fab-button class="with-tooltip outline-icon" data-tooltip-content="Update Asset" (click)="viewAsset('update')" color="white" *ngIf="selectedRequest.assetId && type != 'pending'">
+        <ion-icon  class="icon-size" color="secondary" name="pencil-outline"></ion-icon>
+      </ion-fab-button>
+      <ion-label style="right: 1em;" *ngIf="selectedRequest.assetId && type != 'pending'"> Asset</ion-label>
+      <ion-fab-button class="with-tooltip outline-icon" data-tooltip-content="Asset History" (click)="getAssetHistory()" *ngIf="selectedRequest.assetId" color="white">
+        <ion-icon  class="icon-size" color="secondary" name="logo-buffer"></ion-icon>
+      </ion-fab-button>
+      <ion-label *ngIf="selectedRequest.assetId">Asset History</ion-label>
+      <ion-fab-button class="with-tooltip outline-icon" data-tooltip-content="Parts" (click)="gotoParts()" color="white">
+        <ion-icon class="icon-size" color="secondary" name="construct-outline"></ion-icon>
+      </ion-fab-button>
+      <ion-label style="right: 1em;">Parts</ion-label>
+      <ion-fab-button class="with-tooltip outline-icon" data-tooltip-content="Attachments" (click)="gotoAttachment()" color="white">
+        <ion-icon  class="icon-size" color="secondary" name="attach-outline"></ion-icon>
+      </ion-fab-button>
+      <ion-label>Attachments</ion-label>
+      <ion-fab-button class="with-tooltip outline-icon" data-tooltip-content="Labour Tasks" (click)="gotoLabourTasks()" color="white">
+        <ion-icon   class="icon-size" color="secondary" name="hourglass-outline"></ion-icon>
+      </ion-fab-button>
+      <ion-label>Labour Tasks</ion-label>
+      <ion-fab-button class="with-tooltip outline-icon" data-tooltip-content="Contact" (click)="gotoContact()" color="white">
+        <ion-icon class="icon-size" color="secondary" name="person-outline"></ion-icon>
+      </ion-fab-button>
+      <ion-label style="right: 1.8em;">Contact</ion-label>
+    </ion-fab-list>
+  </ion-fab> -->
+
+  <ion-item-group no-padding>
+    <app-work-detail [templateSchema]="selectedRequest" [requestTitle]="requestTitle" [subHeader]="subHeader" [count]="count"[tab]="tab" [module]="module" [id]="instanceId"[type]= "type"></app-work-detail>
+  </ion-item-group>
+</ion-content>
+
+<ion-footer *ngIf="type != 'view'" class="footer" lines="none">
+  <ion-grid class="ion-no-padding" lines="none">
+    <ion-row>
+      <ion-col size="12" class="ion-no-padding"
+        *ngIf="!isAck && !isTrackEnabled && !isCheckIn && !selectedRequest.routeForm && !selectedRequest.routeFormString">
+        <ion-button class="commentsbutton algin-btn" (click)="showChat()" color="white" size="large" style="margin:0px" expand="full"  >
+          {{ "comments" | translate }}
+        </ion-button>
+      </ion-col>
+      <ion-col size="6" class="ion-no-padding"
+        *ngIf="isAck || isTrackEnabled || isCheckIn || selectedRequest.routeForm || selectedRequest.routeFormString">
+        <ion-button class="commentsbutton algin-btn" size="defalut"  color="white" fill="outline" (click)="showChat()" style="margin:0px">
+          {{ "comments" | translate }}
+        </ion-button>
+      </ion-col>
+      <ion-col size="6" class="ion-no-padding" *ngIf="isAck">
+        <ion-button icon-left  size="defalut" class="algin-btn" [disabled]="shown" color="tertiary" fill="solid" [disabled]=""(click)="acknowledge()" style="margin:0px">
+          {{ "acknowledge" | translate }}
+        </ion-button>
+      </ion-col>
+      <ion-col size="6" class="ion-no-padding" *ngIf="!isAck && isTrackEnabled">
+        <ion-button expand="full" size="defalut" class="algin-btn"  color="secondary"[disabled]="shownStart" (click)="startWork()" style="margin:0px">
+          {{ "Start Work" | translate }}
+        </ion-button>
+      </ion-col>
+      <ion-col size="6" class="ion-no-padding" [disabled]="shownCheckIn" *ngIf="!isAck && !isTrackEnabled && isCheckIn">
+        <ion-button expand="full" size="default" class="algin-btn"  color="secondary" (click)="userCheckin()" style="margin:0px">
+          {{ "checkIn" | translate }}
+        </ion-button>
+      </ion-col>
+      <ion-col size="6" class="ion-no-padding"
+        *ngIf="!isAck && !isTrackEnabled && !isCheckIn && (selectedRequest.routeForm || selectedRequest.routeFormString)">
+        <ion-button class="updateStatussbutton algin-btn" [disabled]="shownUpdate" expand="full" size="default" fill="solid" color="secondary"  (click)="updateWork()" style="margin:0px">
+          {{ "updateStatus" | translate }}
+        </ion-button>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-footer>

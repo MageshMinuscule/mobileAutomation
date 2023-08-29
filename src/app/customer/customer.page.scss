@@ -1,0 +1,15 @@
+.item-select .label {
+    max-width: 300px;
+}
+.search-results ion-label {
+    color: #384074;
+}
+ion-label[fixed] {
+    flex: 3 !important;
+    font-size: inherit !important;
+    max-width: 300px !important;
+}
+#map {
+    height: 350px;
+    width: 100%;
+}

@@ -1,0 +1,47 @@
+
+
+<ion-grid class="template-field" *ngIf="incident.type == 'images'">
+  <ion-row class="uploadpadding">
+      <ion-col class="workflow-label" size="12" style="font-size: 14px;">
+          {{incident.label}}
+          <span class="req-star" *ngIf="incident.compulsory">*</span>
+      </ion-col>
+      <ion-col size="12" class="imagesbrowser" style="margin-right: 10px;">
+          <ion-button style="margin-top: 10px;" fill="clear">
+            <input multiple type="file" class="chooseimage" accept="image/*" (change)="pickImage($event, incident)"  #fileInput />
+              <iconify-icon icon="uil:image-upload" style="color: #3c75c6;font-size: 33px;"></iconify-icon>
+          </ion-button>
+          <div class="imagetext">{{'BrowsePhotos' | translate}}</div>
+      </ion-col>
+      <ion-col size="12">
+        <div class="imagetext">{{msg | translate}}</div>
+      </ion-col>
+  </ion-row>
+</ion-grid>
+<ion-grid *ngIf="(incident.type == 'images') && incident.images && incident.images.length > 0">
+  <ion-row class="uploadpadding Upload-row" *ngFor="let img of incident.images; let i=index" >
+      <ion-col size="12" *ngIf="img && img.src?.length > 10">
+          <!-- <ion-icon name="trash-outline" color="secondary"></ion-icon> -->
+          <span style="position:relative;float:right;color:#3C75C6" (click)="deleteSingleImg(incident,i)">{{'Delete' | translate}}</span>
+      </ion-col>
+      <ion-col size="12"  style="height:100px" >
+        <ion-button class="border"  class="downloadicon" (click)="getOnlineImg(incident,i)"fill="clear" *ngIf="img && img.src?.length < 50">
+            <ion-icon slot="icon-only"  name="cloud-download-outline"></ion-icon>
+        </ion-button>
+        <div *ngIf="img && img.src?.length > 60" class="preview-img">
+            <img class="centered" [src]="'data:image/jpeg;base64,'+img.src" 
+            (click)="presentModal(incident.images, i, img.src)">
+        </div>
+      </ion-col>
+      <ion-col size="12">
+          <ion-list class="template-field">
+              <ion-item style="--padding-start: 0;">
+                  <ion-input class="image-desc"style="font-size: 12px;" type="text" placeholder="Image Description"
+                      [(ngModel)]="img.description" (ionBlur)="img.description = common.removeSpace(img.description)" name="description-{{i}}-{{incident.label}}"></ion-input>
+              </ion-item>
+          </ion-list>
+      </ion-col>
+  </ion-row>
+</ion-grid>
+
+<ion-progress-bar [type]="'indeterminate'" *ngIf="showLoader"></ion-progress-bar>

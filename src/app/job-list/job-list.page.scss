@@ -1,0 +1,111 @@
+ion-header{
+    font-family: "Poppins";
+}
+ion-title{
+    text-align: left;
+    font-size: 22px;
+    font-weight: 500;
+    padding-left: 62px;
+}
+.bdg-cls {
+    margin-top: -2em !important;
+    margin-left: -1em !important;
+  }
+.headerbutton{
+    font-family: "Poppins";
+    width: 50%;
+    span{
+      margin-right: 60px;
+      font-size: 12px;
+      padding: 0;
+    }
+    ion-badge{
+        position: absolute;
+        font-size: 12px;
+        border-radius: 50%;
+        margin-left: 124px;
+    }
+}
+    
+.headerbutton2{
+    width: 50%;
+    font-family: "Poppins";
+    span{
+    margin-right: 74px;
+    font-size: 12px;
+    padding: 0;
+    }
+    ion-badge{
+    position: absolute;
+    font-size: 12px;
+    border-radius: 50%;
+    margin-left: 94px;
+    }
+}
+app-jobs-list
+{
+width: 100%;
+padding-top: 0px;
+font-family: "Poppins";
+}
+
+.segtxtcase {
+    text-transform: uppercase!important;
+}
+
+.badge {
+            border-radius: 25px;
+            padding: 8px 8px;
+        }
+        .count {
+            border-radius: 50%;
+            padding: 3px 8px;
+        }
+
+ion-toolbar ion-segment-button {
+    // max-width: 50vw;
+    font-size: small;
+    line-height: 4.2rem;
+    margin-right: -25px;
+
+}
+// .segment-button-checked{
+//     border-bottom: 3px solid #ff4b4b;
+//     color: #fff;
+// }
+
+.action-sheet-custom-button {
+    color: red !important;
+}
+.action-sort-sheet  {
+    justify-content: start !important;
+}
+.action-sheet-button {
+    min-height: 3.8rem !important;
+}
+ion-footer {
+    background: #efefef;
+}
+.Monthly {
+    color: #30bfbf;
+}
+.sort-class {
+    padding: 10px; // text-align: center;
+    .tag-box {
+        padding-left: 20px;
+    }
+    .action-sheet-title {
+        text-align: center !important;
+        background: #323e70 !important;
+        color: #fbf9f9;
+        font-size: 1.4rem !important;
+    }
+    .action-sheet-button {
+        font-size: 1.2rem;
+    }
+    .action-sheet-md .action-sheet-group .button-inner {
+        justify-content: center;
+    }
+}
+
+

@@ -1,0 +1,203 @@
+<div class="accord-div">
+  <ion-card *ngIf="templateSchema.rejectionComments" class="" style="background: rgb(225 238 255 / 50%);">
+    <ion-card-header class="rejectcard">
+      {{'rejectCommentsBy' | translate}} - {{templateSchema.rejectionComments.user}}
+    </ion-card-header>
+    <ion-card-content class="rejectcard"> 
+      {{templateSchema.rejectionComments.comment}}
+    </ion-card-content>
+  </ion-card>
+  <ion-list>
+    <ion-item class="list-view" lines="none" no-padding style="margin-bottom: 10px;">
+      <ion-grid>
+        <ion-row class="mt-10">
+          <ion-col size="6">
+            <div class="cat-label">
+              <span [ngClass]="{
+                'priority-critical':templateSchema.requestPriority=='CRITICAL',
+                'priority-urgent':(templateSchema.requestPriority =='URGENT' || templateSchema.requestPriority == 'IMPORTANT'),
+                'priority-normal':templateSchema.requestPriority=='NORMAL'
+              }"></span>
+              <span class="priority-type" [ngStyle]="{'color': templateSchema.requestPriority=='CRITICAL' ? '#FE3030': templateSchema.requestPriority =='URGENT' ? '#EF8F4B' : '#3C75C6' }">
+                {{templateSchema.requestPriority=='CRITICAL' ? 'Critical': templateSchema.requestPriority =='URGENT' ? 'Urgent' : 'Normal' | translate}}</span>
+              <span class="ml-p5" style="font-size:15px">#{{templateSchema && templateSchema.requestKey ? templateSchema.requestKey : templateSchema.requestId}}</span>
+            </div>
+          </ion-col>
+          <ion-col class=""size="6">
+            <span class="algin-end" *ngIf = "templateSchema.requestStatus === 'New'" style="color:rgb(126 126 126);font-size: 15px;max-width: 140px;min-width:40px"><iconify-icon icon= "teenyicons:tick-circle-solid" style="position: relative;top:2px;color: #3c75c6;margin-right: 1px;font-size: 16px;"></iconify-icon><span style="margin-left: 6px;">{{'new' | translate}}</span></span>
+            <span class="algin-end" *ngIf = "templateSchema.requestStatus === 'Closed'" style="color:rgb(126 126 126);font-size: 15px;max-width: 140px;min-width:40px"><iconify-icon icon= "teenyicons:tick-circle-solid" style="position: relative;top:2px;color: #127701;margin-right: 1px;font-size: 16px;"></iconify-icon><span style="margin-left: 6px;">{{'closed' | translate}}</span></span>
+            <span class="algin-end"*ngIf = "templateSchema.requestStatus === 'Draft'" style="color:rgb(126 126 126);font-size: 15px;max-width: 140px;min-width:40px"><iconify-icon icon= "carbon:license-maintenance-draft" style="position: relative;top:2px;color: #3c75c6;font-size: 16px;"></iconify-icon><span style="margin-left: 6px;">{{'draft' | translate}}</span></span>
+            <span *ngIf = "templateSchema.requestStatus === 'WIP' || templateSchema.requestStatus === 'Pending'" style="color:rgb(126 126 126);font-size: 15px;"><iconify-icon icon= "carbon:in-progress" style="color: #3c75c6;font-size: 16px;position: relative;top:2px;"></iconify-icon><span style="margin-left: 6px;">{{'Work In Progress' | translate}}</span></span>
+          </ion-col>
+          <ion-col size="12" class="text-truncate" style="white-space: pre-line !important;"*ngIf="templateCat">
+            <div class="cat-label">
+              <span style="font-size: 15px;font-weight: 600;margin-right: 6px;">{{templateCat}}</span>
+            </div>
+          </ion-col>
+          <!-- <ion-col size="12">
+            <span style="color:#7E7E7E;font-size:15px;font-weight: 400;">Last updationDate : </span> <span style="color:#333333;font-size:14px;font-weight: 500;"> {{templateSchema.requestLastUpdated | date: 'dd MMM yy'}} {{templateSchema.requestLastUpdated | date:'shortTime'}}</span>
+          </ion-col> -->
+          <ion-col *ngIf="templateWorkflow"style="color:#8e9093;font-size: 15px;" size="12">
+            <iconify-icon icon="mdi:workflow-outline" class="i-size-list"></iconify-icon>
+            <!-- <ion-icon name="git-network-outline" ></ion-icon> -->
+            <span style="padding-left: 5px;font-size: 15px;">{{templateWorkflow}}</span>
+          </ion-col>
+          <ion-col style="color:#8e9093;font-size: 15px;" *ngIf="requestCustomerName" size="12">
+            <ion-icon name="business-outline" class="i-size-list" ></ion-icon>
+            <span style="padding-left: 5px;font-size: 15px;">{{requestCustomerName}}</span>
+          </ion-col>
+          <!-- <ion-col *ngIf="templateSchema && templateSchema.assetName" style="color:#8e9093;font-size: 15px;" size="12">
+            <ion-icon class="i-size-list" name="server-outline"></ion-icon>
+            <span style="padding-left: 5px;font-size: 15px;">{{templateSchema && templateSchema.assetName ? templateSchema.assetName : ''  }}  (   {{(templateSchema.assetSerialNo)}})</span>
+          </ion-col> -->
+          <ion-col *ngIf="templateLoc" style="color:#8e9093;padding-bottom: 0;font-size: 14px;" size="12">
+            <ion-icon name="location" class="i-size-list"></ion-icon>
+            <span style="padding-left: 5px;font-size:15px" *ngIf="!templateSchema.autoDeskImage">{{templateLoc}}</span>
+            <span style="padding-left: 5px;font-size:15px" *ngIf="templateSchema.autoDeskImage" class="has-bim-image"
+              (click)="gotoBim(templateSchema.autoDeskImage, templateLoc)">{{templateLoc}}</span>
+          </ion-col>
+          <ion-col size="12" *ngIf="type=='pending' && templateSchema.latitude" style="padding-top: 0;">
+            <ion-button size="small" fill="clear" color="secondary" (click)="viewOnMap()"
+              round>{{'viewMap' | translate}}</ion-button>
+          </ion-col>
+          <ion-col size="12" *ngIf="startedBy">
+            <ion-button size="small" fill="outline" color="success" (click)="viewUserOnMap()" round>{{'Track User' |
+                translate}}</ion-button>
+          </ion-col>
+          <ion-col size="12" *ngIf="templateSchema.requestRaisedBy" width-100>
+            <div class="raisedBy-label" style="font-size:15px;" >{{'by' | translate}}:
+              {{templateSchema.requestRaisedBy }}</div>
+            <p class="p-font" style="color: #333333;font-size:15px;" *ngIf="templateSchema.requestSubmissionDate">{{templateSchema.requestSubmissionDate  }} ago</p>
+          </ion-col>
+        </ion-row>
+        <!-- <ion-button (click)="onClick()"  fill="clear" shape="round">
+          Click me
+        </ion-button> -->
+        <ion-row *ngIf="onLine">
+          <ion-col size="6">
+            <ion-button style="background: rgba(225, 238, 255, 0.5);" [fill]="labourTypeInput" color="secondary" (click)="gotoLabourTasks()">
+              <iconify-icon *ngIf="totalLabourCount != 0" style="font-size:24px;font-weight:800"icon="healthicons:miner-worker-outline"></iconify-icon>
+              <ion-icon *ngIf="totalLabourCount == 0" slot="start" name="add"></ion-icon>
+              <span class="pt-p25 ellipsis">{{'Labour Tasks' | translate}}</span>
+              <span  *ngIf="totalLabourCount != 0">({{totalLabourCount}})</span>
+            </ion-button>
+          </ion-col>
+
+          <ion-col size="6" *ngIf="profile?.workflowType == 'asset'">
+            <ion-button  style="background: rgba(225, 238, 255, 0.5);" fill="clear" color="secondary" (click)="getAssetHistory()">
+              <ion-icon slot="start" color="secondary" name="server-outline"></ion-icon>
+              <span class="pt-p25 ellipsis">{{'Asset History' | translate}}</span>
+            </ion-button>
+          </ion-col>
+          <ion-col size="6">
+            <ion-button  style="background: rgba(225, 238, 255, 0.5);" [fill]="attachmentsTypeInput" color="secondary" (click)="gotoAttachment()">
+              <ion-icon slot="start"*ngIf="totalAttachmentCount != 0" color="secondary"name="attach-outline"></ion-icon>
+              <span class="pt-p25 ellipsis">{{'Attachments' | translate}}</span>
+            </ion-button>
+          </ion-col>
+          <ion-col size="6">
+            <ion-button  style="background: rgba(225, 238, 255, 0.5);" [fill]="partsTypeInput" color="secondary" (click)="gotoParts()">
+              <ion-icon *ngIf="totalPartsCount != 0" slot="start" color="secondary"name="construct-outline"></ion-icon>
+              <ion-icon *ngIf="totalPartsCount == 0" slot="start" name="add"></ion-icon>
+              <span class="pt-p25 ellipsis" >{{'inventory' | translate}}</span>
+              <span  *ngIf="totalPartsCount != 0">({{totalPartsCount}})</span>
+            </ion-button>
+          </ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col  *ngIf="templateSchema && templateSchema?.assetName || profile?.workflowType == 'asset' " size="12">
+            <ion-button  (click)="viewAsset()" style="background: rgba(225, 238, 255, 0.5);"fill="clear" color="secondary">
+              <ion-icon *ngIf="templateSchema && !templateSchema?.assetName" slot="start" color="secondary"  name="add"></ion-icon>
+              <ion-icon *ngIf="templateSchema && templateSchema?.assetName" color="secondary" slot="start" name="server-outline"></ion-icon>
+              <span  *ngIf="templateSchema && templateSchema?.assetName" class=" pt-p25">{{templateSchema && templateSchema.assetName ? templateSchema.assetName : 'Asset'  }} ({{templateSchema?.assetSerialNo}})</span>
+              <span *ngIf="templateSchema && !templateSchema?.assetName"  class=" pt-p25">{{'Add Asset' | translate}}</span>
+            </ion-button>
+          </ion-col>
+        </ion-row>
+        <ion-row *ngIf="isAssetDownTime && templateSchema.assetId && templateSchema.requestId">
+          <ion-col size="12">
+            <ion-button  style="background: rgba(225, 238, 255, 0.5);" [fill]="attachmentsTypeInput" color="secondary" (click)="addAssetDownTimeTracking(templateSchema)">
+              <iconify-icon icon="mdi:timer-cog-outline" style="color: #3c75c6;font-size: 19px;margin-right: 4px;"></iconify-icon>
+              <span class="pt-p25 ellipsis">{{'Down Time' | translate}}</span>
+            </ion-button>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </ion-item>
+  </ion-list>
+  <div class="line"></div>
+  <ion-grid class="process-status">
+    <ion-row class="padding-10">
+      <ion-col>
+        <div class="cat-label" style="text-transform:capitalize;padding-left: 12px;"> {{'processStatus' | translate}} </div>
+      </ion-col>
+    </ion-row>
+    <ion-item lines="none">
+      <div class="timeline-Container">
+        <div class="timeline">
+          <div *ngFor="let template of templateSchemaList.slice();let i = index; ">
+            <div class="entry" *ngIf="template.acknowledgedDate ">
+              <div *ngIf="template && template.acknowledgedDate" class="title">
+                <p>{{ template.acknowledgedDate | date: 'dd MMM yy'}}
+                  <br> {{ template.acknowledgedDate | date: 'shortTime'}}</p>
+              </div>
+              <div *ngIf="template && template.acknowledgedByDate" class="title">
+                <p>{{ template.acknowledgedByDate | date: 'dd MMM yy'}}
+                  <br> {{ template.acknowledgedByDate | date: 'shortTime'}}</p>
+              </div>
+              <div *ngIf="template && template.acknowledgedByLogin" class="body">
+                <p>{{'Reqacknowlege' | translate}} By {{ template.acknowledgedByLogin }}</p>
+              </div>
+            </div>
+            <div class="entry" *ngIf="template.checkedInDate && type == 'job'">
+              <div class="title">
+                <p>{{template.checkedInDate | date: 'dd MMM yy'}}
+                  <br> {{template.checkedInDate | date: 'shortTime'}}</p>
+              </div>
+              <div class="body">
+                <p>{{'reqCheckIn' | translate}} By {{ template.checkedInByLogin }}</p>
+              </div>
+            </div>
+            <div class="entry" (click)="showFormDetails(template, i)" tappable *ngIf="template.form != '{}'">
+              <div class="viewdetails">
+                <p>{{ template.submittedDate | date: 'dd MMM yy'}}
+                  <br> {{ template.submittedDate | date: 'shortTime'}}</p>
+              </div>
+              <div class="body">
+                <p>{{ template.form.tabName ? template.form.tabName : template.form.title }}</p>
+                <ion-button color="secondary" fill="clear"size="small">{{'viewDetails' | translate}}</ion-button>
+              </div>
+            </div>
+          </div>
+          <div class="entry" *ngIf="templateSchema.acknowledgedDate && type != 'job'">
+            <div class="title">
+              <p>{{ templateSchema.acknowledgedDate | date: 'dd MMM yy'}}
+                <br> {{ templateSchema.acknowledgedDate | date: 'shortTime'}}</p>
+            </div>
+            <div class="body">
+              <p>{{'Reqacknowlege' | translate}}</p>
+            </div>
+          </div>
+          <div class="entry" *ngIf="templateSchema.checkedInDate && type != 'job'">
+            <div class="title">
+              <p>{{templateSchema.checkedInDate | date: 'dd MMM yy'}}
+                <br> {{templateSchema.checkedInDate | date: 'shortTime'}}</p>
+            </div>
+            <div class="body">
+              <p>{{'reqCheckIn' | translate}}</p>
+            </div>
+          </div>
+          <div class="entry" *ngIf="templateSchema.checkedOutDate">
+            <div class="title">
+              <p>{{ templateSchema.checkedOutDate | date: 'dd MMM yy'}}
+                <br> {{ templateSchema.checkedOutDate | date: 'shortTime'}}</p>
+            </div>
+            <div class="body">
+              <p>{{'reqCheck' | translate}}</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </ion-item>
+  </ion-grid>
+</div>

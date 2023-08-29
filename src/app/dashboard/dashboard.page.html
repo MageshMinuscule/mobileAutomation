@@ -1,0 +1,234 @@
+
+<ion-header [translucent]="true">
+  <ion-toolbar color="secondary">
+    <ion-title>
+      Summary DashBoard
+    </ion-title>
+    <ion-buttons slot="start">
+      <ion-button (click)="back()">
+          <ion-icon slot="icon-only" name="chevron-back-outline"></ion-icon>
+      </ion-button>
+  </ion-buttons>
+  </ion-toolbar>
+  <ion-toolbar color="secondary">
+    <ion-segment value="WorkOrder" (ionChange)="segmentChanged($event)">
+      <ion-segment-button value="WorkOrder">
+        <ion-label>WorkOrder Summary</ion-label>
+      </ion-segment-button>
+      <ion-segment-button value="Preventive">
+        <ion-label>Preventive Summary</ion-label>
+      </ion-segment-button>
+    </ion-segment>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content *ngIf="viewType == 'WorkOrder'"[fullscreen]="true">
+  
+  <ion-grid fixed>
+    <ion-row>
+      <ion-col size="6">
+        <ion-card style=" background:rgb(36 210 181);"class="card">
+          <ion-card-header>
+            <ion-card-title class="card-title">Closed</ion-card-title>
+          </ion-card-header>
+          <ion-card-content class="card-content">
+            <ion-grid fixed>
+              <ion-row>
+                <ion-col size="12">
+                  <img class="image-width" src="assets/imgs/emoji/em4.png">
+                </ion-col>
+                <ion-col class="content-algin"size="12">{{requestCount && requestCount.closed ? requestCount.closed : 0}}</ion-col>
+              </ion-row>
+            </ion-grid>
+          </ion-card-content>
+        </ion-card>
+      </ion-col>
+      <ion-col size="6">
+        <ion-card style=" background: rgb(255 92 108);"class="card">
+          <ion-card-header>
+            <ion-card-title class="card-title">Rejected</ion-card-title>
+          </ion-card-header>
+          <ion-card-content class="card-content">
+            <ion-grid fixed>
+              <ion-row>
+                <ion-col size="12">
+                  <img class="image-width" src="assets/imgs/emoji/em2.png">
+                </ion-col>
+                <ion-col class="content-algin"size="12">{{requestCount && requestCount.rejected ? requestCount.rejected : 0}}</ion-col>
+              </ion-row>
+            </ion-grid>
+          </ion-card-content>
+        </ion-card>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+  <div class="ion-padding">
+    <ion-grid fixed>
+      <ion-row>
+        <ion-col size="12">
+          <ion-card>
+            <ion-card-header class="card-heading">
+              WorkOrder Count
+            </ion-card-header>
+            <ion-card-content>
+              <canvas #requestCountBarChart style="position: relative; height:20vh; width:40vw"></canvas>
+            </ion-card-content>
+          </ion-card>
+        </ion-col>
+      </ion-row>
+      <!-- <ion-row>
+        <ion-col size="12">
+          <ion-card>
+            <ion-card-header>
+              Avg Time Taken to Close 
+            </ion-card-header>
+            <ion-card-content>
+              <canvas #canvas style="position: relative; height:20vh; width:40vw"></canvas>
+            </ion-card-content>
+          </ion-card>
+        </ion-col>
+      </ion-row> -->
+      <ion-row>
+        <ion-col size="12">
+          <ion-card>
+            <ion-card-header class="card-heading">
+             Top Locations
+            </ion-card-header>
+            <ion-card-content>
+              <canvas #reqLocBar style="position: relative; height:20vh; width:40vw"></canvas>
+            </ion-card-content>
+          </ion-card>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col size="12">
+          <ion-card>
+            <ion-card-header class="card-heading">
+              Top WorkfLow
+            </ion-card-header>
+            <ion-card-content>
+              <canvas #reqWorkflowChart style="position: relative; height:20vh; width:40vw"></canvas>
+            </ion-card-content>
+          </ion-card>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col size="12">
+          <ion-card>
+            <ion-card-header class="card-heading">
+              Top asset
+            </ion-card-header>
+            <ion-card-content>
+              <canvas #reqAssetChart style="position: relative; height:20vh; width:40vw"></canvas>
+            </ion-card-content>
+          </ion-card>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </div>
+</ion-content>
+
+<ion-content  *ngIf="viewType === 'Preventive'"[fullscreen]="true">
+  <ion-grid fixed>
+    <ion-row>
+      <ion-col size="6">
+        <ion-card style=" background:rgb(36 210 181);"class="card">
+          <ion-card-header>
+            <ion-card-title class="card-title">Closed</ion-card-title>
+          </ion-card-header>
+          <ion-card-content class="card-content">
+            <ion-grid fixed>
+              <ion-row>
+                <ion-col size="12">
+                  <img class="image-width" src="assets/imgs/emoji/em4.png">
+                </ion-col>
+                <ion-col class="content-algin"size="12">{{requestCount && requestCount.closed ? requestCount.closed : 0}}</ion-col>
+              </ion-row>
+            </ion-grid>
+          </ion-card-content>
+        </ion-card>
+      </ion-col>
+      <ion-col size="6">
+        <ion-card style=" background: rgb(255 92 108);"class="card">
+          <ion-card-header>
+            <ion-card-title class="card-title">Rejected</ion-card-title>
+          </ion-card-header>
+          <ion-card-content class="card-content">
+            <ion-grid fixed>
+              <ion-row>
+                <ion-col size="12">
+                  <img class="image-width" src="assets/imgs/emoji/em2.png">
+                </ion-col>
+                <ion-col class="content-algin"size="12">{{requestCount && requestCount.rejected ? requestCount.rejected : 0}}</ion-col>
+              </ion-row>
+            </ion-grid>
+          </ion-card-content>
+        </ion-card>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+  <div class="ion-padding">
+    <ion-grid fixed>
+      <ion-row>
+        <ion-col size="12">
+          <ion-card>
+            <ion-card-header class="card-heading">
+              Preventive Count
+            </ion-card-header>
+            <ion-card-content>
+              <canvas #requestCountBarChart style="position: relative; height:20vh; width:40vw"></canvas>
+            </ion-card-content>
+          </ion-card>
+        </ion-col>
+      </ion-row>
+      <!-- <ion-row>
+        <ion-col size="12">
+          <ion-card>
+            <ion-card-header>
+              Avg Time Taken to Close 
+            </ion-card-header>
+            <ion-card-content>
+              <canvas #canvas style="position: relative; height:20vh; width:40vw"></canvas>
+            </ion-card-content>
+          </ion-card>
+        </ion-col>
+      </ion-row> -->
+      <ion-row>
+        <ion-col size="12">
+          <ion-card>
+            <ion-card-header class="card-heading">
+             Top Locations
+            </ion-card-header>
+            <ion-card-content>
+              <canvas #prevLocBar style="position: relative; height:20vh; width:40vw"></canvas>
+            </ion-card-content>
+          </ion-card>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col size="12">
+          <ion-card>
+            <ion-card-header class="card-heading">
+              Top WorkfLow
+            </ion-card-header>
+            <ion-card-content>
+              <canvas #prevWorkflowChart style="position: relative; height:20vh; width:40vw"></canvas>
+            </ion-card-content>
+          </ion-card>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col size="12">
+          <ion-card>
+            <ion-card-header class="card-heading">
+              Top asset
+            </ion-card-header>
+            <ion-card-content>
+              <canvas #prevAssetBar style="position: relative; height:20vh; width:40vw"></canvas>
+            </ion-card-content>
+          </ion-card>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </div>
+</ion-content>

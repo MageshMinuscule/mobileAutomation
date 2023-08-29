@@ -1,0 +1,78 @@
+<ion-header>
+  <ion-toolbar color="secondary">
+    <ion-title mode="md">{{'Attendance' | translate}}</ion-title>
+    <ion-buttons slot="start">
+      <ion-button (click)="back()">
+        <ion-icon slot="icon-only" name="chevron-back-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+  <ion-toolbar *ngIf="type != 'qrcode'">
+    <ion-segment [(ngModel)]="attendanceType" color="secondary">
+      <ion-segment-button value="checkin" [disabled]="isCheckin">
+        <ion-icon name="camera"></ion-icon>
+        <br>{{'checkin' | translate}}
+      </ion-segment-button>
+      <ion-segment-button value="checkout" [disabled]="isCheckout">
+        <ion-icon name="qr-scanner"></ion-icon>
+        <br>{{'checkout' | translate}}
+      </ion-segment-button>
+    </ion-segment>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-list *ngIf="type != 'qrcode'">
+    <ion-item class="gps-view">
+      <ion-row class="uploadpadding" text-center>
+        <ion-col class="imageIcon">
+          <div (click)="imgUpload()" tappable>
+            <ion-icon class="singleimage" name="image"></ion-icon>
+            <div class="imagetext">{{'clickHere' | translate}}</div>
+          </div>
+        </ion-col>
+      </ion-row>
+    </ion-item>
+  </ion-list>
+  <ion-list *ngIf="type == 'qrcode'">
+    <ion-item *ngIf="viewType == 'user'">
+      <ion-label>{{'Work Location' | translate}}</ion-label>
+      <ion-select [(ngModel)]="location" (ionChange)="getTodayAttendance()">
+        <ion-select-option *ngFor="let location of locationList" value="{{location.id}}">{{location.name}}</ion-select-option>
+      </ion-select>
+    </ion-item>
+    <div class="filer-tag" *ngIf="location">
+      <ion-grid>
+        <ion-row class="ion-no-padding">
+          <ion-button class="filter"  *ngFor="let shift of shiftList" [ngClass]="selectedShift === shift.name ? 'filter-active':'filter-deactive'"
+          (click)="doFilter(shift.name)">{{'shift '+shift.name | translate}}
+          <span class="subCount">({{ shift.count ? shift.count : 0 }})</span>
+          </ion-button>
+        </ion-row>
+      </ion-grid>
+    </div>
+    <ion-item *ngFor="let attendance of attendanceList">
+      <ion-avatar class="ion-item-start">
+        <img src="assets/img/user.png">
+      </ion-avatar>
+      <ion-label>
+        <p>{{'Employee ID' | translate}}: {{ attendance.employeeId ? attendance.employeeId : '-' }}</p>
+        <h2>{{'Name' | translate}}: {{ attendance.employeeUserName }}</h2>
+        <p>{{'Shift' | translate}}: {{ attendance.shift }}</p>
+      </ion-label>
+      <ion-note item-end>{{ attendance.punchedInTime | date: 'shortTime'}}</ion-note>
+    </ion-item>
+    <div *ngIf="!attendanceList.length && location">
+      <ion-card>
+        <ion-item class="rejectcard">
+          {{'notFound' | translate}}
+        </ion-item>
+      </ion-card>
+    </div>
+  </ion-list>
+  <ion-fab vertical="bottom" horizontal="end" slot="fixed">
+    <ion-fab-button *ngIf="type=='qrcode' && location && common.appRights === 'write'">
+      <ion-icon name="scan"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
+</ion-content>

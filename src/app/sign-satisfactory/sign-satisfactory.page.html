@@ -1,0 +1,84 @@
+<!-- Signature With Satisfactory -->
+<div class="gallery-button"  style="margin-left:1.25em !important;margin-right:1.25em !important;"*ngIf="incident.type == 'signaturewithSatisfactory'">
+
+    <ion-row *ngIf="!incident.value" >
+        <ion-col size="12">
+            <ion-label class="workflow-label" style="font-size: 15px !important;float:left">{{incident.label}}
+                <span class="req-star" *ngIf="incident.compulsory">*</span>
+            </ion-label> 
+        </ion-col>
+        <ion-col size="12" class="sign-board">
+            <ion-button  class="clipboardbtn" color="dark"(click)="templateProvider.presentSignModal(incident)" *ngIf="!incident.value" fill="clear">
+                <!-- <ion-icon slot="icon-only" name="clipboard-outline"></ion-icon> -->
+                <ion-img src="assets/imgs/drawing.png"></ion-img>
+            </ion-button>
+        </ion-col>
+    </ion-row>
+
+  </div>
+  <ion-grid class="template-field"*ngIf="incident.type == 'signaturewithSatisfactory' && incident.value">
+    <ion-row class="uploadpadding">
+        <ion-col size="12" class="sign-pad">
+            <ion-button  class="downloadicon" *ngIf="incident.value && incident.value?.length < 50" (click)="templateProvider.getOnlineSignImg(incident)">
+                <ion-icon slot="icon-only" name="download"></ion-icon>
+            </ion-button>
+            <div *ngIf="incident.value && incident.value?.length > 60" class="preview-img">
+                <img [src]="'data:image/jpeg;base64,'+incident.value" style="height:80px;margin: 0 auto;width: 100px;display: block"
+                    (click)="templateProvider.presentSignModal(incident)">
+            </div>
+        </ion-col>
+        <ion-col size="12" class="imgSingleDelete" *ngIf="incident.value"line="full">
+            <ion-list>
+                <ion-item >
+                    <ion-label position="floating">{{'Name' }}</ion-label>
+                    <ion-input type="text" [(ngModel)]="incident.customerName" [name]="incident.label" (ionBlur)="incident.customerName = common.removeSpace(incident.customerName)"></ion-input>
+                </ion-item>
+            </ion-list>
+        </ion-col>
+    </ion-row>
+  </ion-grid>
+  <ion-grid *ngIf="incident.type == 'signaturewithSatisfactory' && incident.value">
+    <ion-label class="ion-padding-left">{{ 'satisfactory' }}
+        <span class="req-star" *ngIf="incident.compulsory">*</span>
+    </ion-label>
+    <ion-row class="emoji">
+        <ion-col size="2.4" (click)="incident.feedback = 'Very Unsatisfied'" button [ngClass]="incident.feedback && incident.feedback =='Very Unsatisfied' ? 'selected' : ''">
+            <div>
+                <img src="assets/imgs/emoji/em1.png">
+            </div>
+            <p class="emoji-text">{{'Very Unsatisfied' }}</p>
+        </ion-col>
+        <ion-col size="2.4" (click)="incident.feedback = 'Unsatisfied'" tappable [ngClass]="incident.feedback && incident.feedback =='Unsatisfied' ? 'selected' : ''">
+            <div>
+                <img src="assets/imgs/emoji/em2.png">
+            </div>
+            <p class="emoji-text">{{'Unsatisfied' }}</p>
+        </ion-col>
+        <ion-col size="2.4" (click)="incident.feedback = 'Neutral'" tappable [ngClass]="incident.feedback && incident.feedback=='Neutral' ? 'selected' : ''">
+            <div>
+                <img src="assets/imgs/emoji/em3.png">
+            </div>
+            <p class="emoji-text">{{'Neutral' }}</p>
+        </ion-col>
+        <ion-col size="2.4" (click)="incident.feedback = 'Satisfied'" tappable [ngClass]="incident.feedback && incident.feedback  =='Satisfied' ? 'selected' : ''">
+            <div>
+                <img src="assets/imgs/emoji/em4.png">
+            </div>
+            <p class="emoji-text">{{'Satisfied' }}</p>
+        </ion-col>
+        <ion-col size="2.4" (click)="incident.feedback = 'Extremely Satisfied'" tappable [ngClass]="incident.feedback && incident.feedback =='Extremely Satisfied' ? 'selected' : ''">
+            <div>
+                <img src="assets/imgs/emoji/em5.png">
+            </div>
+            <p class="emoji-text">{{'Extremely Satisfied' }}</p>
+        </ion-col>
+    </ion-row>
+  </ion-grid>
+  <ion-item class="reason-txt" *ngIf="incident.type == 'signaturewithSatisfactory' && incident.feedback && (incident.feedback =='Very Unsatisfied' || incident.feedback =='Unsatisfied')">
+    <ion-label position="stacked">
+        {{ 'Reason' }}
+        <span class="req-star">*</span>
+    </ion-label>
+    <ion-input type="text" [(ngModel)]="incident.reason" (ionBlur)="incident.reason = common.removeSpace(incident.reason)" [name]="name" required></ion-input>
+  </ion-item>
+  

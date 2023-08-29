@@ -1,0 +1,66 @@
+
+    ion-title{
+        font-family: "Poppins";
+    }
+    ion-item{
+        font-family: "Poppins";
+        font-weight: 800;
+    }
+    ion-content{
+        font-family: "Poppins";
+        font-size: 14px;
+    }
+    .about-bgImage {
+        background: url(../../assets/img/cmms.png);
+        background-size: cover;
+        background-position: center;
+        height: 20vh;
+        border-bottom-left-radius: 45%;
+        border-bottom-right-radius: 45%;
+        ion-title {
+          float: left;
+          z-index: 2;
+          position: relative;
+        }
+    }
+    .wrapper {
+        z-index: 3;
+        top: 2vh;
+        text-align: center;
+        position: relative;
+    }
+    .about-label {
+        border: 1px solid transparent;
+        border-color: #f9b007;
+        background-color: transparent;
+        color: #f9b007;
+        border-radius: 10px;
+        width: 30vh;
+        padding: 5px;
+        font-size: 29px;
+        font-weight: bold;
+    }
+    .about:after {
+        z-index: 1;
+        top: 0;
+        left: 0;
+        display: block;
+        width: 100%;
+        height: 20vh;
+        content: '';
+        background-color: #445498;
+        opacity: 0.7;
+        position: absolute;
+        border-bottom-left-radius: 45%;
+        border-bottom-right-radius: 45%;
+    }
+//     ul{
+//         font-size:medium;
+//     }
+//    ion-padding{
+//     --padding-start: var(--ion-padding, 16px);
+//     --padding-end: var(--ion-padding, 16px);
+//     --padding-top: var(--ion-padding, 16px);
+//     --padding-bottom: var(--ion-padding, 10px);
+//    }
+

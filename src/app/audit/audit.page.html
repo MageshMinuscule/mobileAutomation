@@ -1,0 +1,34 @@
+<ion-item class="template-field-input"*ngIf="incident.type == 'audit'" lines="none">
+  <ion-label position="floating" class="workflow-label mb-p5">
+    {{incident.label}}
+    <span class="req-star" *ngIf="incident.compulsory">*</span>
+  </ion-label>
+  <ion-grid fixed>
+    <ion-row>
+      <ion-col size="12">
+         <ion-button size="default" [ngClass]="{'btnYes' : isYes,'btnYes-border': !isYes}" (click)="onClick(isYes, 'Yes')" expand="block" [fill]="fillBtnYes">Yes</ion-button>
+      </ion-col>
+      <ion-col size="12">
+        <ion-button size="default" [ngClass]="{'btnNo' : isNo,'btnNo-border': !isNo}" (click)="onClick(isNo, 'No')" expand="block" [fill]="fillBtnNo">No</ion-button>
+      </ion-col>
+      <ion-col size="12">
+        <ion-button size="default" [ngClass]="{'btnNa' : isNA,'NAbtn': !isNA}"(click)="onClick(isNA, 'N/A')" expand="block" [fill]="fillBtnNA">N/A</ion-button>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col (click)="shown()" size="12">
+        <ion-icon style="font-size: 18px !important;color:#3C75C6 !important"name="document-outline"></ion-icon>
+        <span style="margin-left:.5em !important;color:#3C75C6 !important">Notes</span>
+      </ion-col>
+      <ion-col *ngIf="shownTextArea"size="12">
+        <ion-list>
+          <ion-item>
+            <ion-label position="floating">Notes</ion-label>
+            <ion-input type="text" [(ngModel)]="incident.reason" (ionBlur)="incident.reason = common.removeSpace(incident.reason)"></ion-input>
+          </ion-item>
+        </ion-list>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+
+</ion-item>

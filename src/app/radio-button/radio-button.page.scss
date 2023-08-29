@@ -1,0 +1,49 @@
+ion-label{
+    opacity: 0.8;
+    margin: 13px 8px 13px 0;
+}
+    .radio {
+        margin: 0px 0px 0px 0px;
+        font-size: 13px;
+        font-weight: normal;
+        input[type="radio"] {
+            position: absolute;
+            opacity: 0;
+            +.radio-label {
+                &:before {
+                    content: '';
+                    border-radius: 100%;
+                    border: 1px solid darken(#f4f4f4, 25%);
+                    display: inline-block;
+                    width: 25px;
+                    height: 25px;
+                    position: relative;
+                    top: -0.2em;
+                    margin-right: 1em;
+                    vertical-align: top;
+                    cursor: pointer;
+                    text-align: center;
+                    transition: all 250ms ease;
+                }
+            }
+            &:checked {
+                +.radio-label {
+                    &:before {
+                        background-color: #ff465b;
+                        border: solid 1px #ff465b;
+                        box-shadow: inset 0 0 0 4px white;
+                    }
+                }
+            }
+        }
+    }
+.radio-button {
+    padding-left: 19px;
+}
+ion-radio {
+    margin-right:1em;
+    --color-checked:#3C75C6;
+}
+// ion-item{ 
+//    // --border-color: 1px solid #7E7E7E !important; 
+//   }

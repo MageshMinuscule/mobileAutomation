@@ -1,0 +1,7 @@
+{
+  "name": "secApp",
+  "integrations": {
+    "cordova": {}
+  },
+  "type": "angular"
+}

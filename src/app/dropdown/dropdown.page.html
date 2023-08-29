@@ -1,0 +1,13 @@
+<div class="check-list drop-down-list template-field-input" *ngIf="incident.type == 'dropDown'" lines="none">
+  <ion-item lines="none">
+    <ion-label class="workflow-label" position="floating">
+      {{incident.label}}
+      <span class="req-star" *ngIf="incident.compulsory">*</span>
+    </ion-label>
+    <ion-select class="selectwidth border-bottom" [(ngModel)]="incident.value" [required]="incident.compulsory" [name]="name"
+      mode="ios" justify="start" >
+      <ion-select-option [value]="option" *ngFor="let option of incident.options">{{option}}</ion-select-option>
+    </ion-select>
+  </ion-item>
+</div>
+<!-- <div style="border: 1px solid #7E7E7E;"></div> -->

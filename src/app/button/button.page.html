@@ -1,0 +1,26 @@
+<!-- CREATE WORK -->
+<ion-row *ngIf="type == 'createRequest'">
+  <ion-col size="6" *ngFor="let btn of buttons">
+      <ion-button  expand="full" shape="round" (click)="doButtonAction(btn)" [disabled]="shown" style="--background:{{btn.color}}">
+      {{btn.label}}
+    </ion-button>
+  </ion-col>
+  <ion-col size="6">
+    <ion-button (click)="checkOfflineUpdate()" color="danger" [disabled]="shown" *ngIf="draftRequest" expand="block">
+      {{'deleteDraft'}}
+    </ion-button>
+  </ion-col>
+</ion-row>
+
+<!-- UPDATE WORK -->
+ <ion-row *ngIf="type == 'routeRequest'">
+  <ion-col size="6" *ngFor="let btn of buttons">
+      <ion-button expand="full" shape="round" (click)="validateAssetFields(btn)" [disabled]="shown" style="--background:{{btn.color}}"> 
+      {{btn.label}}
+    </ion-button>
+  </ion-col>
+  <ion-col size="6">
+    <ion-button expand="block" color="danger" *ngIf="isDraft" (click)="deleteRouteDraft()">{{'deleteDraft'
+      | translate}}</ion-button>
+  </ion-col>
+</ion-row>

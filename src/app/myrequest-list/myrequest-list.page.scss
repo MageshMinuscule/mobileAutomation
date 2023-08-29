@@ -1,0 +1,63 @@
+//added  css for item fileds
+
+ion-grid
+{
+    font-family: "Poppins";
+    padding-right: 11px;
+}
+ion-row{
+    padding: 1px;
+}
+ion-col{
+    padding: 1px;
+    padding-right: 16px;
+}
+.location-icon {
+    font-size: 13px !important;
+}
+.location-label {
+    color: #8e9093;
+     padding-top: 5px;
+}
+
+.requestId-label {
+    font-size: medium;
+}
+.cat-label {
+    text-transform: uppercase;
+    font-weight: bolder;
+    font-size: small;
+}
+.raisedBy-label {
+    font-weight: bolder;
+    font-size: 17px;
+    text-transform: Capitalize;
+    color: #636363;
+}
+.p-font {
+    font-size: 14px !important;
+    white-space: nowrap;
+    margin: 3px 0;
+    color: #8e9093;
+}
+
+@font-face {
+    font-family: "Oswald";
+    src: url("../../assets/fonts/Oswald-Regular.ttf");
+    font-weight: 400;
+}
+.ack
+{
+    ion-badge{
+        border-radius: 18px;
+        padding: 6px;
+        font-family: "Poppins";
+        font-weight: 600;
+        margin-right: 10px;
+        
+    }
+    
+}
+ion-icon {
+    font-size:18px !important;
+}

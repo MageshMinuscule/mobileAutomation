@@ -1,0 +1,64 @@
+{
+  "_from": "cordova-plugin-firebase-analytics@0.12.0",
+  "_id": "cordova-plugin-firebase-analytics@0.12.0",
+  "_inBundle": false,
+  "_integrity": "sha1-b0axQ5Oby5t85kIObiMbwSHNMNk=",
+  "_location": "/cordova-plugin-firebase-analytics",
+  "_phantomChildren": {},
+  "_requested": {
+    "type": "version",
+    "registry": true,
+    "raw": "cordova-plugin-firebase-analytics@0.12.0",
+    "name": "cordova-plugin-firebase-analytics",
+    "escapedName": "cordova-plugin-firebase-analytics",
+    "rawSpec": "0.12.0",
+    "saveSpec": null,
+    "fetchSpec": "0.12.0"
+  },
+  "_requiredBy": [
+    "#USER",
+    "/"
+  ],
+  "_resolved": "https://registry.npmjs.org/cordova-plugin-firebase-analytics/-/cordova-plugin-firebase-analytics-0.12.0.tgz",
+  "_shasum": "6f46b143939bcb9b7ce6420e6e231bc121cd30d9",
+  "_spec": "cordova-plugin-firebase-analytics@0.12.0",
+  "_where": "D:\\Pandiyan\\Workspace\\P\\Latest\\mobilecode\\cryotos",
+  "author": {
+    "name": "Maksim Chemerisuk",
+    "email": "chemerisuk@gmail.com",
+    "url": "https://github.com/chemerisuk"
+  },
+  "bugs": {
+    "url": "https://github.com/chemerisuk/cordova-plugin-firebase-analytics/issues"
+  },
+  "bundleDependencies": false,
+  "cordova": {
+    "id": "cordova-plugin-firebase-analytics",
+    "platforms": [
+      "ios",
+      "android"
+    ]
+  },
+  "deprecated": false,
+  "description": "Cordova plugin for Firebase Analytics",
+  "homepage": "https://github.com/chemerisuk/cordova-plugin-firebase-analytics#readme",
+  "keywords": [
+    "cordova",
+    "firebase",
+    "analytics",
+    "ecosystem:cordova",
+    "cordova-android",
+    "cordova-ios"
+  ],
+  "license": "MIT",
+  "name": "cordova-plugin-firebase-analytics",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/chemerisuk/cordova-plugin-firebase-analytics.git"
+  },
+  "scripts": {
+    "postversion": "git push && git push --tags",
+    "version": "replace -s 'version=\"(.+)(?=\">)' 'version=\"'$npm_package_version plugin.xml && git add plugin.xml"
+  },
+  "version": "0.12.0"
+}

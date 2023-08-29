@@ -1,0 +1,94 @@
+
+    .btn-primary {
+            background-color: #009dda;
+        }
+        .btn {
+            padding: 6px 12px;
+            border: 1px solid transparent;
+            color: #fff;
+        }
+        .handle-counter input {
+            width: 50px;
+            border-width: 1px;
+            border-left: none;
+            border-right: none;
+        }
+        
+        .handle-counter .counter-minus, .handle-counter .counter-plus, .handle-counter input {
+            float: left;
+            text-align: center;
+        }
+        input {
+            padding: 0;
+        }
+        input {
+            color: #555;
+            background-color: #fff;
+            background-image: none;
+            border: 1px solid #ccc;
+        }
+        .footer-btn .bar-button{
+            width: 98vw !important;
+            height: 40px !important;
+        }
+        h2 {
+            color: #445498;
+            font-size: 16px;
+            margin: 0;
+            padding: 0;
+            font-weight: 400;
+        }
+        ion-note {
+            color: #484141 !important;
+            float: right !important;
+        }
+    ion-list{
+        padding: 0!important;
+    }
+    .input-number{
+        padding: 0;
+        font-size: 11px;
+    }
+        .list-item {
+            font-family: 'Roboto';
+            font-style: normal;
+            font-weight: 400;
+            font-size: 16px;
+            line-height: 16px;
+    
+            color: #333333;
+        }
+    .custom-footer {
+        width: 100% !important;
+        background: #FFFFFF;
+        border-radius: 4px 4px 0px 0px;
+        bottom: 0px;
+        position: absolute;
+        height: 180px !important;
+        z-index: 100;
+        background: var(--ion-background-color, #fff);
+    }
+    .icon-cls {
+        font-size:32px !important;
+    }
+    .part-no {
+        font-family: 'Roboto';
+        font-style: normal;
+        font-weight: 700;
+        font-size: 32px;
+        line-height: 38px;
+        color: #333333;
+        position: relative;
+        margin-left: 0.25em;
+    }
+    .clear-btn {
+        border-color: transparent;
+        color: #3C75C6;
+        background-color: transparent;
+        // border: 1px solid #3C75C6;
+    }
+    ion-backdrop {
+        background: #000000;
+        opacity: 0.8;
+       
+    }

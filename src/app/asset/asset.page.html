@@ -1,0 +1,284 @@
+<ion-header>
+  <ion-toolbar color="secondary">
+    <ion-title mode="md" *ngIf="!showSearchBar">{{ title | translate }}</ion-title>
+    <ion-buttons slot="start">
+        <ion-button (click)="back()">
+            <ion-icon slot="icon-only" name="chevron-back-outline"></ion-icon>
+        </ion-button>
+    </ion-buttons>
+        <ion-searchbar *ngIf="showSearchBar" #searchBar [(ngModel)]="searchKeyword" [debounce]="500"
+            [showCancelButton]="shouldShowCancel" (ionInput)="filterAssetResult($event)" (ionClear)="searchClear($event)"(ionCancel)="onCancel($event)"
+            placeholder="{{ 'Search by Name/Serialno' | translate }}">
+        </ion-searchbar>
+        <ion-buttons slot="end" *ngIf="isExistingAsset">
+            <ion-button (click)="beginSearch()">
+                <ion-icon slot="start" name="search"></ion-icon>
+            </ion-button>
+            <ion-button (click)="beginFilter()" [disabled]="!isFetched">
+                <ion-icon slot="icon-only" name="funnel"></ion-icon>
+            </ion-button>
+        </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+    <ion-fab vertical="bottom" horizontal="end" slot="fixed" *ngIf="isAssetUpdate && !isReadOnly && !isNewAsset && isExistingAsset && onLine">
+        <ion-fab-button (click)="scanAsset()">
+            <ion-icon name="scan"></ion-icon>
+        </ion-fab-button>
+    </ion-fab>
+  <ion-list
+      *ngIf="isAssetUpdate && !isReadOnly && !assetResultJson.assetSerialNo && !isNewAsset && !isExistingAsset && !assetId">
+      <ion-row>
+          <ion-col class="signup-col">
+              <ion-button (click)="gotoExisting()" color="secondary" expand="block">
+                {{ 'Choose Existing Asset' | translate }}
+              </ion-button>
+          </ion-col>
+      </ion-row>
+      <p class="text-center">{{'OR' | translate }}</p>
+      <ion-row style="margin-bottom: 10px;">
+          <ion-col class="signup-col">
+              <ion-button (click)="gotoNew()" fill="outline" expand="block"color="white">
+                {{ 'Create New Asset' | translate }}
+              </ion-button>
+          </ion-col>
+      </ion-row>
+  </ion-list>
+  <div *ngFor="let item of assetResults" class="list-view-badge">
+      <ion-item-group mode="md" class="list-view" button (click)="updateAssetWithExisting(item)" *ngIf="isExistingAsset" lines="none">
+          <ion-item-divider>
+            <ion-grid>
+                <ion-row class="sec-2 pb-p5">
+                  <ion-col size="12">
+                    <div class="head-field">{{ item.assetName }}</div>
+                  </ion-col>
+                </ion-row>
+                <ion-row class="sec-2 pb-p5">
+                  <ion-col size="12">
+                    <ion-col size="3">
+                      <span class="head-field-id"># {{ item.id }}</span>
+                    </ion-col>
+                  </ion-col>
+                </ion-row>
+                <ion-row class="sec-2 pb-p5">
+                  <ion-col size="3">
+                    <span class="content-field-label">Category</span>
+                  </ion-col>
+                  <ion-col size="1">: </ion-col>
+                  <ion-col size="8">
+                    <div class="content-field-value">
+                      <span>{{item.categoryName}}</span>
+                    </div>
+          
+                  </ion-col>
+                </ion-row>
+                <ion-row class="sec-2 pb-p5">
+                  <ion-col size="3">
+                    <div class="content-field-label" *ngIf="item.assetSerialNo">{{'Serial No' | translate}}</div>
+                  </ion-col>
+                  <ion-col size="1">:</ion-col>
+                  <ion-col size="8">
+                    <div class="content-field-value">
+                      <span class="custom-serial">{{ item.assetSerialNo }}</span>
+                    </div>
+          
+                  </ion-col>
+                </ion-row>
+                <ion-row class="sec-2 pb-p5">
+                  <ion-col size="6">
+                    <div class="content-field">
+                      <ion-icon name="location" class="icon"></ion-icon>
+                      <span class="ml-p5">{{ item.locationName }}</span>
+                    </div>
+                  </ion-col>
+                  <ion-col size="6">
+                    <div class="content-field">
+                      <ion-icon name="business-outline" class="icon"></ion-icon>
+                      <span class="ml-p5">{{ item.customerName }}</span>
+                    </div>
+                  </ion-col>
+                </ion-row>
+                <ion-row class="sec-2 pb-p5">
+                  <ion-col size="12">
+                    <div class="field-1" *ngIf="item.warrantyExpiredOn">
+                      {{'Warranty ExpiredOn' | translate}}:
+                      <span>{{ item.warrantyExpiredOn | date: 'dd MMM yy'}}</span>
+                    </div>
+                  </ion-col>
+                </ion-row>
+              </ion-grid>
+              <!-- <ion-grid>
+                  <ion-row>
+                      <ion-col size="3">
+                          <ion-badge color="primary" class="badge-custom" mode="ios">{{ item.id }}</ion-badge>
+                      </ion-col>
+                      <ion-col size="9">
+                          <div class="cat-label">{{ item && item?.assetName ? item?.assetName : item.name }}</div>
+                      </ion-col>
+                  </ion-row>
+                  <ion-row>
+                      <ion-col size="6">
+                          <div class="location-label">
+                              {{'Address' | translate}}: {{ item.locationAddress }}
+                          </div>
+                      </ion-col>
+                      <ion-col size="6">
+                          <div class="location-label" *ngIf="item.assetSerialNo">
+                              {{'Serial No' | translate}}:
+                              <span class="custom-serial">{{ item.assetSerialNo }}</span>
+                          </div>
+                      </ion-col>
+                  </ion-row>
+                  <ion-row>
+                      <ion-col size="6">
+                          <div class="location-label">
+                            <ion-icon name="location"></ion-icon>
+                              <span>{{ item.locationName }}</span>
+                          </div>
+                      </ion-col>
+                      <ion-col size="6">
+                          <div class="location-label">
+                            <ion-icon name="person"></ion-icon>
+                              <span>{{ item.customerName }}</span>
+                          </div>
+                      </ion-col>
+                  </ion-row>
+              </ion-grid> -->
+          </ion-item-divider>
+      </ion-item-group>
+  </div>
+  <ion-card *ngIf="isExistingAsset && !isAssetFound && isFetched">
+      <ion-item class="rejectcard">
+          {{ "notFound" | translate }}
+      </ion-item>
+  </ion-card>
+  <form  #assetForm="ngForm" *ngIf="!isExistingAsset">
+      <ion-list class="asset-add">
+          <ion-item *ngIf="!isAssetUpdate">
+              <ion-label position="floating">{{ "Customer" | translate }}
+                  <span class="req-star">*</span></ion-label>
+              <ion-input type="text" (input)="filterResult($event)" (ionFocus)="fieldOnFocus('customer')"
+                  (focusout)="clearResults('customer')" name="company" [(ngModel)]="company.name"
+                  [disabled]="isReadOnly" required>
+              </ion-input>
+          </ion-item>
+          <ion-list class="ion-padding-start" class="search-results max-height">
+              <ion-item *ngFor="let company of results" (click)="selectCompany(company)" class="ion-padding-start">
+                  {{ company.name }}
+              </ion-item>
+          </ion-list>
+          <ion-item *ngIf="!isAssetUpdate && childWorkflows.length > 0">
+              <ion-label position="floating">{{ "workflow" | translate }}
+                  <span class="req-star">*</span></ion-label>
+              <ion-input type="text" (input)="filterCatResult($event)" (ionFocus)="fieldOnFocus('workflow')"
+                  name="workflow" (focusout)="clearResults('workflow')" [(ngModel)]="cat.name" [disabled]="isReadOnly"
+                  required>
+              </ion-input>
+          </ion-item>
+          <ion-list class="ion-padding-start" class="search-results max-height">
+              <ion-item *ngFor="let cat of catResults" (click)="selectWorkflow(cat)"class="ion-padding-start">
+                  {{ cat.name }}
+              </ion-item>
+          </ion-list>
+          <ion-item class="ion-padding-start" *ngIf="showLoc && !isAssetUpdate">
+              <ion-label position="floating">{{ "location" | translate }}
+                  <span class="req-star">*</span></ion-label>
+              <ion-input type="text" (focusout)="showFormFields(); clearResults('location')"
+                  (ionFocus)="fieldOnFocus('location')" (input)="filterLocResult($event)" name="location"
+                  [(ngModel)]="location" [disabled]="isReadOnly" required>
+              </ion-input>
+          </ion-item>
+          <ion-list class="ion-padding-start" class="search-results max-height">
+              <ion-item *ngFor="let loc of locResults" (click)="selectLocation(loc)" class="ion-padding-start">
+                  {{ loc.name }}
+              </ion-item>
+          </ion-list>
+          <ion-item class="ion-padding-start" *ngIf="showLoc && !isAssetUpdate">
+              <ion-label position="floating">{{ "state" | translate }} <span class="req-star">*</span></ion-label>
+              <ion-input type="text" (focusout)="showFormFields($event); clearResults('state')"
+                  (input)="filterStateResult($event)" (ionFocus)="fieldOnFocus('state')" name="state"
+                  [(ngModel)]="state.name" required [disabled]="isStateDisabled || isReadOnly">
+              </ion-input>
+          </ion-item>
+          <ion-list class="ion-padding-start" class="search-results max-height">
+              <ion-item *ngFor="let st of stateNames" (click)="selectState(st)" class="ion-padding-start">
+                  {{ st.name }}
+              </ion-item>
+          </ion-list>
+          <div *ngIf="isAssetUpdate && assetResultJson && (assetResultJson.assetSerialNo || isNewAsset)" class="pencil-outline">
+              <ion-item *ngIf="isAssetUpdate">
+                  <ion-label position="floating">{{ "Serial No" | translate }}
+                      <span class="req-star" *ngIf="required">*</span></ion-label>
+                  <ion-input type="text" name="serialNo" (input)="validateInput($event)"
+                      (ionFocus)="fieldOnFocus('serialNo')" [(ngModel)]="asset.slno" [required]="required"
+                      [disabled]="isReadOnly"></ion-input>
+              </ion-item>
+              <ion-item>
+                  <ion-label position="floating">{{ "Machine Model" | translate }}
+                      <span class="req-star" *ngIf="required">*</span></ion-label>
+                  <ion-input type="text" #model name="machineModel" (input)="filterModelNames($event)"
+                      (ionFocus)="fieldOnFocus('model')" (focusout)="clearResults('machineModel')"
+                      [(ngModel)]="asset.name" [required]="required" [disabled]="isReadOnly">
+                  </ion-input>
+              </ion-item>
+              <ion-list class="ion-padding-start" class="search-results max-height">
+                  <ion-item *ngFor="let name of modelNames" (click)="selectModelNames(name)" class="ion-padding-start">
+                      {{ name }}
+                  </ion-item>
+              </ion-list>
+              <ion-item>
+                  <ion-label position="floating">{{ "Machine Code" | translate }}
+                      <span class="req-star" *ngIf="required">*</span></ion-label>
+                  <ion-input type="text" name="machineCode" [(ngModel)]="asset.code" (input)="validateInput($event)"
+                      [required]="required" [disabled]="isReadOnly">
+                  </ion-input>
+              </ion-item>
+              <ion-item>
+                  <ion-label position="floating">{{ "Part No" | translate }}
+                      <span class="req-star" *ngIf="required">*</span></ion-label>
+                  <ion-input type="text" name="partNo" [(ngModel)]="asset.model" (input)="validateInput($event)"
+                      [required]="required" [disabled]="isReadOnly">
+                  </ion-input>
+              </ion-item>
+              <ion-item class="ion-padding-start">
+                  <ion-label position="floating">{{ "category" | translate }}
+                      <span class="req-star" *ngIf="required">*</span></ion-label>
+                  <ion-input type="text" (focusout)="showFormFields(); clearResults('category')"
+                      (ionFocus)="fieldOnFocus('category')" (input)="filterCategoryResult($event)" name="category"
+                      [(ngModel)]="assetCategoryName"  required>
+                  </ion-input>
+              </ion-item>
+              <ion-list class="ion-padding-start" class="search-results max-height">
+                  <ion-item *ngFor="let category of categoryList" (click)="selectCategory(category)"class="ion-padding-start">
+                      {{ category.name }}
+                  </ion-item>
+              </ion-list>
+              <ion-item class="ion-padding-start">
+                <ion-label position="floating">{{ "Departments" | translate }}
+                    <span class="req-star" *ngIf="required">*</span></ion-label>
+                <ion-input type="text" (focusout)="showFormFields(); clearResults('department')"
+                    (ionFocus)="fieldOnFocus('department')" (input)="filterDepartmentResult($event)" name="department"
+                    [(ngModel)]="assetDepartment.name"  required>
+                </ion-input>
+            </ion-item>
+            <ion-list class="ion-padding-start" class="search-results max-height">
+                <ion-item *ngFor="let department of departmentList" (click)="selectDepartment(department)"class="ion-padding-start">
+                    {{ department.name }}
+                </ion-item>
+            </ion-list>
+          </div>
+      </ion-list>
+      <ion-row class="ion-padding" *ngIf="!isReadOnly && (assetResultJson.assetSerialNo || !isAssetUpdate || isNewAsset)">
+          <ion-col class="signup-col">
+              <ion-button  (click)="addAsset()" expand="block" color="secondary" type="submit" [disabled]="!assetForm.form.valid">
+                {{ btnTxt | translate }}
+              </ion-button>
+          </ion-col>
+      </ion-row>
+  </form>
+  <ion-infinite-scroll (ionInfinite)="doInfinite($event)" [disabled]="scrollEnable" *ngIf="isExistingAsset">
+      <ion-infinite-scroll-content loadingSpinner="bubbles" loadingText="Loading more data...">
+      </ion-infinite-scroll-content>
+  </ion-infinite-scroll>
+</ion-content>

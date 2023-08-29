@@ -1,0 +1,42 @@
+<!-- Table -->
+<ion-grid class="template-field table-list"*ngIf="incident.type == 'table'">
+    <ion-row >
+        <ion-col style="border:none !important" size="6">
+            <ion-label  class="workflow-label">{{incident.label}}
+                <span class="req-star" *ngIf="incident.compulsory">*</span>
+            </ion-label>
+        </ion-col>
+        <ion-col size="6" style="text-align: end;border:none !important">
+            <ion-icon name="add-outline" color="secondary"size="large"class="add" (click)="createNewRow(incident)"></ion-icon>
+        </ion-col>
+    </ion-row>
+    
+    <ion-row class="head" *ngIf="incident.options && incident.options.length">
+        <ion-col *ngFor="let index of templateProvider.keys(incident.options[0])">
+            <span class="head-label">{{ index }}</span></ion-col>
+        <ion-col style="background-color: #EFEFEF;font-size: 14px;">
+            <span class="head-label" >Delete</span>
+        </ion-col>
+    </ion-row>
+
+    <ion-row class="table-data" *ngFor="let row of incident.options; let index = index">
+        <ion-col *ngFor="let i of templateProvider.keys(row)">
+            <ion-item lines="none">
+                <ion-textarea class="inclass" wrap="soft" [name]="i" (keypress)="templateProvider.validateInput($event, incident)"
+                    [(ngModel)]="row[i]" (ionBlur)="row[i] = common.removeSpace(row[i])"></ion-textarea>
+            </ion-item>
+        </ion-col>
+        <ion-col>
+            <ion-icon class="remove" color="secondary" name="trash" (click)="deleteRow(incident, index)"></ion-icon>
+        </ion-col>
+        
+    </ion-row>
+    <!-- <ion-row class="footer-btn">
+        <ion-col class="blank" *ngFor="let row of incident.options"></ion-col>
+        <ion-icon name="circle" *ngIf="!incident.options || (incident.options && !incident.options.length)" class="add"
+            (click)="createNewRow(incident)"></ion-icon>
+        <ion-icon name="add-circle" *ngIf="incident.options && incident.options.length && incident.canRepeat" class="add"
+            (click)="createNewRow(incident)"></ion-icon>
+    </ion-row> -->
+  </ion-grid>
+  

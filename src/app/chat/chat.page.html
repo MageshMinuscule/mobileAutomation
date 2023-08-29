@@ -1,0 +1,46 @@
+<ion-header>
+  <ion-toolbar color="secondary">
+    <ion-title>{{title}}</ion-title>
+    <ion-buttons slot="start">
+      <ion-button (click)="back()">
+        <ion-icon slot="icon-only" name="chevron-back-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+<ion-content  #content>
+  <div class="chat-box-outer">
+    <ion-item-divider *ngFor="let chat of chats"
+      [ngClass]="userName == chat.updatedByLogin ? 'self-user' : 'other-user'">
+      <ion-label>
+      <ion-item lines="none">
+        <ion-avatar item-start>
+          <ion-icon name="person"></ion-icon>
+        </ion-avatar>
+        <ion-label>
+          <h2 size="12">{{chat.updatedByLogin}}</h2>
+        <p>{{chat.updationDate | date:'medium'}}</p>
+      </ion-label>
+      </ion-item>
+      <div class="msg-content">
+        <p ion-item-start [innerHtml]="chat.comment"></p>
+      </div>
+    </ion-label>
+      <!-- <button ion-button clear *ngIf="userName != chat.updatedByLogin">{{'reply' | translate}}</button> -->
+    </ion-item-divider>
+  </div>
+</ion-content>
+<ion-footer class="chat-outer">
+  <!-- <ion-toolbar no-border-top> -->
+  <ion-item class="chat-box">
+    <!-- (keyup)="resize()" -->
+    <ion-textarea [(ngModel)]="newComment.comment" #myChatBox (input)="adjustTextarea($event)" rows="1" maxLength="500"
+      (click)="adjustTextarea($event)" autocomplete="off" id="messageInputBox" class="ion-autocomplete"
+      placeholder="{{ 'chatBox' | translate}}">
+    </ion-textarea>
+    <ion-button color="primary" (click)="sendMsg()" >
+      <ion-icon slot="icon-only" name="send"></ion-icon>
+    </ion-button>
+  </ion-item>
+  <!-- </ion-toolbar> -->
+</ion-footer>

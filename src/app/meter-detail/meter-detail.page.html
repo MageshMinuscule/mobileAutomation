@@ -1,0 +1,82 @@
+<ion-header>
+  <ion-toolbar color="secondary">
+    <ion-title mode="md">{{'Meter Detail' | translate}}</ion-title>
+    <ion-buttons slot="start">
+      <ion-button (click)="back()">
+        <ion-icon slot="icon-only" name="chevron-back-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+  <form (ngSubmit)="addMeterHistory()" #meterHistoryForm="ngForm">
+    <!-- <ion-list class="asset-add" class="ion-padding"> -->
+    
+    <ion-item class="ion-padding">
+        <ion-label position="floating"  class="contactlabel">{{ "Reading" | translate }}
+            <span class="req-star" *ngIf="required">*</span>
+        </ion-label>
+        <ion-input type="number" name="reading" (input)="validateInput($event)"
+            [(ngModel)]="meterHistory.reading" [required]="true" class="contactinput">
+        </ion-input>
+    </ion-item>
+    
+    
+    <!-- </ion-list> -->
+    <ion-row class="ion-padding">
+        <ion-col>
+            <ion-button  expand="block" block color="secondary" type="submit"
+            [disabled]="!meterHistoryForm.form.valid">
+            {{ "update" | translate }}
+            </ion-button>
+        </ion-col>
+    </ion-row>
+</form>
+<div style="margin-top: 10px;">
+  <h5 style="margin-left: 3px;">{{'Recently added readings' | translate}}</h5>
+
+  <ion-row>
+    <ion-col col-12>
+      <table class="table-list">
+        <tr>
+          <th>
+            <span>{{'Reading' | translate}}</span>
+          </th>
+          <th>
+            <span>{{'UnitName' | translate}}</span>
+          </th>
+          <th>
+            <span>{{'Created On' | translate}}</span>
+          </th>
+          <th>
+            <span>{{'Created By' | translate}}</span>
+          </th>
+        </tr>
+        <tr *ngFor="let item of meterHistories">
+          <td><span>
+              {{ item.reading }}
+            </span></td>
+          <td>
+            <span>
+              {{ item.unitName }}
+            </span>
+          </td>
+          <td>
+            <span>
+              {{ item.creationDate | date: 'dd MMM yy' }}
+            </span>
+          </td>
+          <td>
+            <span>
+              {{ item.lastModifiedByName }}
+            </span>
+          </td>
+        </tr>
+      </table>
+      <p (click)="viewChart()" class="view-chart">{{ chartTitle }}</p>
+    </ion-col>
+  </ion-row>
+</div>
+ 
+</ion-content>

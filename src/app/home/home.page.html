@@ -1,0 +1,314 @@
+<ion-backdrop *ngIf="backDropDismiss"></ion-backdrop>
+<ion-menu contentId="main-content">
+    <ion-content class="ion-padding">
+        <div class="first-container-menu">
+            <ion-item color="secondary" lines="none">
+                <ion-avatar slot="start">
+                    <img *ngIf="onLine && imgId != null" alt="Silhouette of a person's head" src="assets\img\user.png" />
+                    <img *ngIf="!onLine || imgId == null" alt="Silhouette of a person's head" src="assets\img\user.png" />
+                </ion-avatar>
+                <ion-label style="color:#FFFFFF !important;font-size:17px"class="menu-label">
+                    {{ userName }} {{ getLocationName() ? ' - '+
+                    getLocationName() : ''}}
+                </ion-label>
+            </ion-item>
+        </div>
+        <ion-list style="background: #ffff !important;"> 
+            <ion-item (click)="gotoAbout()" lines="none">
+                <ion-icon style="font-size: 20px;" slot="start" name="people-outline"></ion-icon>
+                <ion-label class="menu-label">{{'About Us' | translate}}</ion-label>
+            </ion-item>
+            <!-- enableBioMetricLogin -->
+            <ion-item lines="none">
+                <iconify-icon style="font-size: 20px;color: #7E7E7E !important;" icon="teenyicons:face-id-outline"></iconify-icon>
+                <ion-label style="margin-left:1.8em !important"*ngIf="!userData?.uuid"class="menu-label">{{'Enable Biometric' | translate}}</ion-label>
+                <ion-label style="margin-left:1.8em !important" *ngIf="userData?.uuid"class="menu-label">{{'Update Biometric' | translate}}</ion-label>
+                <ion-toggle [(ngModel)]="toggleShown" (click)="openFaceId($event,toggleShown)"></ion-toggle>
+            </ion-item>
+            <ion-item (click)="logoutUser()" lines="none">
+                <ion-icon style="font-size: 20px;" slot="start" name="log-out-outline"></ion-icon>
+                <ion-label class="menu-label">{{'Log Out' | translate }}</ion-label>
+            </ion-item>
+            <ion-item *ngIf="offlineShown" (click)="offlineSync()" lines="none">
+                <ion-icon style="font-size: 20px;" slot="start" name="cloud-offline-outline"></ion-icon>
+                <ion-label class="menu-label">{{'offlineSync' | translate}}</ion-label>
+            </ion-item>
+
+
+        </ion-list>
+
+    </ion-content>
+    <ion-footer>
+        <div style="min-height: 80px;">
+            <img class="outline-footer-img"
+                style="left:50px;right:50px;position: relative; margin-top:1em;  border: 1px solid #C3C5C8 !important;border-radius: 4px;"
+                src="assets/imgs/cryotos-logo.png" />
+        </div>
+        
+    </ion-footer>
+</ion-menu>
+<div class="ion-page" id="main-content">
+    <ion-header color="secondary" lines="none">
+        <ion-toolbar color="secondary">
+            <ion-buttons slot="start">
+                <ion-menu-button></ion-menu-button>
+            </ion-buttons>
+            <ion-title>{{'home' | translate}}</ion-title>
+        </ion-toolbar>
+    </ion-header>
+    <ion-content class="ion-padding no-scroll">
+        <div class="first-container" *ngIf="!loader">
+            <ion-grid fixed>
+                <ion-row>
+                    <ion-col size="12">
+                        <div class="div-text-algin-center">
+                            <span class="text-home-pg-heading-bold"> <ion-skeleton-text [animated]="true" style="width: 80%;"></ion-skeleton-text></span>
+                            <span class="ml-p5 text-home-pg-heading"> <ion-skeleton-text [animated]="true" style="width: 80%;"></ion-skeleton-text></span>
+                        </div>
+                    </ion-col>
+                </ion-row>
+                <ion-row>
+                    <ion-col size="12">
+                        <ion-skeleton-text [animated]="true" style="width: 80%;"></ion-skeleton-text>
+                    </ion-col>
+                </ion-row>
+                <ion-row class="mb-p5">
+                    <ion-col size="5">
+                        <div><ion-skeleton-text [animated]="true" style="width: 80%;"></ion-skeleton-text></div>
+                        
+                    </ion-col>
+                    <ion-col class="pl-2" size="7">
+                        <ion-list [ngClass]="{'mb-2': width >= 768, 'mb-8': width < 768 }">
+                            <ion-row>
+                                <ion-col size="6">
+                                    <span class="priority-overdue"></span>
+                                    <span style="margin-left: 8px;"> <ion-skeleton-text [animated]="true" style="width: 80%;"></ion-skeleton-text></span>
+                                </ion-col>
+                                <ion-col class="percentage"size="6"> <ion-skeleton-text [animated]="true" style="width: 80%;"></ion-skeleton-text></ion-col>
+                            </ion-row>
+                            <ion-row>
+                                <ion-col size="6">
+                                    <span class="priority-pwr"></span>
+                                    <span style="margin-left: 8px;"> <ion-skeleton-text [animated]="true" style="width: 80%;"></ion-skeleton-text></span>
+                                </ion-col>
+                                <ion-col class="percentage" size="6"> <ion-skeleton-text [animated]="true" style="width: 80%;"></ion-skeleton-text></ion-col>
+                            </ion-row>
+                            <ion-row>
+                                <ion-col size="6">
+                                    <span class="priority-wip"></span>
+                                    <span style="margin-left: 8px;"> <ion-skeleton-text [animated]="true" style="width: 80%;"></ion-skeleton-text></span>
+                                </ion-col>
+                                <ion-col class="percentage" size="6"> <ion-skeleton-text [animated]="true" style="width: 80%;"></ion-skeleton-text></ion-col>
+                            </ion-row>
+                        </ion-list>
+                    </ion-col>
+                </ion-row>
+            </ion-grid>
+        </div>
+        <div class="mt-1" *ngIf="!loader">
+            <ion-grid fixed>
+                <ion-row>
+                    <ion-col size="6" class="mb-p5 pr-1">
+                        <div class="box-inner" id="create-request" tappable>
+                            <div class="txt-box mb-1 mt-1">
+                                <ion-skeleton-text [animated]="true" style="width: 80%;"></ion-skeleton-text>
+                            </div>
+                        </div>
+                    </ion-col>
+                    <ion-col size="6" class="mb-p5 pl-1">
+                        <div class="box-inner" id="view-calendar" tappable>
+                            <div class="txt-box mb-1 mt-1">
+                                <ion-skeleton-text [animated]="true" style="width: 80%;"></ion-skeleton-text>
+                            </div>
+                        </div>
+                    </ion-col>
+                    <ion-col size="6" class="pr-1">
+                        <div class="box-inner" id="job-list" tappable>
+                            <div class="txt-box mt-1 mb-1">
+                                <ion-skeleton-text [animated]="true" style="width: 80%;"></ion-skeleton-text>
+                            </div>
+            
+                        </div>
+                    </ion-col>
+                    <ion-col size="6" class="pl-1">
+                        <div class="box-inner" id="request-list" tappable>
+                            <div class="txt-box mt-1 mb-1">
+                                <ion-skeleton-text [animated]="true" style="width: 80%;"></ion-skeleton-text>
+                            </div>
+            
+                        </div>
+                    </ion-col>
+                </ion-row>
+            </ion-grid>
+
+        </div>
+        <div class="first-container" *ngIf="loader">
+            <ion-grid fixed>
+                <ion-row class="mt-1 mb-p5 ">
+                    <ion-col class="mt-p5" size="12">
+                        <div class="div-text-algin-center">
+                            <span class="text-home-pg-heading-bold">{{pendings }}</span>
+                            <span class="ml-p75 text-home-pg-heading">{{'Pending Task' | translate}}</span>
+                        </div>
+                    </ion-col>
+                </ion-row>
+                <ion-row>
+                    <ion-col size="12">
+                        <ion-segment class="ion-seg" mode="ios" value="workOrder" (ionChange)="segmentChanged($event, '')">
+                            <ion-segment-button class="ion-seg-btn" value="workOrder">
+                                <ion-label class="home-seg-text">
+                                    <span class="box-count-sgm"> {{workReq}}</span>
+                                    <span class="ml-p5" style="font-size:16px">{{'Work Order' | translate}}</span>
+                                </ion-label>
+                            </ion-segment-button>
+                            <ion-segment-button class="ion-seg-btn " value="preventive">
+                                <ion-label class="home-seg-text">
+                                    <span class="box-count-sgm">{{scheduleReq}}</span>
+                                    <span class="ml-p75" style="position: relative;top:1px;font-size:16px">{{'PREVENTIVE' | translate}}</span>
+                                </ion-label>
+                            </ion-segment-button>
+                        </ion-segment>
+                    </ion-col>
+                </ion-row>
+                <ion-row class="mb-p5 mt-p5">
+                    <!-- {{cutOutSize}} -->
+                    <ion-col size="5" style="padding-left:0px !important" *ngIf="loader">
+                        <canvas [ngStyle]="{'display': requestType == 'workOrder' ? 'block' : 'none'}" #pendingChartWrk style="position: relative; height:100px !important; width:40vw"></canvas>
+                        <canvas [ngStyle]="{'display': requestType == 'preventive' ? 'block' : 'none'}" #pendingChartPrv style="position: relative; height:100px !important; width:40vw"></canvas>
+                    </ion-col>
+                    <ion-col style="padding-left: 0em; padding-right: 0em;"size="7">
+                        <ion-list [ngClass]="{'mb-2': width >= 768, 'mb-8': width < 768 }">
+                            <ion-row>
+                                <ion-col size="6">
+                                    <span class="priority-overdue"></span>
+                                    <span style="margin-left: 8px;">{{'Overdue' | translate}}</span>
+                                </ion-col>
+                                <ion-col class="percentage"size="6">{{overDuePercentage}} %</ion-col>
+                            </ion-row>
+                            <ion-row>
+                                <ion-col size="6">
+                                    <span class="priority-wip"></span>
+                                    <span style="margin-left: 8px;">{{'PWR' | translate}}</span>
+   
+                                </ion-col>
+                                <ion-col class="percentage" size="6">{{pendingPercentage }} %</ion-col>
+                            </ion-row>
+                            <ion-row>
+                                <ion-col size="6">
+                                    <span class="priority-pwr"></span>
+                                    <span style="margin-left: 8px;">{{'WIP' | translate}}</span>
+                                </ion-col>
+                                <ion-col class="percentage" size="6">{{wipPercentage }} %</ion-col>
+                            </ion-row>
+
+                        </ion-list>
+                    </ion-col>
+                </ion-row>
+ 
+
+            </ion-grid>
+            <ion-grid fixed style="margin-top:-1em;margin-left:-.5em">
+                <ion-row class="mb-1" style="display: flex;justify-content: center;">
+                    <ion-col (click)="pendingList('', 'overdue')" class="box" size="4">
+                        <div class="due-box div-text-algin-center">
+                            <span>
+                                <ion-icon class="clr-due" name="alert-circle-outline"></ion-icon>
+                                <!-- <iconify-icon class="clr-due" icon="radix-icons:timer" ></iconify-icon> -->
+                            </span>
+                            <span class="ml-p5 home-card-txt">{{'Overdue' | translate}}</span>
+                        </div>
+                        <div class="div-text-algin-center mt-p5">
+                            <span>{{overDueCount}}</span>
+                        </div>
+                    </ion-col>
+                    <ion-col (click)="pendingList('', 'pending')"class="box" size="4">
+                        <div  class="pending-box div-text-algin-center">
+                            <span class="ic-sp"><iconify-icon class="clr-pending"icon="akar-icons:chat-question" ></iconify-icon></span>
+                            <span class="ml-p5 home-card-txt">{{'PWR' | translate}}</span>
+                        </div>
+                        <div class="div-text-algin-center mt-p5">
+                            <span>{{pendingCount}}</span>
+                        </div>
+                    </ion-col>
+                    <ion-col (click)="pendingList('', 'wip')" class="box" size="4">
+                        <div class="wip-box div-text-algin-center">
+                            <span>
+                                <iconify-icon class="clr-wip" icon="carbon:in-progress"></iconify-icon>
+                            </span>
+                            <span class="ml-p5 home-card-txt">{{'WIP' | translate}}</span>
+                        </div>
+                        <div class="div-text-algin-center mt-p5">
+                            <span>{{wipcount}}</span>
+                        </div>
+
+                    </ion-col>
+                </ion-row>
+            </ion-grid>
+        </div>
+        <div class="mt-1" style="margin-left:-1.5em !important;margin-right: -.75em;"*ngIf="loader">
+            <ion-grid fixed>
+                <ion-row>
+                    <ion-col size="6" class="mb-p5 pr-1">
+                        <div class="box-inner" (click)="newRequest()" id="create-request" tappable>
+                            <div class="txt-box mb-1 mt-1">
+                                <iconify-icon icon="fluent:task-list-square-add-20-regular" style="color: #3C75C6;position: relative;
+                                            top: 8px;" width="40" height="40"></iconify-icon>
+                                <h3 class="ion-text-center view-list">{{'Create Work Order' | translate}}</h3>
+                            </div>
+                        </div>
+                    </ion-col>
+                    <ion-col size="6" class="mb-p5 pl-1">
+                        <div class="box-inner" (click)="workRequestList()" id="view-calendar" tappable>
+                            <div class="txt-box mb-1 mt-1">
+                                <iconify-icon icon="ri:chat-settings-line" style="color: #3C75C6;position: relative;
+                                            top: 8px;" width="40" height="40"></iconify-icon>
+                                <h3 class="ion-text-center view-list">{{'Create Work Request' | translate}}</h3>
+                            </div>
+                        </div>
+                    </ion-col>
+                    <ion-col size="6" class="pr-1">
+                        <div class="box-inner" (click)="jobList()" id="job-list" tappable>
+                            <div class="txt-box mt-1 mb-1">
+                                <iconify-icon icon="fluent:checkbox-person-20-regular" style="color: #3C75C6;position: relative;
+                                            top: 8px;" width="40" height="40"></iconify-icon>
+                                <span style="right:3em !important;top:10px" class="box-count">{{ jobs }}</span>
+                                <h3 class="ion-text-center view-list">{{'Involved Task' | translate}}</h3>
+                            </div>
+            
+                        </div>
+                    </ion-col>
+                    <ion-col size="6" class="pl-1">
+                        <div class="box-inner" (click)="requestList()" id="request-list" tappable>
+                            <div class="txt-box mt-1 mb-1">
+                                <iconify-icon icon="ic:outline-folder" style="color: #3C75C6;position: relative;
+                                            top: 8px;" width="40" height="40"></iconify-icon>
+                                <span style="right:3em !important;top:10px" class="box-count">{{ myRequests + drafts }}</span>
+                                <h3 class="ion-text-center view-list">{{'My Creations' | translate}}</h3>
+                            </div>
+            
+                        </div>
+                    </ion-col>
+                </ion-row>
+            </ion-grid>
+
+        </div>
+    </ion-content>
+    <ion-footer>
+        <ion-toolbar>
+            <ion-segment swipe-gesture="false" color="secondary" mode="md" [(ngModel)]="segment">
+                <ion-segment-button value="home" (click)="home()">
+                    <ion-icon size="small" name="home"></ion-icon>
+                    <ion-label>{{'home' | translate}}</ion-label>
+                </ion-segment-button>
+                <ion-segment-button value="calendar" (click)="viewCalendar()">
+                    <ion-icon size="small" name="calendar-outline"></ion-icon>
+                    <ion-label>{{'calendar' | translate}}</ion-label>
+                </ion-segment-button>
+                <ion-segment-button value="settings" (click)="settings()">
+                    <ion-icon size="small" ios="settings-outline" md="settings-sharp"></ion-icon>
+                    <ion-label>{{'settings' | translate}}</ion-label>
+                </ion-segment-button>
+            </ion-segment>
+        </ion-toolbar>
+    </ion-footer>
+</div>

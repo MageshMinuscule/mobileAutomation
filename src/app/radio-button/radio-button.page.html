@@ -1,0 +1,34 @@
+<!-- Radio Button -->
+<ion-list class="radio-button template-field-input">
+  <div class="pad-lft" *ngIf="incident.type == 'radioButton'" style="font-size: 12px;">
+    <span class="workflow-label" >{{incident.label}}
+      <span class="req-star" *ngIf="incident.compulsory">*</span>
+    </span>
+    <!-- <span class="req-star" *ngIf="incident.compulsory">*</span>
+    <ion-label class="workflow-label" position="floating">{{incident.label}}
+      <span class="req-star" *ngIf="incident.compulsory">*</span>
+    </ion-label> -->
+    <!-- <div *ngFor="let option of incident.options" class="container">
+      <div class="radio">
+        <input id="{{option}}-{{incident.label.split(' ').join('')}}" name="{{option}}-{{incident.label.split(' ').join('')}}" type="radio" [value]="option" [(ngModel)]="incident.value"
+          [required]="incident.compulsory">
+        <label for="{{option}}-{{incident.label.split(' ').join('')}}" class="radio-label">{{option}}</label>
+      </div>
+    </div> -->
+
+
+    <!-- <ion-list-header lines="none"> -->
+      <!-- <ion-label>{{incident.label}}
+        <span class="req-star" *ngIf="incident.compulsory">*</span>
+      </ion-label> -->
+    <!-- </ion-list-header> -->
+    <!-- <ion-list> -->
+      <ion-radio-group color="danger"class="radio" id={{incident}} *ngFor="let option of incident.options;" [(ngModel)]="incident.value">
+        <ion-item style="margin-left:-1em !important" lines="none">
+          <ion-radio [value]="option"></ion-radio>
+          <ion-label for="{{option}}-{{incident.label.split(' ').join('')}}" class="radio-label">{{option}}</ion-label>
+        </ion-item>
+      </ion-radio-group>
+    <!-- </ion-list> -->
+  </div>
+</ion-list>

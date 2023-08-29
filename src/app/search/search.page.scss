@@ -1,0 +1,182 @@
+
+    ion-header {
+        background: #445498;
+        font-family: "Poppins";
+    }
+    ion-title {
+        padding-right: 50px;
+        font-family: "Poppins";
+    }
+    .fabcolor{
+      background-color: #3C75C6;
+      width: 100%;
+      height:100%;
+      font-size: 10px;
+      padding: 20px;
+    }
+    .caret-upcolor{
+      --ion-color-success: #36a3f7;
+      }
+    
+    .list-view-badge{
+    .badge-custom {
+        font-family: "Poppins";
+        float: left;
+        padding : 4px;
+        font-size: 12px;
+        min-width: 50px;
+        font-weight: 500;
+        border-radius: 20px;
+        height: 20px;
+        box-shadow: 0 2px 2px 0 rgb(0 0 0 / 14%), 
+                    0 3px 1px -2px rgb(0 0 0 / 20%),
+                    0 1px 5px 0 rgb(0 0 0 / 12%);
+    }
+    .list-view{
+        
+        padding: 5px 10px 10px 10px !important; 
+        
+        // background-color: rgb(243, 240, 240);
+    }
+        ion-item-divider {
+          padding: 10px 10px 0px 10px;
+          background: #FFFFFF;
+          border: 1px solid rgba(195, 197, 200, 0.5);
+          border-radius: 4px;
+        }
+    .cat-label {
+        font-family: "Poppins";
+        text-transform: uppercase;
+        font-weight: bold;
+        font-size: small;
+        color: rgb(119, 118, 118);
+    }
+    .location-label {
+        font-family: "Poppins";
+        color: rgb(119, 118, 118);
+        // padding-top: 13px;
+    }
+    .asset-detail {
+        min-height: 55vh;
+    }
+    .asset-info {
+        bottom: 0;
+        position: absolute;
+        margin-bottom: 8%;
+        margin-left: 5%;
+        color: rgb(119, 118, 118);
+        font-weight: 600;
+    }
+}
+    .workflowlists
+    {
+       
+        color:#445498;
+        font-family: "Poppins";
+        padding: 6px;
+        span{
+            margin-left: 5px;
+        }
+    }
+    .list-view:nth-child(1n) .badge-custom {
+        background-color: #f4516c;
+      }
+      
+      .list-view:nth-child(2n) .badge-custom {
+        background-color: #34bfa3;
+      }
+      
+      .list-view:nth-child(3n) .badge-custom {
+        background-color: #36a3f7;
+      }
+      
+      .list-view:nth-child(4n) .badge-custom {
+        background-color: #716aca;
+      }
+      
+      .list-view-badge:nth-child(1n) .badge-custom {
+        background-color: #f4516c;
+      }
+      
+      .list-view-badge:nth-child(2n) .badge-custom {
+        background-color: #34bfa3;
+      }
+      
+      .list-view-badge:nth-child(3n) .badge-custom {
+        background-color: #36a3f7;
+      }
+      
+      .list-view-badge:nth-child(4n) .badge-custom {
+        background-color: #716aca;
+      }
+    .virtual-hide { 
+        overflow: hidden;
+        visibility: hidden;
+        position: absolute;
+        top: 0;
+        left: 0;
+        bottom: 0;
+        right: 0;
+    }
+    .rejectcard{
+      --ion-color-rejectcard: #edd4d7;
+    }
+    .skipbutton .fab {
+      border-radius: 21% !important;
+      width: 61px !important;
+      height: 43px !important;
+  }
+  .hide { 
+    overflow: hidden;
+    visibility: hidden;
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+}
+ion-fab-list {
+  ion-label {
+    position: relative;
+    top: -42px;
+    right: 5em;
+    color: white;
+    line-height: 24px;
+    padding: 0px 8px;
+    border-radius: 4px;
+    font-size: 13px;
+    font-weight: 700;
+    background-color: #3C75C6;
+    // box-shadow: 3px 5px #f5f5f5;
+    width: 100%;
+    display:flex;
+    justify-content: center;
+  }
+}
+ion-fab-button {
+  margin-left: 66px;
+  overflow: visible;
+  position: relative;
+}
+.backdrop-filter {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background: rgb(100 100 100 / 22%);
+}
+.bdg-cls {
+  margin-top: -2em !important;
+  margin-left: -2em !important;
+}
+ion-fab-list {
+  ion-icon {
+    color: #3C75C6 !important;
+  }
+}
+ion-backdrop {
+  --backdrop-color : rgb(100 100 100 / 22%) !important;
+  // opacity: 0.8;
+  z-index: 99;
+}

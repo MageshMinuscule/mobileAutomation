@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "510017250859",
+    "firebase_url": "https://piqotech-products.firebaseio.com",
+    "project_id": "piqotech-products",
+    "storage_bucket": "piqotech-products.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:510017250859:android:af9949c54c890367",
+        "android_client_info": {
+          "package_name": "com.piqotech.cryotoslocal"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "510017250859-lo1hesmnrng6m7jbhskdr1e696psj5s0.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAZTi5QMz8grGP-14Ht9EZ1FdLv663en28"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

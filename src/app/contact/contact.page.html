@@ -1,0 +1,73 @@
+<ion-header>
+  <ion-toolbar color="secondary">
+    <ion-title mode="md">{{'Contact Details' | translate}}</ion-title>
+  <ion-buttons slot="start">
+      <ion-button (click)="back()">
+          <ion-icon slot="icon-only" name="chevron-back-outline"></ion-icon>
+      </ion-button>
+  </ion-buttons>
+</ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <form (ngSubmit)="updateContact()" #contactForm="ngForm" >
+      <ion-list class="asset-add">
+          <ion-item>
+              <ion-label position="floating" class="contactlabel" >{{ "Name" | translate }}
+                  <span class="req-star" *ngIf="required">*</span>
+              </ion-label>
+              <ion-input type="text" name="userName" class="contactinput"
+                  [(ngModel)]="contact.name" (input)="validateInput($event)" [required]="true" [disabled]="true">
+              </ion-input>
+          </ion-item>
+          <ion-item>
+              <ion-label position="floating" class="contactlabel">{{ "Primary Contact" | translate }}
+                  <span class="req-star" *ngIf="required">*</span>
+              </ion-label>
+              <ion-input type="text" name="primaryContact" class="contactinput"
+                  [(ngModel)]="contact.primaryContact" (input)="validateInput($event)" [required]="true" >
+              </ion-input>
+          </ion-item>
+          <ion-item>
+              <ion-label position="floating" class="contactlabel">{{ "Email" | translate }}
+              </ion-label>
+              <ion-input type="email" name="primaryEmail" class="contactinput"
+                  [(ngModel)]="contact.primaryEmail" (input)="validateInput($event)" >
+              </ion-input>
+          </ion-item>
+          <ion-grid>
+              <!-- <ion-label position="floating" class="contactlabel">{{ "Phone Number" | translate }}                   
+              </ion-label>
+              <ion-input type="number" name="primaryPhone" 
+                  [(ngModel)]="contact.primaryPhone" (input)="validateInput($event)" [required]="true">
+              </ion-input>
+              <ion-icon name="call" ></ion-icon> -->
+              <ion-row >
+                  <ion-col size="12">
+                    <ion-item style="padding-left: 7px!important;">
+                      <ion-label position="floating" class="contactlabel">{{ "Phone Number" | translate }}                   
+                      </ion-label>
+                      <ion-input type="number" name="primaryPhone" class="contactinput"
+                          [(ngModel)]="contact.primaryPhone" (input)="validateInput($event)" >
+                      </ion-input>
+                    </ion-item>
+                  </ion-col>
+                  <!-- <ion-col col-1>
+                    <ion-icon (click)="makeCall()" class="phone_icon"  name="call" >
+                    </ion-icon>
+                  </ion-col> -->
+                </ion-row>
+          </ion-grid>
+      
+      
+  </ion-list>
+      <ion-row padding style="padding: 16px;">
+          <ion-col class="signup-col" style="margin: 0 10px;">
+              <ion-button  expand="block" color="secondary" type="submit"
+                  [disabled]="!contactForm.form.valid">
+                  {{ "Update" | translate }}
+              </ion-button>
+          </ion-col>
+      </ion-row>
+  </form>
+</ion-content>

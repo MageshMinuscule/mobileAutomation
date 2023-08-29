@@ -1,0 +1,56 @@
+<ion-header>
+  <ion-toolbar color="secondary">
+    <ion-title mode="md">{{'photo'}}</ion-title>
+   <ion-buttons slot="end"  *ngIf="modalPop">
+     <ion-button (click)="dismiss()">
+      {{'cancel'}}
+     </ion-button>
+   </ion-buttons>
+  </ion-toolbar>
+
+</ion-header>
+<ion-content class="no-scroll">
+  <ion-fab style="padding-left: 12px;" color="secondary" vertical="top" horizontal="left" slot="fixed"  *ngIf="imageSrc.length > 0" #fab>
+    <ion-fab-button color="secondary">
+      <ion-icon   name="caret-forward-outline"></ion-icon>
+    </ion-fab-button>
+    <ion-fab-list side="end">
+      <ion-button (click)="startAnnotate(fab)"color="secondary" *ngIf="!toggleAnnotate">
+        {{'annotate' }}
+      </ion-button>
+      <ion-button  (click)="clearAnnotate()" color="secondary" *ngIf="toggleAnnotate">
+        {{'clear' }}
+      </ion-button>
+      <ion-button color="secondary" *ngIf="isBrowser">
+        {{'retake' }}
+      </ion-button>
+      <ion-button  class="save-fab-button" (click)="imgUpdate()" color="secondary" *ngIf="modalPop">
+        {{'save' }}
+      </ion-button>
+      <ion-button class="save-fab-button" (click)="upload()" color="secondary"*ngIf="!modalPop">
+        {{'save' }}
+      </ion-button>
+    </ion-fab-list>
+  </ion-fab>
+
+
+  <div style="margin-top:150px" class="gallery-button"  *ngIf="imageSrc.length == 0">
+    <ion-button (click)="getImageActionSheet()" *ngIf="!isBrowser" fill="clear">
+      <ion-icon slot="icon-only" name="images"></ion-icon>
+    </ion-button>
+    <ion-button  *ngIf="isBrowser" fill="clear">
+      <ion-icon slot="icon-only" name="images"></ion-icon>
+    </ion-button>
+    <p (click)="getImageActionSheet()" *ngIf="!isBrowser">{{'Capture a Photo' }}</p>
+    <p  *ngIf="isBrowser">{{'choosePhoto' }}</p>
+  </div>
+  <div style="height:0px;overflow:hidden" lines ="none">
+    <ion-input #fileInput type="file" id="fileInput" accept="image/*" (ionChange)="selectImage($event)"></ion-input>
+  </div>
+
+  <div>
+    <div>
+      <canvas class="signature-pad-canvas" id="canvas" #canvas style="touch-action: none;"></canvas>
+    </div>
+  </div>
+</ion-content>

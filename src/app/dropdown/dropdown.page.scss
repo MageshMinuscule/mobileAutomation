@@ -1,0 +1,29 @@
+
+    //    .selectwidth {
+    //     width: 100%;
+    //     max-width: 100% !important;
+    //     border-bottom: 0.5px solid #ded0d0;
+    //     padding: 11px 8px 11px 0 !important;
+    //     .select-ios {
+    //         padding: 11px 8px 11px 0;
+    //     }
+    // }
+    ion-label{
+        opacity: 0.8;
+    }
+    ion-select{
+        background: none;
+        outline: none;
+        box-shadow: none !important;
+        // border: none !important;
+        font-family: 'Roboto';
+        font-style: normal;
+        font-weight: 400;
+        font-size: 16px !important;
+        line-height: 18px;
+        color: #333333;
+    }
+    ion-item{ 
+       // --border-color: 1px solid #7E7E7E !important; 
+      }
+    

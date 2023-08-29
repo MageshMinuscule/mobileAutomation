@@ -1,0 +1,99 @@
+<ion-header *ngIf="!button">
+ <ion-toolbar color="secondary">
+  <ion-title mode="md">{{ title | translate }}</ion-title>
+  <ion-buttons slot="end">
+    <ion-button class="buttonStyle" (click)="dismiss()">
+      <ion-icon name="close-outline"></ion-icon>
+    </ion-button>
+  </ion-buttons>
+ </ion-toolbar>
+    <ion-toolbar color="secondary">
+    <ion-searchbar #searchBar [(ngModel)]="searchKeyword" [debounce]="500" (ionInput)="filterResult($event)"
+    placeholder="{{'Search' | translate}}">
+  </ion-searchbar>
+  </ion-toolbar>
+</ion-header>
+<ion-content *ngIf="!button">
+  <ion-list lines="none">
+    <div *ngIf="!isOverDue">
+      <ion-item *ngIf="users && users.length">
+        <ion-label >{{('Select All' | translate )}}
+        </ion-label>
+        <ion-checkbox slot="start" color="danger"  [(ngModel)]="checkParent" [indeterminate]="indeterminateState"
+          (click)=" addAllOption($event)"></ion-checkbox>
+      </ion-item>
+      <ion-item *ngFor="let user of users">
+        <ion-label >{{ user.userName }}</ion-label>
+        <ion-checkbox slot="start" color="danger"  [(ngModel)]="user.checked"
+          (ionChange)=" addSingleOption()"></ion-checkbox>
+          <span [ngStyle]="{'color': user.status == 'Available' ? '#127701' : '#F00'}">{{user.status}}</span>
+      </ion-item>
+    </div>
+    <div *ngIf="isOverDue">
+      <div *ngIf="!overDueList.length">
+        <app-no-record></app-no-record>
+      </div>
+      <ion-item *ngFor="let item of overDueList" (click)="selectItem(item)">
+        <div class="location-label">
+          <ion-icon name="person" class="location-icon"></ion-icon>
+          <span> {{item.Name}}</span>
+        </div>
+      </ion-item>
+    </div>
+  </ion-list>
+</ion-content>
+<ion-footer *ngIf="!isOverDue && !button">
+  <ion-button color="secondary" (click)="addUsers()" expand="block" size="medium"
+    [disabled]="this.checkedUser.length == 0">
+    {{'Confirm Users' | translate}} </ion-button>
+</ion-footer>
+
+<ion-content class="popover-content" *ngIf="button">
+  <h3 class="ion-text-center">Comments</h3>
+ <ion-list>
+ <ion-grid style="padding-left:0px;"fixed>
+     <ion-row>
+       <ion-col size="12">
+         <ion-item>
+           <ion-label position="stacked">
+             Reason For Pending
+             <span class="req-star">*</span>
+           </ion-label>
+           <ion-select mode="ios"  justify="start" style="font-size:13px" [(ngModel)]="reason">
+             <ion-select-option>Pending For Spare</ion-select-option>
+             <ion-select-option>Others</ion-select-option>
+           </ion-select>
+         </ion-item>
+       </ion-col>
+     </ion-row>
+     <ion-row>
+       <ion-col size="12">
+         <ion-item>
+           <ion-label position="stacked"> Comments For Pending
+               <span class="req-star">*</span>
+           </ion-label>
+           <ion-input class="borderhidden" autocomplete="off" [(ngModel)]="comment" 
+               [name]="name">
+           </ion-input>
+         </ion-item>
+       </ion-col>
+     </ion-row>
+   </ion-grid>
+
+
+ </ion-list>
+</ion-content>
+<ion-footer *ngIf="button" no-border>
+  <ion-row>
+    <ion-col style="padding-left:25px;"size="6"> 
+      <ion-button [disabled]=""size="small" fill="clear"(click)="saveReason()">
+     Save </ion-button>
+   </ion-col>
+    <ion-col style="padding-left:20px;"size="6">
+     <ion-button size="small" fill="clear" (click)="cancelReason()">
+       Cancel
+     </ion-button>
+    </ion-col>
+
+  </ion-row>
+</ion-footer>

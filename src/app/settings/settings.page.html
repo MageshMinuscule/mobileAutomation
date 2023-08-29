@@ -1,0 +1,54 @@
+<ion-header>
+  <ion-toolbar color="secondary">
+    <ion-title mode="md">{{'Settings' | translate}}</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <div id="cards-container" class="card-img">
+    <ion-card (click)="gotoAsset()">
+      <ion-card-header>
+        {{"Assets" | translate}}
+      </ion-card-header>
+      <ion-icon name="server-outline"></ion-icon>
+
+    </ion-card>
+    <ion-card (click)="gotoInventories()">
+      <ion-card-header>
+        {{"Inventories"| translate }}
+      </ion-card-header>
+      <ion-icon ios="cart-outline" md="cart-sharp" size="large"></ion-icon>
+
+    </ion-card>
+    <ion-card (click)="meterReading()">
+      <ion-card-header>
+        {{"Meter Reading"| translate}}
+      </ion-card-header>
+      <ion-icon name='stats-chart'></ion-icon>
+    </ion-card>
+    <ion-card (click)="gotoAbout()">
+      <ion-card-header>
+        {{"About Us"| translate}}
+      </ion-card-header>
+      <ion-icon name='people'></ion-icon>
+    </ion-card>
+  </div>
+</ion-content>
+<ion-footer>
+  <ion-toolbar>
+    <ion-segment swipe-gesture="false" mode="md" color="secondary" [(ngModel)]="segment">
+      <ion-segment-button value="home" (click)="home()">
+        <ion-icon size="small" name="home"></ion-icon>
+        <ion-label>{{'home'| translate}}</ion-label>
+      </ion-segment-button>
+      <ion-segment-button value="calendar" (click)="viewCalendar()">
+        <ion-icon name="calendar-outline"></ion-icon>
+        <ion-label>{{'Calendar' | translate}}</ion-label>
+      </ion-segment-button>
+      <ion-segment-button value="settings" (click)="settings()">
+        <ion-icon size="small" ios="settings-outline" md="settings-sharp"></ion-icon>
+        <ion-label>{{'settings'| translate}}</ion-label>
+      </ion-segment-button>
+    </ion-segment>
+  </ion-toolbar>
+</ion-footer>

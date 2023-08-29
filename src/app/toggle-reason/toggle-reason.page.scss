@@ -1,0 +1,11 @@
+ion-item{
+    font-size: 12px;
+}
+.ellip-rm-hover:hover {
+    text-overflow: clip;
+    white-space: normal;
+    word-break: break-all;
+}
+ion-item{ 
+   // --border-color: 1px solid #7E7E7E !important; 
+  }

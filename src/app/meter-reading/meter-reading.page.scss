@@ -1,0 +1,34 @@
+.inventory-box
+{
+    border: 1px solid #C3C5C880;
+    border-radius: 4px;
+    padding: 5px;
+}
+.inventory-image
+{
+    width: 80px !important;
+    height: 70px !important;
+    border-radius: 4px;
+    padding: 10px;
+    border: 1px solid #C3C5C8;
+    background: #F3F8FF;
+}
+.cat-label {
+    font-family: "Roboto";
+    text-transform: uppercase;
+    color: #333333;
+    font-weight: 500;
+    font-size: 16px;
+}
+.location-label {
+    font-family: "Roboto";
+    color: #7E7E7E;
+    font-size: 15px;
+}
+.text-truncate
+{
+    max-width: 100%;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}

@@ -1,0 +1,90 @@
+<ion-header>
+  <ion-toolbar color="secondary">
+    <ion-title style="font-size:15px;"mode="md">{{'ASSET FILTER' | translate}} </ion-title>
+    <ion-buttons slot="end">
+      <ion-button class="buttonStyle" (click)="dismiss()">
+        <ion-icon name="close-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+  <form (ngSubmit)="addAsset()" #filterForm="ngForm">
+    <ion-list class="asset-add">
+      <ion-item>
+        <ion-label class="filter-label" position="floating">{{'Category'| translate}}</ion-label>
+        <ion-input type="text" (input)="filterParentCategoryResult($event, 'parent')"
+          (ionFocus)="fieldOnFocus('category')" name="category" (focusout)="clearResults('category')"
+          [(ngModel)]="category.name" required>
+        </ion-input>
+      </ion-item>
+      <ion-list class="ion-padding-end" class="search-results max-height">
+        <ion-item *ngFor="let category of parentCategoryResults" (click)="selectCategory(category, 'parent')"
+          class="ion-padding-end bg-color">
+          {{ category.name }}
+        </ion-item>
+      </ion-list>
+
+      <div *ngFor="let childCategory of childCategories;let idx = index">
+        <ion-item>
+          <ion-label class="filter-label" position="floating">{{'Child Category' | translate }}</ion-label>
+          <ion-input type="text" (input)="filterSubCategoryResult($event, childCategory)"
+            (ionFocus)="fieldOnFocus('subCategory', childCategory)" name="subCategory{{idx}}"
+            (focusout)="clearResults('subCategory', childCategory)" [(ngModel)]="childCategory.name" required>
+          </ion-input>
+        </ion-item>
+        <ion-list class="ion-padding-end" class="search-results max-height">
+          <ion-item *ngFor="let child of childCategory.childs"
+            (click)="selectCategory(child, 'child', childCategory, idx)" class="ion-padding-end bg-color">
+            {{ child.name }}
+          </ion-item>
+        </ion-list>
+      </div>
+
+      <ion-item *ngIf="module != 'Asset'">
+        <ion-label  class="filter-label" position="floating">{{'Location'| translate}}</ion-label>
+        <ion-input type="text" (input)="filterParentLocationResult($event, 'parent')"
+          (ionFocus)="fieldOnFocus('location')" name="location" (focusout)="clearResults('location')"
+          [(ngModel)]="location.name" required>
+        </ion-input>
+      </ion-item>
+      <ion-list class="ion-padding-end" class="search-results max-height">
+        <ion-item *ngFor="let location of parentLocationResults" (click)="selectLocation(location, 'parent')"
+          class="ion-padding-end">
+          {{ location.name }}
+        </ion-item>
+      </ion-list>
+
+      <div *ngFor="let childLocation of childLocations;let idx = index">
+        <ion-item>
+          <ion-label class="filter-label" position="floating">{{'Sub Location'| translate}}</ion-label>
+          <ion-input type="text" (input)="filterSubLocationResult($event, childLocation)"
+            (ionFocus)="fieldOnFocus('subLocation', null, childLocation)" name="subLocation{{idx}}"
+            (focusout)="clearResults('subLocation', null, childLocation)" [(ngModel)]="childLocation.name" required>
+          </ion-input>
+        </ion-item>
+        <ion-list class="ion-padding-end" class="search-results max-height">
+          <ion-item *ngFor="let child of childLocation.childs"
+            (click)="selectLocation(child, 'child', childLocation, idx)" class="ion-padding-end bg-color">
+            {{ child.name }}
+          </ion-item>
+        </ion-list>
+      </div>
+
+    </ion-list>
+    <ion-row>
+      <ion-col size="6">
+        <ion-button class="btn-clr" expand="block"color="white" type="button"
+          (click)="resetFilter()">
+          {{ 'Reset' | translate }}
+        </ion-button>
+      </ion-col>
+      <ion-col size="6">
+        <ion-button (click)="applyFilter()" expand="block" color="secondary">
+          {{ btnTxt | translate }}
+        </ion-button>
+      </ion-col>
+    </ion-row>
+  </form>
+</ion-content>

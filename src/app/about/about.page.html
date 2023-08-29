@@ -1,0 +1,43 @@
+<ion-header>
+  <ion-toolbar color="secondary">
+    <ion-title mode="md">{{'About Us' | translate}}</ion-title>
+    <ion-buttons slot="start">
+      <ion-button (click)="back()">
+        <ion-icon slot="icon-only" name="chevron-back-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <div class="about">
+    <div class="about-bgImage">
+      <div class="wrapper">
+        <button class="about-label">{{ 'about-title' | translate}}</button>
+      </div>
+    </div>
+  </div>
+  <div class="ion-padding">
+    <h3>{{ 'about-intro-title' | translate}} </h3>
+    <p> {{ 'about-intro' | translate}} </p>
+    <h3>{{ 'about-feature' | translate}}</h3>
+
+    <ul>
+      <li> {{ 'about-feature-1' | translate}} </li>
+      <li> {{ 'about-feature-2' | translate}} </li>
+      <li> {{ 'about-feature-3' | translate}} </li>
+      <li> {{ 'about-feature-4' | translate}} </li>
+      <li> {{ 'about-feature-5' | translate}} </li>
+      <li> {{ 'about-feature-6' | translate}} </li>
+      <li> {{ 'about-feature-7' | translate}} </li>
+      <li> {{ 'about-feature-8' | translate}} </li>
+      <li> {{ 'about-feature-9' | translate}} </li>
+      <li> {{ 'about-feature-10' | translate}} </li>
+      <li> {{ 'about-feature-11' | translate}} </li>
+    </ul>
+    <h3>{{ 'version' | translate}} :-</h3>
+    <ul>
+      <li>{{'currentVersion' | translate}} <b> {{ version }}</b></li>
+    </ul>
+  </div>
+</ion-content>

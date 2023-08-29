@@ -1,0 +1,121 @@
+.spin{
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+ }
+ ion-title{
+    font-family: "Poppins";
+ }
+ ion-spinner {
+    width: 28px;
+    height: 28px;
+    stroke: #444;
+    fill: #222;
+ }
+ ion-avatar {
+   min-width: 80px;
+   min-height: 40px;
+}
+.cat-label {
+   font-family: "Roboto";
+   text-transform: uppercase;
+   color: #333333;
+   font-weight: 500;
+   font-size: 14px;
+}
+.location-label {
+   font-family: "Roboto";
+   color: #7E7E7E;
+   font-size: 15px !important;
+   font-weight: 400;
+   // margin: -3px;
+}
+.category-label {
+   font-family: "Roboto";
+   color: #7E7E7E;
+   font-size: 16px !important;
+   // margin: -3px;
+}
+img {
+   max-width: 100%;
+   border: 0;
+   border-radius: 0;
+}
+ .list-view-badge{
+   .badge-custom {
+       font-family: "Poppins";
+       float: left;
+       padding : 4px;
+       font-size: 12px;
+       min-width: 50px;
+       font-weight: 500;
+       border-radius: 20px;
+       height: 20px;
+       box-shadow: 0 2px 2px 0 rgb(0 0 0 / 14%), 
+                   0 3px 1px -2px rgb(0 0 0 / 20%),
+                   0 1px 5px 0 rgb(0 0 0 / 12%);
+   }
+   .list-view{
+       
+       padding: 5px 5px 0px 5px;
+       background-color: rgb(243, 240, 240);
+   }
+}
+
+.list-view:nth-child(1n) .badge-custom {
+   background-color: #f4516c;
+}
+
+.list-view:nth-child(2n) .badge-custom {
+   background-color: #34bfa3;
+}
+
+.list-view:nth-child(3n) .badge-custom {
+   background-color: #36a3f7;
+}
+
+.list-view:nth-child(4n) .badge-custom {
+   background-color: #716aca;
+}
+
+.list-view-badge:nth-child(1n) .badge-custom {
+   background-color: #f4516c;
+}
+
+.list-view-badge:nth-child(2n) .badge-custom {
+   background-color: #34bfa3;
+}
+
+.list-view-badge:nth-child(3n) .badge-custom {
+   background-color: #36a3f7;
+}
+
+.list-view-badge:nth-child(4n) .badge-custom {
+   background-color: #716aca;
+}
+.inventory-box
+{
+    border: 1px solid #C3C5C880;
+    border-radius: 4px;
+}
+.inventory-image
+{
+   width: 70px !important;
+    height: 70px !important;
+    border-radius: 4px;
+    margin-top: 17px;
+}
+.line-heigt
+{
+   margin-top: 12px;
+    margin-bottom: 16px;
+}
+.icon-gap
+{
+   margin-left: 7px;
+}
+.bdg-cls {
+   margin-top: -2em !important;
+   margin-left: -2em !important;
+ }

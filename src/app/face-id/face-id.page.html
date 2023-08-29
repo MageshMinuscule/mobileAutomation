@@ -1,0 +1,16 @@
+
+<ion-list>
+  <div>
+    <div class="algin-center">
+      <iconify-icon icon="iconoir:face-id"></iconify-icon>
+    </div>
+    <h4 class="algin-center">BioMetric Not Recognised</h4>
+    <small class="algin-center"> Try Again</small>
+  </div>
+    <ion-item (click)="tryAgain()">
+      <ion-label class="btn-pop">Try BioMetric Again</ion-label>
+    </ion-item>
+    <ion-item (click)="UsePass()" lines="none">
+      <ion-label class="btn-pop">Try UserName Password</ion-label>
+    </ion-item>
+</ion-list>

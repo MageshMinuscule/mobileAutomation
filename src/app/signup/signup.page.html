@@ -1,0 +1,173 @@
+<!-- <ion-header>
+  <ion-toolbar color="secondary" >
+    <ion-title>{{ 'Schedule Demo' | translate}}</ion-title>
+    <ion-buttons slot="start">
+      <ion-button (click)="back()">
+        <ion-icon slot="icon-only" name="chevron-back-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header> -->
+
+<ion-content class="login-content forget-password account-form" padding>
+  <div class="login-box box-outer sd-demo">
+    <form #forgetForm="ngForm" *ngIf="form === 'form-1'">
+      <div class="signup-wlcm">
+        <span>{{'Welcome to' | translate}} <span style="color: #E01E5A;">Cryotos</span></span><br>
+        <span type="submit" id="sub-wlcm" >{{'Let’s make you and you’re team efficient'}}</span>
+      </div>
+      <ion-row>
+        <ion-col>
+          <div class="eg-text">
+            <p>{{ 'Enter your mail here' | translate}}</p>
+          </div>
+          <ion-item>
+            <ion-label position="floating">{{'First Name' | translate}}</ion-label>
+            <ion-input  type="text" name="name" [(ngModel)]="registerAccount.firstName" contact 
+            autocomplete="off"  clearInput required></ion-input>
+          </ion-item>
+          <ion-item>
+            <ion-label position="floating">{{'Email' | translate}}</ion-label>
+            <ion-input type="email" name="email"  (ionChange)="validateEmail(registerAccount.email)" [(ngModel)]="registerAccount.email" email 
+            autocomplete="off"  clearInput required></ion-input>
+          </ion-item>
+          <span *ngIf="errorMsg" class="error-danger" style="position: relative;top: -28px;left: 15px;">{{msg}}</span>
+          <ion-item>
+            <ion-label position="floating">{{'New Password' | translate}}</ion-label>
+            <ion-input #password type="password" name="password"  (ionChange) = "validPassword($event)" [(ngModel)]="registerAccount.password" contact 
+            autocomplete="off" clearInput required></ion-input>
+            <span *ngIf="registerAccount && registerAccount.password"class="type-toggle" (click)="toggleShow()">
+              <ion-icon class="show-option" style="font-size:18px"color="secondary" [hidden]="showPassword" name="eye-off-outline" align-self-end></ion-icon>
+              <ion-icon class="hide-option" style="font-size:18px"color="secondary" [hidden]="!showPassword"  name="eye-outline" align-self-end></ion-icon>
+            </span>
+            <!-- <ion-text color="danger" *ngIf="password.touched">
+              <p class="required">{{passwordlengtherror}} {{passworderrormsg}}</p>
+            </ion-text> -->
+          </ion-item>
+          <span *ngIf="passwordinvalid" class="error-danger" style="position: relative;top: -28px;left: 15px;"> {{passwordlengtherror}} {{passworderrormsg}}</span>
+        </ion-col>
+      </ion-row>
+      <!-- <span class="alert-info"><ion-icon name="alert" style="margin-bottom: -1px;margin-left: 18px;"></ion-icon>
+        <span class="iconify" data-icon="akar-icons:circle-alert"></span>Check your mail ID to reset your password
+      </span> -->
+      <!-- <ion-row class="ion-padding">
+        <ion-col class="signup-col">
+          <ion-button class="submit-btn"expand="block" color="danger" type="submit" [disabled]="!forgetForm.form.valid">
+            {{'Send Link' | translate}}
+          </ion-button>
+        </ion-col>
+      </ion-row> -->
+      <ion-row class="ion-padding">
+      <ion-col class="signup-col">
+        <!-- <ion-button size="large" class="submit-btn" color="white"  id="login" fill="clear" (click)="switchform('form-2')"
+        expand="full" [disabled]="!forgetForm.form.valid">{{'submit' | translate}}</ion-button> -->
+        <ion-button size="large" class="submit-btn" color="white"  id="login" fill="clear" [disabled]="!forgetForm.form.valid"
+         (click)="switchform('form-2',1)" expand="full" >{{'submit' | translate}}</ion-button>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <span class="signup-link" type="submit" id="registerAccount-btn">{{'Already have an account' | translate}}? <a (click)="gotoLogin()"> Login</a></span>
+    </ion-row>
+    <div class="dot-carousel-container">
+      <span *ngFor="let dot of dots; let i = index" class="dot" [ngClass]="{'dot-active':selectIndex === i}"></span>
+  </div>
+    </form>
+
+    <form  #forgetForm1="ngForm" *ngIf="form === 'form-2'">
+      <ion-toolbar  style="margin-bottom: 80px;">
+        <ion-title class="signup-wlcm2">{{'Completed your profile' | translate}}</ion-title>
+        <ion-buttons slot="start">
+          <ion-button (click)="back('form-1',0)">
+            <ion-icon slot="icon-only" name="chevron-back-outline"></ion-icon>
+          </ion-button>
+        </ion-buttons>
+      </ion-toolbar>
+      <ion-row>
+        <ion-col>
+          <div class="eg-text">
+            <p>{{ 'Enter your mail here' | translate}}</p>
+          </div>
+          <ion-item>
+            <ion-label position="floating">{{'Organisation Name' | translate}}</ion-label> 
+             <ion-input type="text" name="organisation" [(ngModel)]="registerAccount.name" organization 
+              clearInput required></ion-input>
+          </ion-item>
+          <!-- <ion-item>
+              <ion-select placeholder="Country" [(ngModel)]="zonecode" (ionChange)="selectCountry($event)">
+              <ion-select-option *ngFor="let country of countries,let index = i" [value]="country" >{{country}}</ion-select-option>
+            </ion-select>
+          </ion-item> -->
+          <ion-item>
+            <ion-label position="floating">{{'Contact Number' | translate}}</ion-label>
+            <ion-input type="number" name="contact" [(ngModel)]="registerAccount.phone" contact 
+              clearInput required></ion-input>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+      <ion-row class="ion-padding">
+      <ion-col class="signup-col">
+        <ion-button size="large" class="submit-btn" color="white" [disabled]="!forgetForm1.form.valid"  id="login" fill="clear" (click)="signup()"
+        expand="full" type="submit">{{'submit' | translate}}</ion-button>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <span class="signup-link" type="submit" id="registerAccount-btn">{{'Already have an account' | translate}}?<a (click)="gotoLogin()"> Login</a></span>
+    </ion-row>
+    <div class="dot-carousel-container">
+      <span *ngFor="let dot of dots; let i = index" class="dot" [ngClass]="{'dot-active':selectIndex === i}"></span>
+  </div>
+    </form>
+
+    <form #forgetForm2="ngForm" *ngIf="form === 'form-3'" class="invite">
+      <ion-toolbar  style="margin-bottom: 80px;">
+        <ion-title class="signup-wlcm3" style="margin-top: 16px;">{{'Add Your Team' | translate}}</ion-title>
+        <br><span type="submit" id="sub-wlcm2" >{{'Let’s make you and you’re team efficient' | translate}}</span>
+        <ion-buttons slot="start">
+          <ion-button (click)="back('form-2',1)">
+            <ion-icon slot="icon-only" name="chevron-back-outline"></ion-icon>
+          </ion-button>
+        </ion-buttons>
+        <!-- <ion-buttons slot="end">
+          <ion-button (click)="createNewField()" [disabled]="(!forgetForm2.form.valid || forgetForm2.form.empty) && !isFirst">
+            <ion-icon name="add-circle"></ion-icon>
+          </ion-button>
+        </ion-buttons> -->
+      </ion-toolbar>
+      <div >
+      <ion-row *ngFor="let field of userList.addUserField, let i = index" >
+        <ion-col class="invite-col">
+          <ion-item>
+            <ion-label position="floating">{{'Username' | translate}}</ion-label>
+            <ion-input type="text" name="username" [(ngModel)]="field.firstName" (input)="addfield()" (ionBlur)="addfield()" username 
+              clearInput required></ion-input>
+          </ion-item>
+          <ion-item>
+            <ion-label position="floating">{{'Email'| translate}}</ion-label>
+            <ion-input type="email" name="email" [(ngModel)]="field.communicationEmail"(input)="addfield()" (ionChange)="validateEmail(field.communicationEmail)"(ionBlur)="addfield()"  email 
+              clearInput required></ion-input>
+          </ion-item>
+          <span *ngIf="errorMsg" class="error-danger" style="position: relative;top: -28px;left: 15px;">{{msg}}</span>
+        </ion-col>
+      </ion-row>
+      </div>
+      <ion-row class="ion-padding" style="padding-bottom: 0px;">
+      <ion-col class="signup-col">
+        <ion-button size="large" class="submit-btn" color="white"  id="login" fill="clear" (click)="sendInvite()"
+        expand="full" type="submit" [disabled]="!forgetForm2.form.valid || forgetForm2.form.empty">{{'submit' | translate}}</ion-button>
+      </ion-col>
+      </ion-row>
+      <ion-row class="ion-padding" style="padding-top: 0px;">
+      <ion-col class="signup-col">
+        <ion-button size="large" class="submit-btn-sec" color="white"  id="login" fill="clear" expand="full" (click)="gotoScheduleDemoPage()">{{'Schedule a demo' | translate}}</ion-button>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+    <span class="signup-link" type="submit" id="registerAccount-btn" style="margin-top: 0px!important;"><a (click)="skipInvite()"> {{'Skip'| translate}}</a></span>
+    <span class="signup-link" type="submit" id="registerAccount-btn">{{'Already have an account'|translate}}?<a (click)="gotoLogin()"> {{'Login'| translate}}</a></span>
+    </ion-row>
+    <div class="dot-carousel-container">
+      <span *ngFor="let dot of dots; let i = index" class="dot" [ngClass]="{'dot-active':selectIndex === i}"></span>
+  </div>
+    </form>
+  </div>
+</ion-content>

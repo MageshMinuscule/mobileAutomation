@@ -1,0 +1,62 @@
+<ion-header>
+  <ion-toolbar color="secondary">
+    <ion-title mode="md">Asset Down Time</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="cancel()">
+        <ion-icon size="large" name="close-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+  <ion-item class="ion-padding-left" lines="none" *ngIf="!toggleShown">
+    <ion-label>AssetDownTime</ion-label>
+    <ion-toggle mode="ios" color="primary" (click)="toggle()" class="tooglebgcolor"></ion-toggle>
+  </ion-item>
+  <ion-list *ngIf="this.isToggle">
+    <ion-item>
+      <ion-label> Down Start Time <span class="req-star" *ngIf="true">*</span>
+      </ion-label>
+      <ion-datetime #datePicker  displayFormat="MMM DD YYYY HH:mm" pickerFormat="DD MMM YYYY HH:mm"
+        [(ngModel)]="assetDowntime.issueStartTime" [max]="maxdate"(ionChange)="setDate('change')"name="date" placeholder="Start Time" [required]="true">
+      </ion-datetime>
+    </ion-item>
+    <ion-item>
+      <ion-label>Down End Time <span class="req-star" *ngIf="true">*</span>
+      </ion-label>
+      <ion-datetime #datePicker displayFormat="MMM DD YYYY HH:mm" pickerFormat="DD MMM YYYY HH:mm"
+        [(ngModel)]="assetDowntime.issueEndTime" (ionChange)="maxDate('change')" [min]="mindate" name="date" placeholder="Down Time" [disabled]="!assetDowntime.issueStartTime" [required]="true">
+      </ion-datetime>
+    </ion-item>
+    <ion-item>
+      <ion-label>Override Time Taken </ion-label>
+      <ion-checkbox (ionChange)="changeTime($event)" [(ngModel)]="assetDowntime.overrideTimeTaken"></ion-checkbox>
+    </ion-item>
+    
+    <ion-item>
+      <ion-label>Time Taken(Minutes)</ion-label>
+      <ion-input type="number" id="time-taken" name="time-taken" (ionChange)="timeTaken($event)"[disabled]="!assetDowntime.overrideTimeTaken" [(ngModel)]="assetDowntime.totalMins"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label position="floating" class="contactlabel">Root Cause<span class="req-star" *ngIf="true">*</span>
+      </ion-label>
+      <ion-input type="text" class="contactinput" name="text" [(ngModel)]="assetDowntime.rootCause" [required]="true"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label position="floating" class="contactlabel">Corrective Action<span class="req-star" *ngIf="true">*</span>
+      </ion-label>
+      <ion-input type="text" class="contactinput" name="text"  [(ngModel)]="assetDowntime.correctiveAction" [required]="true"></ion-input>
+    </ion-item>
+  
+   <ion-row style="margin-left:124px">
+     <ion-col size="12">
+      <ion-button [disabled]="!(assetDowntime.issueStartTime && assetDowntime.issueEndTime && assetDowntime.rootCause && assetDowntime.correctiveAction)"style="margin-top: 15px" (click)="submit()" color="danger" shape="round">
+        submit
+      </ion-button>
+     </ion-col>
+   </ion-row>
+  </ion-list>
+
+ 
+</ion-content>

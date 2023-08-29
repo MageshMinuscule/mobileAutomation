@@ -1,0 +1,43 @@
+<ion-list>
+  <form (ngSubmit)="scheduleRequest()" #scheduleForm="ngForm">
+    <ion-item>
+      <ion-icon name="calendar" color="primary" item-left></ion-icon>
+      <ion-label> Schedule Date</ion-label>
+      <ion-datetime
+        #datePicker
+        displayFormat="MMM DD YYYY"
+        pickerFormat="DD MMM YYYY"
+        [(ngModel)]="schedule.date"
+        name="date"
+        placeholder="Date"
+        required
+      ></ion-datetime>
+    </ion-item>
+    <ion-item>
+      <ion-icon name="clock" color="primary" item-left></ion-icon>
+      <ion-label> Schedule Time </ion-label>
+      <ion-datetime
+        #timePicker
+        displayFormat="hh:mm:ss a"
+        pickerFormat="hh:mm:ss a"
+        [(ngModel)]="this.schedule.time"
+        name="time"
+        placeholder="Time"
+        required
+      ></ion-datetime>
+    </ion-item>
+    <ion-row>
+      <ion-col size="8"> </ion-col>
+      <ion-col size="3">
+        <button
+          ion-button
+          color="danger"
+          [disabled]="!scheduleForm.form.valid"
+        >
+          Schedule
+        </button>
+      </ion-col>
+      <ion-col size="1"></ion-col>
+    </ion-row>
+  </form>
+</ion-list>

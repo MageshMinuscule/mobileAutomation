@@ -1,0 +1,39 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>{{'Add Customer' | translate}}</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="dismiss()">
+        {{'cancel' | translate}}
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <form (ngSubmit)="addCustomer()" #customerForm="ngForm">
+    <ion-list>
+      <ion-item>
+        <ion-input type="text" placeholder="{{ 'customer' | translate}}" minlength="2" name="customer"
+          [(ngModel)]="customer.name" required>
+        </ion-input>
+      </ion-item>
+      <ion-item  class="ion-padding-bottom">
+        <ion-input type="text" placeholder="{{ 'location' | translate}}" (input)="updateSearchResults($event)"
+          name="location" clearInput [(ngModel)]="customer.location" required>
+        </ion-input>
+      </ion-item>
+      <ion-list [hidden]="autocompleteItems.length == 0" class="ion-padding-bottom" class="search-results">
+        <ion-item *ngFor="let item of autocompleteItems" tappable (click)="selectSearchResult(item)">
+          {{ item.description }}
+        </ion-item>
+      </ion-list>
+    </ion-list>
+    <div #map id="map" class="ion-padding-top" [hidden]="!showMap"></div>
+    <ion-row class="ion-padding" >
+      <ion-col class="signup-col">
+        <ion-button  class="submit-btn loginBtn" expand="block" color="danger" type="submit"
+          [disabled]="!customerForm.form.valid">{{btnTxt | translate}}</ion-button>
+      </ion-col>
+    </ion-row>
+  </form>
+</ion-content>

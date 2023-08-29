@@ -1,0 +1,54 @@
+<ion-header>
+<ion-toolbar color="secondary">
+  <ion-title mode="md">{{'updateStatus' | translate}}</ion-title>
+  <ion-buttons slot="start">
+    <ion-button (click)="back()">
+      <ion-icon slot="icon-only" name="chevron-back-outline"></ion-icon>
+    </ion-button>
+  </ion-buttons>
+</ion-toolbar>
+</ion-header>
+<ion-content>
+  <ion-grid fixed style="border-radius: 0px 0px 4px 4px;background: #ECF1F9;" *ngIf="account?.pauseAndPlayTimer || selectedRequest.assetId">
+    <ion-row>
+      <ion-col size="6">
+        <div *ngIf="account?.pauseAndPlayTimer" style="margin-left: -.5em;margin-top: .5em;">
+          <app-stop-watch [isStart]="isStartStopWatch" [time]="time" (click)="toStart()"[selectedRequest]="selectedRequest"(isPause)="openDialog($event)"></app-stop-watch>    
+      </div>
+      </ion-col>
+      <ion-col size="6" *ngIf="selectedRequest.assetId">
+        <ion-button  class="btn-outer"fill="clear" color="secondary" (click)="openworkGuide()">
+          <ion-icon slot="icon-only" name="book"></ion-icon>
+        </ion-button>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+  <div>
+    <ion-card *ngIf="rejectComment && rejectComment.user" class="rejectcard">
+      <ion-card-header>
+        {{'rejectedCommentsBy' | translate}} - {{rejectComment.user}}
+      </ion-card-header>
+      <ion-card-content>
+        {{rejectComment.comment}}
+      </ion-card-content>
+    </ion-card>
+    <div *ngIf="selectedRequest.routeForm">
+      <form #ackForm="ngForm">
+        <app-template-render [templateForm]="selectedRequest.routeForm.formSection" [type]="reqType"
+          [buttons]="selectedRequest.routeForm.button" [templatedata]="selectedRequest" [requestData]="requestData"
+          [isDraft]="isDraft" [selectedRequest]="selectedRequest" [requestTimer]="requestTimer"></app-template-render>
+      </form>
+    </div>
+  </div>
+</ion-content>
+<ion-footer *ngIf="!onLine && rmOfflineShown">
+  <ion-grid fixed>
+    <ion-row>
+      <ion-col size="12">
+        <ion-button (click)="removeSync()" expand="block" fill="outline" color="secondary">
+          {{'RemoveOfflineSync' | translate}}
+        </ion-button>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-footer>

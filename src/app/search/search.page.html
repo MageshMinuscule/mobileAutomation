@@ -1,0 +1,299 @@
+
+<ion-backdrop *ngIf="!backDropDismiss"></ion-backdrop>
+<ion-header >
+  <div *ngIf="!backDropDismiss" class="backdrop-filter" ></div>
+  <ion-toolbar color="secondary">
+    <ion-title mode="md" *ngIf="!showSearchBar">{{ labelTxt | translate }}</ion-title>
+    <ion-buttons slot="start">
+      <ion-button (click)="back()">
+        <ion-icon slot="icon-only" name="chevron-back-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-searchbar *ngIf="showSearchBar && type != 'Asset'" #searchBar [(ngModel)]="searchKeyword" [debounce]="500"
+   (ionInput)="filterResult($event)" (ionCancel)="onCancel($event)"
+    placeholder="{{'Search By Name' | translate}}">
+  </ion-searchbar>
+  <ion-searchbar *ngIf="showSearchBar && type == 'Asset'" #searchBar [(ngModel)]="searchKeyword" [debounce]="500"
+  (ionInput)="filterResult($event)" (ionCancel)="onCancel($event)"
+   placeholder="{{'Search by Name/S.No' | translate}}">
+ </ion-searchbar>
+  <ion-buttons slot="end" *ngIf="isAllow && type != 'downTimeTracking'">
+    <ion-button (click)="beginSearch()">
+      <ion-icon slot="icon-only" name="search"></ion-icon>
+    </ion-button>
+    <ion-button (click)="beginFilter()"  icon-only *ngIf=" !showSearchBar && type == 'Asset' && createWorkrequest != 'createWorkrequest'">
+      <ion-icon slot="icon-only" name="funnel"></ion-icon>
+    </ion-button>
+    <ion-badge class="bdg-cls"*ngIf="!showSearchBar && type == 'Asset' && createWorkrequest != 'createWorkrequest' && filterCount > 0" color="danger" mode="ios">{{filterCount}}</ion-badge>
+  </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <div *ngIf="!backDropDismiss" class="backdrop-filter" ></div>
+  <ion-card *ngIf="noRecordFound && type == 'Asset' && !isAssetFound && isFetched">
+    <ion-item class="reject-card">
+      {{ "notFound" | translate }}
+    </ion-item>
+  </ion-card>
+  <ion-card *ngIf=" !noRecordFound && type == 'Asset' && !isFetched">
+    <ion-item>
+      <ion-spinner name="lines"></ion-spinner><span style="margin-left:14px" class="loading">Loading</span>
+    </ion-item>
+  </ion-card>
+  <ion-card *ngIf="type == 'Workflow' && !isWorkflowLoaded" >
+    <ion-item>
+      <ion-spinner name="lines"></ion-spinner><span style="margin-left:14px" class="loading">Loading</span>
+    </ion-item>
+  </ion-card>
+  <!-- {{type}} -->
+  <!-- <ion-fab vertical="bottom" horizontal="end" slot="fixed" *ngIf="type == 'Location' && showAdd && results.length != 0 && createWorkrequest != 'createWorkrequest'">
+    <ion-fab-button (click)="gotoAddLocation()">
+      <ion-icon name="add"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
+  <ion-fab vertical="bottom" horizontal="end" slot="fixed" *ngIf="type == 'Customer' && showAdd && createWorkrequest != 'createWorkrequest'">
+    <ion-fab-button (click)="gotoAddCustomer()">
+      <ion-icon name="add"></ion-icon>
+    </ion-fab-button>
+  </ion-fab> -->
+  <ion-fab *ngIf="createWorkrequest == 'createWorkrequest' && (type == 'Location' || type == 'Asset')"vertical="bottom" horizontal="end" slot="fixed">
+    <ion-fab-button color="secondary" (click)="scanAsset()">
+      <ion-icon name="scan-outline"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
+  <ion-fab vertical="bottom" horizontal="end" slot="fixed" *ngIf="type == 'Asset' && createWorkrequest != 'createWorkrequest'" #fab>
+    <ion-fab-button (click)="backDrop()"class="caret-upcolor" color="secondary">
+      <!-- <ion-fab-button class="caret-upcolor"> -->
+      <ion-icon class="fabcolor" name="caret-up-outline"></ion-icon>
+    </ion-fab-button>
+    <ion-fab-list side="top">
+      <ion-label (click)="gotoAdd()" color="secondary">{{'Create WorkOrder' | translate}}</ion-label>
+      <ion-fab-button  class="outline-icon" (click)="gotoAdd()" [disabled]="!isWorkflowLoaded" color="white">
+        <ion-icon class="icon-size" name="add"></ion-icon>
+      </ion-fab-button>
+      <ion-label (click)="scanAsset()"  color="secondary">{{'scan' | translate}}</ion-label>
+      <ion-fab-button   class="outline-icon" (click)="scanAsset()" [disabled]="!isWorkflowLoaded || !results.length" color="white">
+        <ion-icon class="icon-size" name="scan-outline"></ion-icon>
+      </ion-fab-button>
+      <ion-label (click)="changeWorkflow()" color="secondary">{{'Change Type' | translate}}</ion-label>
+      <ion-fab-button  class="outline-icon" (click)="changeWorkflow()" color="white">
+        <ion-icon class="icon-size" name="construct"></ion-icon>
+      </ion-fab-button>
+    </ion-fab-list>
+  </ion-fab>
+<ion-fab vertical="bottom" horizontal="end" slot="fixed" *ngIf="workflowType == 'facility' && (type == 'Workflow' || type == 'Location')&& createWorkrequest != 'createWorkrequest'" (click)="backDrop()">
+  <ion-fab-button   color="secondary" class="caret-upcolor">
+    <ion-icon class="fabcolor" name="caret-up-outline"></ion-icon>
+  </ion-fab-button>
+  <ion-fab-list side="top">
+    <ion-label (click)="changeWorkflow()" *ngIf="type == 'Workflow'" color="secondary">{{'Change Type' | translate}}</ion-label>
+    <ion-fab-button  class="outline-icon" *ngIf="type == 'Workflow'" (click)="changeWorkflow()" color="white">
+      <ion-icon class="icon-size" name="construct"></ion-icon>
+    </ion-fab-button>
+    <ion-label (click)="scanLocation()" *ngIf="type == 'Location'" color="secondary">{{'Scan' | translate}}</ion-label>
+    <ion-fab-button *ngIf = "type == 'Location'"  class="outline-icon" (click)="scanLocation()" [disabled]="!isWorkflowLoaded || !results.length" color="white">
+      <ion-icon class="icon-size" name="scan-outline"></ion-icon>
+    </ion-fab-button>
+  </ion-fab-list>
+</ion-fab>
+<ion-fab *ngIf="createWorkrequest == 'createWorkrequest' && (type == 'Location' || type == 'Asset')" vertical="bottom" horizontal="end" slot="fixed">
+  <ion-fab-button color="secondary"  class="outline-icon" (click)="scanWorkReq(type)" color="white">
+    <ion-icon style="color:white !important" class="icon-size" name="scan-outline"></ion-icon>
+  </ion-fab-button>
+</ion-fab>
+<div class="skipbutton">
+
+  <ion-fab horizontal="end" vertical="top" slot="fixed" *ngIf="type == 'Asset' && createWorkrequest && createWorkrequest == 'createWorkrequest' && !isMandatory">
+    <ion-fab-button  (click)="skipAsset()" color="secondary">
+      {{'Skip' | translate}}
+    </ion-fab-button>
+  </ion-fab>
+</div>
+<ion-fab vertical="top" horizontal="end" slot="fixed" *ngIf="type == 'Asset' && isFetched && isLocalAsset">
+  <ion-fab-button  (click)="refreshAsset()" color="secondary">
+    <ion-icon name="refresh"></ion-icon>
+  </ion-fab-button> 
+</ion-fab>
+  <!-- approxItemHeight="320px" -->
+  <ion-card *ngIf="!noRecordFound && results && !results.length && type != 'Workflow' && type != 'Asset'">
+    <ion-item>
+      <ion-spinner name="lines">{{'Loading...' | translate}}..</ion-spinner>
+    </ion-item>
+  </ion-card>
+  <ion-card *ngIf="noRecordFound && results && results.length == 0  && type != 'Asset'">
+    <ion-item class="reject-card">
+      {{'notFound' | translate}}
+    </ion-item>
+  </ion-card>
+  <div [ngClass]="{ 'virtual-hide': results == 0 && results}">
+    <!-- <span *ngFor="let item of results"> {{item.name}}</span> -->
+    <ion-virtual-scroll [items]="results" [ngClass]="{ 'virtual-hide': type == 'Asset'}"  approxItemHeight="320px" >
+    <ion-item button class="workflowlists" (click)="selectItem(item)"  *virtualItem="let item">
+          <div class="location-label">
+            <ion-icon color="secondary" *ngIf="type == 'Location'" name="location" class="location-icon i-size-list"></ion-icon>
+            <ion-icon color="secondary"  *ngIf="type == 'Customer'" class="i-size-list"name="business-outline"></ion-icon>
+            <iconify-icon   *ngIf="type == 'Workflow'" style="color: #3C75C6 !important;position: relative;top:2px;"icon="mdi:workflow-outline"></iconify-icon>
+            <span style="color: #000000 !important;font-family: 'Roboto';">{{ item.name }}</span>
+          </div>
+    </ion-item>
+    </ion-virtual-scroll>
+  </div>
+
+  
+
+  <!-- <ion-list [virtualScroll]="results" [ngClass]="{ 'virtual-hide': type == 'Asset' }">
+    <ion-card *ngIf="noLocFound">
+      <ion-item class="rejectcard">
+        {{ "notFound" | translate }}
+      </ion-item>
+    </ion-card>
+    <ion-item *virtualItem="let item">
+      <div (click)="selectItem(item)">
+        <div class="location-label">
+          <ion-icon slot="start" name="location"></ion-icon>
+          <span>{{ item.name }}</span>
+        </div>
+      </div>
+    </ion-item>
+  </ion-list> -->
+  <div *ngFor="let item of results" class="list-view-badge">
+    <!-- {{item | json}} -->
+    <!-- {{type}} -->
+    <ion-item-group mode="md" class="list-view" button (click)="selectItem(item)" *ngIf="type =='Asset'" lines="none">
+      <ion-item-divider>
+        <ion-grid>
+          <ion-row class="sec-2 pb-p5">
+            <ion-col size="12">
+              <div class="head-field">{{ item.assetName }}</div>
+            </ion-col>
+          </ion-row>
+          <ion-row class="sec-2 pb-p5">
+            <ion-col size="12">
+              <ion-col size="3">
+                <span class="head-field-id"># {{ item.id }}</span>
+              </ion-col>
+            </ion-col>
+          </ion-row>
+          <ion-row class="sec-2 pb-p5">
+            <ion-col size="3">
+              <span class="content-field-label">{{'Category' | translate}}</span>
+            </ion-col>
+            <ion-col size="1">: </ion-col>
+            <ion-col size="8">
+              <div class="content-field-value">
+                <span>{{item.categoryName}}</span>
+              </div>
+    
+            </ion-col>
+          </ion-row>
+          <ion-row class="sec-2 pb-p5">
+            <ion-col size="3">
+              <div class="content-field-label" *ngIf="item.assetSerialNo">{{'Serial No' | translate}}</div>
+            </ion-col>
+            <ion-col size="1">:</ion-col>
+            <ion-col size="8">
+              <div class="content-field-value">
+                <span class="custom-serial">{{ item.assetSerialNo }}</span>
+              </div>
+    
+            </ion-col>
+          </ion-row>
+          <ion-row class="sec-2 pb-p5">
+            <ion-col size="6">
+              <div class="content-field">
+                <ion-icon name="location" class="icon"></ion-icon>
+                <span class="ml-p5">{{ item.locationName }}</span>
+              </div>
+            </ion-col>
+            <ion-col size="6">
+              <div class="content-field">
+                <ion-icon name="business-outline" class="icon"></ion-icon>
+                <span class="ml-p5">{{ item.customerName }}</span>
+              </div>
+            </ion-col>
+          </ion-row>
+          <ion-row class="sec-2 pb-p5">
+            <ion-col size="12">
+              <div class="field-1" *ngIf="item.warrantyExpiredOn">
+                {{'Warranty ExpiredOn' | translate}}:
+                <span>{{ item.warrantyExpiredOn | date: 'dd MMM yy'}}</span>
+              </div>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+      </ion-item-divider>
+    </ion-item-group>
+  </div>
+  <div class="asset-detail">
+    <ion-item-group mode="md" class="list-view asset-detail" lines="none" *ngIf="type == 'downTimeTracking'">
+      <ion-item-divider lines="none" >
+        <ion-grid class="asset-detail">
+          <ion-row>
+            <ion-col size="3">
+              <div ion-button small class="badge-custom">
+                {{ selectedAsset.id }}
+              </div>
+            </ion-col>
+            <ion-col size="9">
+              <ion-label>{{ selectedAsset.assetName }}</ion-label>
+              <!-- <div class="cat-label">{{ selectedAsset.assetName }}</div> -->
+            </ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col size="12">
+              <div class="location-label">
+                {{'Address' | translate}}: {{ selectedAsset.locationAddress }}
+              </div>
+            </ion-col>
+            <ion-col size="12">
+              <div class="location-label" *ngIf="selectedAsset.assetSerialNo">
+                {{'Serial No' | translate}}:
+                <span class="custom-serial">{{
+                  selectedAsset.assetSerialNo
+                }}</span>
+              </div>
+            </ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col size="12">
+              <div class="location-label">
+                {{'Customer' | translate}} :
+                <span>{{ selectedAsset.customerName }}</span>
+              </div>
+            </ion-col>
+            <ion-col size="12">
+              <div class="location-label">
+                {{'Location' | translate}} :
+                <span>{{ selectedAsset.locationName }}</span>
+              </div>
+            </ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col size="6">
+              <div class="location-label" *ngIf="item.warrantyExpiredOn">
+                {{'Warranty ExpiredOn' | translate}}:
+                <span>{{ item.warrantyExpiredOn | date: 'dd MMM yy' }}</span>
+              </div>
+            </ion-col>            
+          </ion-row>
+          <ion-row class="asset-info">
+            <div>
+              {{'Is your asset working fine now' | translate}} ?
+              <ion-button (click)="updateAssetDowntime(false)" expand="block" shape="round">
+                {{'Yes' | translate}}
+              </ion-button>
+              <ion-button color="danger" expand="block" shape="round" (click)="updateAssetDowntime(true)">
+                {{'No' | translate}}
+              </ion-button>
+            </div>
+          </ion-row>
+        </ion-grid>
+      </ion-item-divider>
+    </ion-item-group>
+  </div>
+  <ion-infinite-scroll (ionInfinite)="doInfinite($event)" [disabled]="isScroll" *ngIf="type == 'Asset'">
+    <ion-infinite-scroll-content loadingSpinner="bubbles" loadingText="Loading more data...">
+    </ion-infinite-scroll-content>
+  </ion-infinite-scroll>
+</ion-content>

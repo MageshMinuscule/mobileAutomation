@@ -1,0 +1,61 @@
+<ion-header>
+  <ion-toolbar color="secondary">
+    <ion-title mode="md">{{'newrequests' | translate}}</ion-title>
+    <ion-buttons slot="start">
+      <ion-button (click)="back()">
+        <ion-icon slot="icon-only" name="chevron-back-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-buttons slot="end">
+      <ion-button id="open-popover" (click)="presentPopover($event)">
+        <ion-icon name="ellipsis-vertical-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="selection-content">
+
+  <div *ngIf="(isAuthorized == false && showLocation) || (isAvailable)">
+    <ion-item *ngIf="!multiMatch" class="rejectcard">
+      {{'errorRights' | translate}}
+    </ion-item>
+  </div>
+  <div>
+    <span class="hint-title">{{ 'Basic Information' | translate }}</span>
+    <ion-list class="template-field-input">
+      <ion-item lines="none">
+        <ion-label class="workflow-label" position="floating">{{ "Priority" | translate }} <span class="req-star"
+            *ngIf="required">*</span>
+        </ion-label>
+        <ion-select class="selectwidth border-bottom" [required]="true" [(ngModel)]="workRequest.priority"
+          name="priority" [disabled]="isWorkRequest" mode="ios" justify="start">
+          <ion-select-option [value]="option" *ngFor="let option of priorities">{{option}}</ion-select-option>
+        </ion-select>
+      </ion-item>
+
+      <ion-item counter="true" lines="none">
+        <ion-label class="workflow-label" position="floating"> {{ "Description" | translate }}
+          <span class="req-star">*</span>
+        </ion-label>
+        <ion-textarea class="borderhidden border-bottom" maxlength="250" autocomplete="off"
+          [(ngModel)]="workRequest.description" [disabled]="isWorkRequest" [required]="true" (ionBlur)="workRequest.description = common.removeSpace(workRequest.description)" name="description"
+          cols="3">
+        </ion-textarea>
+      </ion-item>
+    </ion-list>
+  </div>
+  <div *ngIf="templateSchema && templateSchema.formSection" class="ion-no-padding">
+    <ion-list>
+      <ion-item-group mode="md" class="template-outer" *ngFor="let template of templateSchemaList">
+        <form #registerForm="ngForm">
+          <app-template-render [templatedata]="templateSchema" [templateForm]="templateSchema.formSection"
+            [selectedRequest]="draftRequest" [type]="reqType" [buttons]="templateSchema.button"
+            [workRequest]="workRequest" [requestData]="requestData" [draftRequest]="draftRequest" [form]="registerForm"
+            [isChange]="isChange"></app-template-render>
+        </form>
+      </ion-item-group>
+    </ion-list>
+  </div>
+
+</ion-content>

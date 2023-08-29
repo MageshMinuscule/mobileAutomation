@@ -1,0 +1,110 @@
+<ion-header>
+  <ion-toolbar color="secondary">
+    <ion-title mode="md">{{'Attachments' | translate}}</ion-title>
+    <ion-buttons slot="start">
+        <ion-button (click)="back()">
+            <ion-icon slot="icon-only" name="chevron-back-outline"></ion-icon>
+        </ion-button>
+      </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+    <div *ngIf="!attachmentList.length && noRecords">
+        <ion-card>
+            <ion-item class="reject-card">
+                {{'notFound' | translate}}
+            </ion-item>
+        </ion-card>
+    </div>
+    <div *ngFor="let item of attachmentList" >
+        <ion-item class="labour-item"(click)="openLink(item)">
+            <ion-grid fixed>
+              <ion-row>
+                <ion-col size="12">
+                  <span class="labour-heading"> {{ item.actualFileName}} </span>
+                  <span class="labour-sub-heading">{{ item.id }}</span>
+                </ion-col>
+                <ion-col size="5">
+                  <span class="labour-var">{{'Uploaded From' | translate}}</span>
+                </ion-col>
+                <ion-col size="1">
+                  <span>:</span>
+                </ion-col>
+                <ion-col size="6">
+                  <span class="labour-var-value">{{ item.assetId ? 'ASSET' : 'REQUEST'}}</span>
+                </ion-col>
+                <ion-col size="5">
+                  <span class="labour-var">{{'Created On' | translate}}</span>
+                </ion-col>
+                <ion-col size="1">
+                  <span>:</span>
+                </ion-col>
+                <ion-col size="6">
+                  <span class="labour-var-value">{{ item.updationDate | date: 'dd MMM yy'}} {{item.updationDate | date:'shortTime'}}</span>
+                </ion-col>
+                <ion-col size="5">
+                  <span class="labour-var">{{'Created By' | translate}}</span>
+                </ion-col>
+                <ion-col size="1">
+                  <span>:</span>
+                </ion-col>
+                <ion-col size="6">
+                  <span class="labour-var-value">{{ item.createdByName }}</span>
+                </ion-col>
+
+              </ion-row>
+            </ion-grid>
+          </ion-item>
+        <!-- <ion-item-group mode="md"class="list-view" (click)="openLink(item)">
+            <ion-item-divider>
+                <ion-grid>
+                    <ion-row>
+                        <ion-col size="3">
+                            <ion-badge color="danger" class="badge-custom" mode="ios">{{ item.id }}</ion-badge>
+                        </ion-col>
+                        <ion-col size="9">
+                            <div class="cat-label">{{ item.actualFileName }}</div>
+                        </ion-col>
+                    </ion-row>
+                    <ion-row>
+                        <ion-col size="6">
+                            <div class="location-label">
+                                {{'Uploaded From' | translate}}
+                            </div>
+                        </ion-col>
+                        <ion-col size="6">
+                            <div class="cat-label">
+                                {{ item.assetId ? 'ASSET' : 'REQUEST'}}
+                            </div>
+                        </ion-col>
+                    </ion-row>
+                    <ion-row>
+                        <ion-col size="6">
+                            <div class="location-label">
+                                {{'Created On' | translate}}
+                            </div>
+                        </ion-col>
+                        <ion-col size="6">
+                            <div class="cat-label">
+                                {{ item.updationDate | date: 'medium'}}
+                            </div>
+                        </ion-col>
+                    </ion-row>
+                    <ion-row>
+                        <ion-col size="6">
+                            <div class="location-label">
+                                {{'Created By' | translate}}
+                            </div>
+                        </ion-col>
+                        <ion-col size="6">
+                            <div class="cat-label">
+                                {{ item.createdByName }}
+                            </div>
+                        </ion-col>
+                    </ion-row>
+                </ion-grid>
+            </ion-item-divider>
+        </ion-item-group> -->
+    </div>
+</ion-content>

@@ -1,0 +1,55 @@
+
+    .instance-label {
+       text-transform: uppercase;
+       font-weight:600;
+       font-size: small;
+     }
+     .padding-15 {
+         padding: 15px 13px 15px 15px;
+     }
+  //    .ion-padding-top{
+  //     padding: 15px 13px 15px 15px;
+  // }
+  .badge-custom {
+    font-family: "Poppins";
+    float: left;
+    padding : 4px;
+    font-size: 12px;
+    min-width: 50px;
+    font-weight: 500;
+    border-radius: 20px;
+    height: 20px;
+    box-shadow: 0 2px 2px 0 rgb(0 0 0 / 14%), 
+                0 3px 1px -2px rgb(0 0 0 / 20%),
+                0 1px 5px 0 rgb(0 0 0 / 12%);
+  }
+     .icon-person {
+      font-size: 1.6em !important;
+      margin-right: 10px;
+     }
+     .icon-people {
+         font-size: 2.1em !important;
+         margin-right: 10px;
+        }
+      ion-icon {
+        font-size: 64px;
+      }
+      .cat-label {
+        font-family: "Poppins";
+        text-transform: uppercase;
+        font-weight: bold;
+        font-size: small;
+        color: rgb(31, 30, 30);
+    }
+    .location-label {
+      font-family: "Poppins";
+      color: rgb(31, 30, 30);
+      font-weight: bold;
+      font-size: 13px;
+      text-transform: uppercase;
+      // padding-top: 13px;
+  }
+ 
+span{
+  font-family: "Poppins";
+}

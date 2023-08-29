@@ -1,0 +1,26 @@
+<ion-header>
+  <ion-toolbar color="secondary">
+    <ion-title mode="md">map</ion-title>
+    <ion-buttons slot="end">
+      <ion-button  (click)="dismiss()">
+        {{'cancel' | translate}}
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+  <ion-toolbar color="primary" *ngIf="showLocationBar">
+    <ion-searchbar [(ngModel)]="autocomplete.input" (ionInput)="updateSearchResults()"
+      placeholder="{{'Search for a place' | translate}}"></ion-searchbar>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-list [hidden]="autocompleteItems.length == 0">
+    <ion-item *ngFor="let item of autocompleteItems" tappable (click)="selectSearchResult(item)">
+      {{ item.description }}
+    </ion-item>
+  </ion-list>
+  <div #map id="map"> </div>
+</ion-content>
+<ion-footer [hidden]="!autocomplete.input || !showAddButton">
+  <ion-button  color="secondary" (click)="addLocation()" expand="full">Confirm Location</ion-button>
+</ion-footer>

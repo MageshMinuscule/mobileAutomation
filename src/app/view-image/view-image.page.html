@@ -1,0 +1,17 @@
+<ion-header>
+  <ion-toolbar color="secondary">
+    <ion-title mode="md">{{'uploadImage' | translate}}</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="dismiss()">
+        cancel
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <div>
+    <!-- 'data:image/jpeg;base64,'+ -->
+    <ion-img [src]="imageSrc" *ngIf="imageSrc"></ion-img>
+  </div>
+</ion-content>

@@ -1,0 +1,121 @@
+<ion-header>
+  <ion-toolbar class="ion-no-border-top" color="secondary" mode="md">
+    <ion-title *ngIf="!showSearchBar"mode="md" style="margin-left: -2em;">{{'Involved Task'|translate}}</ion-title>
+    <ion-buttons slot="start">
+      <ion-button (click)="back()">
+        <ion-icon slot="icon-only" name="chevron-back-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-searchbar style="margin-top:1em;" mode="ios"  animated="true"  *ngIf="showSearchBar" #searchBar [(ngModel)]="searchKeyword" [debounce]="1000"
+    show-clear-button="always"  showCancelButton="always" (keyup.enter)="filterResult($event)" (ionClear)="onCancel($event)" (ionCancel)="searchCancel()"
+    [placeholder]="placeHolderName | translate">
+  </ion-searchbar>
+  <ion-buttons slot="end">
+    <ion-button *ngIf="!showSearchBar && !filteredReqId" (click)="beginSearch()">
+      <ion-icon slot="icon-only" name="search"></ion-icon>
+    </ion-button>
+    <ion-button *ngIf="!showSearchBar" (click)="openSortBy()">
+      <ion-icon name="filter-outline"></ion-icon>
+    </ion-button>
+    <ion-button *ngIf="!showSearchBar" (click)="beginFilter()">
+      <ion-icon name="funnel" ></ion-icon>
+    </ion-button>
+    <ion-badge class="bdg-cls"*ngIf="filterCount > 0 && !showSearchBar" color="danger" mode="ios">{{filterCount}}</ion-badge>
+    </ion-buttons>
+    </ion-toolbar>
+    
+    <ion-toolbar color="secondary" no-border-top>
+      <ion-segment mode="md" [(ngModel)]="reqType">
+        <ion-segment-button class="headerbutton" value="SCHEDULE_REQUEST" (click)="showRequest('Schedule')" tappable>
+          <span class="ion-padding-top">{{ "shedule" | translate }}</span>
+            <ion-badge class="count job-count" color="danger"> {{ scheduleCount }}</ion-badge>
+          
+        </ion-segment-button>
+        <ion-segment-button class="segtxtcase headerbutton2" value="WORK_REQUEST" (click)="showRequest('Work')" tappable>
+          <span class="ion-padding-top">{{ "Work Request" | translate }}</span>
+            <ion-badge class="count job-count" color="danger"> {{ wrkReqCount }}</ion-badge>
+        </ion-segment-button>
+      </ion-segment>
+    </ion-toolbar>
+</ion-header>
+
+
+
+<ion-content class="selection-content">
+  <div [ngSwitch]="reqType">
+    <ion-list *ngSwitchCase="'WORK_REQUEST'">
+      <ion-card *ngIf="!noRecordFound && !incidents.length">
+        <ion-item>
+          <ion-label>{{'Loading...' | translate}}</ion-label>
+          <ion-spinner name="lines"></ion-spinner>
+        </ion-item>
+      </ion-card>
+      <div *ngIf="noRecordFound && incidents.length == 0">
+        <app-no-record></app-no-record>
+      </div>
+      
+      <div class="list-view-badge">
+        <ion-item *ngFor="let incident of incidents" lines="none" class="card-tile" no-padding>
+          
+          <div class="card-space">
+            
+        <ion-item class="list-view job-card" style="width:100%" *ngIf="incident.requestType  == 'WORK_REQUEST'" 
+        (click)="goDetailPage(incident, 'workOder')" no-padding [ngClass]="{
+          'card-blue': incident.requestPriority === 'NORMAL' || incident.requestPriority === null,
+          'card-orange': incident.requestPriority === 'IMPORTANT' || incident.requestPriority === 'URGENT',
+          'card-red': incident.requestPriority === 'CRITICAL'
+        }" lines="none">
+          <app-jobs-list [incident] ="incident" [tab]="'job'"></app-jobs-list>
+        </ion-item>
+        </div>
+        </ion-item>
+        
+      </div>
+    </ion-list>
+    <ion-list *ngSwitchCase="'SCHEDULE_REQUEST'">
+      <ion-card *ngIf="!noRecordFound && !incidents.length">
+        <ion-item>
+          <ion-label>{{'Loading...' | translate}}</ion-label>
+          <ion-spinner name="lines"></ion-spinner>
+        </ion-item>
+      </ion-card>
+      <div *ngIf="noRecordFound && (hasNoRecord || incidents.length == 0)">
+        <app-no-record></app-no-record>
+      </div>
+      <div class="list-view-badge">
+        <ion-item *ngFor="let incident of incidents" lines="none" class="card-tile" no-padding>
+          <div class="card-space">
+        <ion-item class="list-view job-card" style="width:100%" *ngIf="incident.requestType  == 'SCHEDULE_REQUEST'" no-padding
+          (click)="goDetailPage(incident, 'preventive')" [ngClass]="{
+            'card-blue': incident.requestPriority === 'NORMAL',
+              'card-orange': incident.requestPriority === 'IMPORTANT' || incident.requestPriority === 'URGENT',
+              'card-red': incident.requestPriority === 'CRITICAL'
+          }" lines="none">
+          <app-jobs-list [incident] ="incident" [tab]="'job'"></app-jobs-list>
+        </ion-item>
+        </div>
+        </ion-item>
+      </div>
+    </ion-list>
+  </div>
+  <ion-infinite-scroll threshold="25%"  position="bottom" [disabled]="isScroll" (ionInfinite)="doInfinite($event)">
+    <ion-infinite-scroll-content loadingSpinner="bubbles" loadingText="Loading more data...">
+    </ion-infinite-scroll-content>
+  </ion-infinite-scroll>
+</ion-content>
+<ion-footer class="sort-class" *ngIf="selectedFilter.length">
+  <span (click)="openSortBy()">
+    <ion-icon name="funnel"></ion-icon> {{'Filter' }}
+  </span>
+  <ion-button class="clear-filter" (click)="clearFilter()" fill="clear">
+    <ion-icon slot="icon-only" name="close-circle-outline"></ion-icon>
+  </ion-button>
+  <div class="tag-view tag-box" (click)="openSortBy()">
+    <div class="tag-view tag-container" *ngFor="let item of selectedFilter">
+      <div class="tag-view tag-content">
+        <div class="tag-text" [ngStyle]="{'backgroundColor': item.color ? item.color : '#222' }">{{ item.name }}
+        </div>
+      </div>
+    </div>
+  </div>
+</ion-footer>

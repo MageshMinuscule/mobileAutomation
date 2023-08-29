@@ -1,0 +1,17 @@
+
+
+
+:host ::ng-deep {
+    .monthview-primary-with-event {
+        background-color: #673ab7 !important;
+    }
+    .monthview-selected {
+        background-color: #f93668 !important;
+    }
+    ion-item{
+        font-size: 12px;
+        white-space: nowrap !important;
+        overflow: hidden !important;
+        text-overflow: ellipsis !important;
+    }
+}

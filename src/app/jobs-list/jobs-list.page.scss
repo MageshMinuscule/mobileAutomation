@@ -1,0 +1,121 @@
+ion-grid{
+    width: 102%;
+    padding-left: 0px;
+}
+
+ion-row {
+            //padding: 3px;
+        }
+
+
+
+.p-font {
+    font-size: 13px !important;
+    white-space: nowrap
+}
+
+.location-label {
+    color: #8e9093;
+    font-size:16px;
+    padding: 0px;
+    top:-3px;
+    // padding-top: 13px;
+}
+
+.raisedBy-label {
+    font-weight: bold;
+    text-transform: Capitalize;
+    color: #636363;
+    margin-bottom: 4px;
+}
+p {
+    margin: 0 0 2px;
+    overflow: inherit;
+    line-height: normal;
+    text-overflow: inherit;
+    color: #666;
+}
+
+ion-badge {
+    border-radius: 25px;
+    padding: 8px 8px;
+    font-weight: bolder;
+}
+.updatedBy-label {
+    text-transform: Capitalize;
+    text-align: end
+}
+
+.ack {
+    text-align: end;
+    .ack-button {
+        font-size: 1.2rem;
+        padding: 0;
+        width: 90%;
+    }
+}
+
+.requestId-label {
+    font-size: medium;
+}
+.cat-label {
+    text-transform: uppercase;
+    font-weight: bold;
+    font-size: small;
+    
+   
+}
+.list-view ion-col {
+    padding: 0px;
+}
+
+
+    .count {
+        border-radius: 50%;
+        padding: 3px 8px;
+    }
+    .tag-view {
+        display: flex;
+        background-color: initial;
+        border-style: solid;
+        border-width: 0;
+        box-sizing: border-box;
+        color: initial;
+        flex-basis: auto;
+        font-size: medium;
+        font-weight: 400;
+        line-height: normal;
+        list-style: none;
+        margin: 0;
+        min-height: 0;
+        min-width: 0;
+        padding: 0;
+        position: relative;
+        text-align: initial;
+        text-decoration: initial;
+        word-wrap: break-word;
+        word-break: break-word;
+    }
+    .tag-container {
+        margin-right: 5px; // margin-top: 10px;
+        align-items: center;
+    }
+    .tag-box {
+        flex-wrap: wrap;
+    }
+    .tag-content {
+        flex-shrink: 1;
+    }
+    .tag-text {
+        font-size: 12px;
+        color: white;
+        border-radius: 3px; // max-width: 100px;
+        overflow: hidden;
+        min-width: 100px;
+        line-height: 20px;
+        text-align: center;
+        white-space: nowrap;
+        padding-left: 5px;
+        padding-right: 5px;
+        text-overflow: ellipsis;
+    }

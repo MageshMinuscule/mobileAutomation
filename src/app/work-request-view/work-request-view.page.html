@@ -1,0 +1,287 @@
+<ion-header>
+  <ion-toolbar color="secondary">
+    <ion-title mode="md">{{items.id}}</ion-title>
+    <ion-buttons slot="start">
+      <ion-button (click)="back()">
+        <ion-icon slot="icon-only" name="chevron-back-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+      <!-- <ion-back-button></ion-back-button> -->
+  </ion-toolbar>
+</ion-header>
+
+<ion-content >
+  <ion-item-divider style="margin-top: 20px;">
+    <ion-grid>
+      <ion-row *ngIf="items.companyName">
+        <ion-col size="5">
+          <div>
+          {{'Customer' | translate}}
+          </div>
+        </ion-col>
+        <ion-col size="2">:</ion-col>
+        <ion-col size="5">
+          <div  class="view">
+            {{items.companyName}}
+          </div>
+        </ion-col>
+  </ion-row>
+
+      
+
+      <ion-row>
+        <ion-col size="5">
+          <div>
+            {{'Location' | translate}}
+          </div>
+        </ion-col>
+        <ion-col size="2">:</ion-col>
+        <ion-col size="5">
+          <div class="view">
+            {{items.locationName}}
+          </div>
+        </ion-col>
+      </ion-row>
+      <ion-row *ngIf="items && items.assetName">
+        <ion-col size="5">
+          <div>
+            {{'Assets' | translate}}
+          </div>
+        </ion-col>
+        <ion-col size="2">:</ion-col>
+        <ion-col *ngIf="items && items.assetName"size="5">
+          <div class="view">
+            {{items.assetName ? items.assetName: '-'}}
+          </div>
+        </ion-col>
+      </ion-row>
+      
+      <ion-row *ngIf = "items.invoiceReferenceNumber">
+        <ion-col size="5">
+          <div>{{'Invoice Reference Number' | translate}}</div>
+        </ion-col>
+        <ion-col size=2>:</ion-col>
+        <ion-col size="5">
+          <div class="view">{{items.invoiceReferenceNumber? items.invoiceReferenceNumber : '-'}} </div>
+        </ion-col>
+      </ion-row>
+      <ion-row *ngIf = "items.contactName">
+        <ion-col size="5">
+          <div>{{'Contact Name' | translate}}</div>
+        </ion-col>
+        <ion-col size=2>:</ion-col>
+        <ion-col size="5">
+          <div class="view">{{items.contactName ? items.contactName :'-'}} </div>
+        </ion-col>
+      </ion-row>
+      
+      <ion-row *ngIf = "items.contactNumber ">
+        <ion-col size="5">
+          <div>{{'Contact Number' | translate}}</div>
+        </ion-col>
+        <ion-col size=2>:</ion-col>
+        <ion-col size="5">
+          <div class="view">{{items.contactNumber ? items.contactNumber : '-'}} </div>
+        </ion-col>
+      </ion-row>
+      
+      <ion-row *ngIf = "items.categoryName">
+        <ion-col size="5">
+          <div>{{'Category' | translate}}</div>
+        </ion-col>
+        <ion-col size=2>:</ion-col>
+        <ion-col size="5">
+          <div class="view">{{items.categoryName ? items.categoryName : '-'}} </div>
+        </ion-col>
+      </ion-row>
+      
+      <ion-row *ngIf = "items.projectReferenceNumber">
+        <ion-col size="5">
+          <div>Project Reference Number</div>
+        </ion-col>
+        <ion-col size=2>:</ion-col>
+        <ion-col size="5">
+          <div class="view">{{items.projectReferenceNumber ? items.projectReferenceNumber : '-'}} </div>
+        </ion-col>
+      </ion-row>
+      
+      <ion-row>
+        <ion-col size="5">
+          <div>
+            {{'Priority' | translate}}
+          </div>
+        </ion-col>
+        <ion-col size="2">:</ion-col>
+        <ion-col size="5">
+          <div class="view">
+            {{items.priority}}
+          </div>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col size="5">
+          <div>
+            {{'Description' | translate}}
+          </div>
+        </ion-col>
+        <ion-col size="2">:</ion-col>
+        <ion-col size="5">
+          <div class="view">
+            {{items.description}}
+          </div>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col size="5">
+          <div>
+             {{'Raised On' | translate}}
+          </div>
+        </ion-col>
+        <ion-col size="2">:</ion-col>
+        <ion-col size="5">
+          <div class="view">
+            {{items.creationDate  | date: 'dd MMM yy'}} {{items.creationDate  | date: 'shortTime'}}
+          </div>
+        </ion-col>
+      </ion-row>
+      
+      <!-- <ion-row *ngIf ="imageSrc">
+        <ion-col size="5">
+          <div>
+            {{'image' | translate}}
+          </div>
+        </ion-col>
+        <ion-col size="2">:</ion-col>
+        <ion-col size="5">
+          <img [src]="imageSrc" class="form-image" #imageToView (click)="openImageModal(imageSrc)">
+        </ion-col>
+      </ion-row> -->
+      <div *ngIf="imageBaseSrc && imageBaseSrc.length > 0">
+      <ion-row *ngFor="let src of imageBaseSrc">
+        <ion-col size="5">
+          <div>
+            {{'image' | translate}}
+          </div>
+        </ion-col>
+        <ion-col size="2">:</ion-col>
+        <ion-col size="5">
+          <img [src]="src" class="form-image" #imageToView (click)="openImageModal(src)">
+        </ion-col>
+      </ion-row>
+    </div>
+      <!-- <ion-row *ngIf="items.imageDescription">
+        <ion-col size="5">
+          <div>
+            {{'Image Description' | translate}}
+          </div>
+        </ion-col>
+        <ion-col size="2">:</ion-col>
+        <ion-col size="5">
+          <div class="view">
+            {{items.imageDescription}}
+          </div>
+        </ion-col>
+      </ion-row> -->
+      <ion-row>
+        <ion-col size="5">
+          <div>
+            {{'raisedBy' | translate}}
+          </div>
+        </ion-col>
+        <ion-col size="2">:</ion-col>
+        <ion-col size="5">
+          <div class="view">
+            {{items.raisedByName}}
+          </div>
+        </ion-col>
+      </ion-row>
+   
+      <ion-row>
+        <ion-col size=5>
+          <div>
+            {{'status' | translate}}
+          </div>
+        </ion-col>
+        <ion-col size="2">:</ion-col>
+        <ion-col size="5">
+          <div class="view">
+           {{!items.requestId && items.status == 'Rejected' ? 'Rejected' : items.requestId ?
+                  items.status : 'Yet to Create' }}
+          </div>
+        </ion-col>
+      </ion-row>
+      <ion-row *ngIf = "items.rejectReason">
+        <ion-col size="5">
+          <div>
+            {{'Reason For Rejection' | translate}}
+          </div>
+        </ion-col>
+        <ion-col size="2">:</ion-col>
+        <ion-col size="5">
+          <div class="view">
+           {{ items.rejectReason }}
+          </div>
+        </ion-col>
+      </ion-row>
+      <div *ngIf = "workRequestJson[0].custom && workRequestJson[0].custom.length > 0">
+        <div *ngFor="let item of workRequestJson[0].custom">
+          <!-- <ion-row *ngIf="item.enable && item.fieldName == 'date'">
+            <ion-col size="5">
+              <div>
+               {{item.fieldName}}
+              </div>
+            </ion-col>
+            <ion-col size="2">:</ion-col>
+            <ion-col size="5">
+              <div class="view">
+               {{ item && item.value ? (item.value | date: 'shortTime') : '-' }}
+              </div>
+            </ion-col>
+          </ion-row> -->
+          <ion-row *ngIf="item.enable && item.type == 'Date And Time'">
+            <ion-col size="5">
+              <div>
+               {{item.fieldName}}
+              </div>
+            </ion-col>
+            <ion-col size="2">:</ion-col>
+            <ion-col size="5">
+              <div class="view">
+                {{item.value | date: 'dd MMM yy'}} {{item.value | date: 'shortTime'}}
+              </div>
+            </ion-col>
+          </ion-row>
+      <ion-row *ngIf="item.enable && item.type != 'Date And Time'">
+        <ion-col size="5">
+          <div>
+            {{item.fieldName}}
+          </div>
+        </ion-col>
+        <ion-col size="2">:</ion-col>
+        <ion-col size="5">
+          <div class="view">
+           {{ item && item.value ? item.value : '-' }}
+          </div>
+        </ion-col>
+      </ion-row>
+    </div>
+    </div>
+    <!-- {{items.status}} -->
+
+    </ion-grid>
+  </ion-item-divider>
+</ion-content>
+<ion-footer *ngIf="createWorkorder && items && items.status == 'Yet to Create'" style="width:100% !important">
+  <ion-row *ngIf="createWorkorder && items && items.status == 'Yet to Create'" style="width:100% !important">
+    <ion-col size="6">
+      <ion-button color="white" class="btn-color btn-class"(click)="requestDelete(items)" expand="block" fill="solid">
+        {{'Reject WorkRequest' | translate}} 
+      </ion-button>
+    </ion-col>
+    <ion-col size="6">
+      <ion-button  class="btn-class" (click)="requestCreate(items)" fill="solid" expand="block" color="secondary"  >
+        {{'Convert To WorkOrder' | translate}}
+      </ion-button>
+    </ion-col>
+  </ion-row>
+</ion-footer>

@@ -1,0 +1,48 @@
+
+
+
+  <div class="sec">
+    <ion-row class="sec-1">
+      <ion-col size="9">
+        <div class="field-1">{{incident.description ? incident.description : incident.workflowName}}</div>
+      </ion-col>
+      <ion-col size="3">
+        <div class="field-3">
+          <span *ngIf = "incident.status === 'Closed'" style="color: #127701;margin-right: 1px;" >{{'closed' | translate}}</span>
+          <span *ngIf = "incident.status === 'Draft'" style="color: #3c75c6;margin-right: 1px;" >{{'draft' | translate}}</span>
+          <span *ngIf = "incident.status === 'WIP'" style="color: #3c75c6;margin-right: 1px;" >{{'WIP' | translate}}</span>
+          <span *ngIf = "incident.status === 'Pending'" style="color: #3c75c6;margin-right: 1px;" >{{'Pending' | translate}}</span>
+        </div>
+      </ion-col>
+    </ion-row>
+    <ion-row class="sec-2">
+      <ion-col size="6" *ngIf="incident.id || incident.requestKey">
+        <div class="field-1">#{{incident && incident.requestKey ? incident.requestKey : incident.id }}</div>
+      </ion-col>
+      <ion-col size="6" class="field-2">
+        <ion-icon name="location" class="location-icon"></ion-icon>
+        <span style="margin-left: 5px;"  class="ion-padding-left">{{incident.locationName}}</span>
+      </ion-col>
+    </ion-row>
+    <ion-row class="sec-3">
+      <ion-col size="6" class="location-label field-2" *ngIf="incident.assetName">
+        <ion-icon name="server-outline" class="location-icon"></ion-icon>
+        <span style="margin-left: 5px;">{{incident.assetName}}</span>
+      </ion-col>
+      <ion-col size="6" class="location-label field-2" *ngIf="incident.workflowName">
+        <iconify-icon icon="mdi:workflow-outline" style="font-size:15px" class="location-icon"></iconify-icon>
+        <span style="margin-left: 5px;">{{incident.workflowName}}</span>
+      </ion-col>
+    </ion-row>
+    <ion-row class="sec-3">
+      <ion-col size="6" class="location-label field-2" *ngIf="incident.companyName">
+        <ion-icon name="business-outline" class="location-icon"></ion-icon>
+        <span style="margin-left: 5px;">{{incident.companyName}}</span>
+      </ion-col>
+      <ion-col size="6">
+        <p class="field-3 date-font" *ngIf="incident.creationDate">{{incident.creationDate }}  ago</p>
+      </ion-col>
+    </ion-row>
+  </div>
+
+

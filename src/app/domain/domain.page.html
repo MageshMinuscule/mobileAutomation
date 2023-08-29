@@ -1,0 +1,37 @@
+<ion-header>
+  <ion-toolbar color="secondary">
+    <ion-title mode="md">{{'serverConfig' | translate}}</ion-title>
+    <ion-buttons slot="start">
+      <ion-button (click)="back()">
+        <ion-icon slot="icon-only" name="chevron-back-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+<ion-content class="login-content" class="padding">
+  <div class="login-box box-outer">
+    <form (ngSubmit)="saveDomainUrl()" #restUrlForm="ngForm">
+      <ion-row>
+        <ion-col>
+          <div class="eg-text">
+            <p>{{'domainConfig' | translate}}</p>
+          </div>
+          <ion-item>
+            <ion-input type="url" placeholder="Domain Url" name="username" pattern="https?://.+"
+              [(ngModel)]="domainCredentials" required></ion-input>
+          </ion-item>
+          <div class="eg-text">
+            <p>{{'example' | translate}}: http://your.server.com(:port)/</p>
+          </div>
+        </ion-col>
+      </ion-row>
+      <ion-row class="ion-padding">
+        <ion-col class="signup-col">
+          <ion-button  class="submit-btn" expand="block" [disabled]="!restUrlForm.form.valid" type="submit">
+            {{ 'continue' | translate}}
+          </ion-button>
+        </ion-col>
+      </ion-row>
+    </form>
+  </div>
+</ion-content>

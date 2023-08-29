@@ -1,0 +1,174 @@
+<ion-header>
+  <ion-toolbar color="secondary">
+    <ion-title mode="md">{{'Asset Detail' | translate}}</ion-title>
+    <ion-buttons slot="start">
+      <ion-button (click)="back()">
+        <ion-icon slot="icon-only" name="chevron-back-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <!-- <ion-fab slot="end">
+      <ion-fab-button>
+        
+      </ion-fab-button>
+    </ion-fab> -->
+    <ion-buttons slot="end">
+      <ion-button  id="open-popover" (click)="presentPopover($event)">
+        <ion-icon name="ellipsis-vertical-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-fab fill="clear" vertical="top" horizontal="end" slot="fixed" *ngIf="asset">
+    <ion-fab-button color="white" (click)="takePicture()">
+      <ion-icon color="white" name="camera"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
+
+  <div style="height:0px;overflow:hidden">
+    <ion-input type="file" placeholder="fileInput" accept="image/*"  (change)="selectBrowserImage($event)" #fileInput></ion-input>
+  </div>
+  <div class="asset-detail" *ngIf="asset" style="padding: 10px;">
+  <div class="item item-body" style="border-radius: 4px;">
+    <ion-img src="assets/imgs/no-image.png" *ngIf="!asset.s3ImageId"></ion-img>
+    <ion-img src="{{asset.singedUrl}}" *ngIf="asset.s3ImageId"></ion-img>
+  </div>
+
+<ion-item class="list-view" lines="none">
+  <ion-grid class="asset-detail">
+    <ion-row>
+      <ion-col class="padding-10" size="6" *ngIf="asset.name">
+        <div class="asset-name" style="font-size: 1rem !important;">
+          {{ asset.name }}</div>
+      </ion-col>
+    </ion-row>
+    <ion-row class="padding-10 mt-21px">
+      <ion-col size="5" class="asset-label">
+        <div *ngIf="asset.assetSerialNo">
+          {{'Serial No' | translate}}:
+        </div>
+      </ion-col>
+      <ion-col size="1">
+         :
+      </ion-col>
+      <ion-col size="6">
+        <div class="cat-label" *ngIf="asset.assetSerialNo">
+          <span class="custom-serial">{{ asset.assetSerialNo }}</span>
+        </div>
+      </ion-col>
+    </ion-row>
+    <ion-row class="padding-10 mt-1">
+      <ion-col  size="5" class="asset-label">
+        <div>
+          {{'MachineCode' | translate}}:
+        </div>
+      </ion-col>
+      <ion-col size="1">
+        :
+     </ion-col>
+      <ion-col size="6">
+        <div class="cat-label"><span class="custom-serial">{{ asset.modelCode }}</span>
+        </div>
+      </ion-col>
+    </ion-row>
+    <ion-row class="padding-10 mt-1">
+      <ion-col  size="5" class="asset-label">
+        <div>
+          {{'Part No' | translate}}
+        </div>
+      </ion-col>
+      <ion-col size="1">
+        :
+     </ion-col>
+      <ion-col size="6">
+        <div class="cat-label">
+          <span class="custom-serial">{{ asset.modelName }}</span>
+        </div>
+      </ion-col>
+    </ion-row>
+    <ion-row class="padding-10 mt-1" *ngIf="asset.parentAssetName">
+      <ion-col  size="5" class="asset-label">
+        <div>
+          {{'Parent Asset' | translate}}
+        </div>
+      </ion-col>
+      <ion-col size="1">
+        :
+     </ion-col>
+      <ion-col size="6">
+        <div class="cat-label"><span style="padding-left: 5px;">{{asset.parentAssetName }}</span>
+        </div>
+      </ion-col>
+    </ion-row>
+    <ion-row class="padding-10 mt-21px">
+      <ion-col  size="5" class="asset-label">
+        <div>
+          {{'Category' | translate}}
+        </div>
+      </ion-col>
+      <ion-col size="1">
+        :
+     </ion-col>
+      <ion-col size="6">
+        <div class="cat-label">
+          <span>{{ asset.categoryName }}</span>
+        </div>
+      </ion-col>
+    </ion-row>
+    <ion-row class="padding-10 mt-21px">
+      <ion-col  size="5" class="asset-label">
+        <div>
+          {{'customer' | translate}}
+        </div>
+      </ion-col>
+      <ion-col size="1">
+        :
+     </ion-col>
+      <ion-col size="6">
+        <div class="cat-label">
+          <span>{{asset.customerName }}</span>
+        </div>
+      </ion-col>
+    </ion-row>
+    <ion-row class="padding-10 mt-21px">
+      <ion-col  size="5" class="asset-label">
+        <div>
+          {{'Location' | translate}}
+        </div>
+      </ion-col>
+      <ion-col size="1">
+        :
+     </ion-col>
+      <ion-col size="6">
+        <div class="cat-label">
+          <span>{{ asset.locationName }}</span>
+        </div>
+      </ion-col>
+    </ion-row>
+    <ion-row *ngIf="onLine" style="margin-left:-1em;margin-right: -.5em;" class="mt-2">
+  
+      <ion-col size="6" >
+        <ion-button [ngStyle]="getStyleObject()" fill="clear" size="small" color="secondary" expand="block" (click)="getAssetHistory()">
+          <iconify-icon icon="icon-park-twotone:database-time" style="color: #3c75c6;font-size: 20px;"></iconify-icon>
+          <span [ngStyle]="setFontSize()" style="font-size: 12px;" class="pt-p25 ellipsis">{{'Releated Request' | translate}}</span>
+        </ion-button>
+      </ion-col>
+    
+      <ion-col size="6" *ngIf="isViewAssetTransfer" >
+        <ion-button  [ngStyle]="getStyleObject2()" fill="outline" size="small" expand="block" color="secondary" (click)="goToAssetTransfer()">
+          <iconify-icon icon="mdi:database-sync-outline" style="color: #3c75c6;font-size: 20px;"></iconify-icon>
+          <span [ngStyle]="setFontSize()" class="pt-p25 ellipsis">{{'Transfer Records' | translate}}</span>
+        </ion-button>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+
+</ion-item>
+
+<ion-grid>
+
+  </ion-grid>
+  </div>
+
+</ion-content>

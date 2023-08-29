@@ -1,0 +1,93 @@
+<ion-header style="margin-bottom: 10px;">
+  <ion-toolbar color="secondary">
+    <ion-title mode="md">{{'WorkRequest' | translate}}</ion-title>
+    <ion-buttons *ngIf ="!showPowerButton" slot="start">
+      <ion-button (click)="back()">
+        <ion-icon slot="icon-only" name="chevron-back-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-buttons *ngIf ="showPowerButton" class="setting-btn" slot="end">
+      <ion-button  slot="end" (click)="logoutUser()">
+        <ion-icon slot="icon-only" name="power"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+<ion-fab vertical="bottom" horizontal="end" slot="fixed">
+  <ion-fab-button (click)="addWorkRequest()" color="secondary">
+    <ion-icon name="add"></ion-icon>
+  </ion-fab-button>
+</ion-fab>
+<ion-card *ngIf="!workRequests.length && !noRecordFound">
+  <ion-item>
+    <ion-label>{{'Loading...' | translate}}</ion-label>
+    <ion-spinner name="lines"></ion-spinner>
+  </ion-item>
+</ion-card>
+<div *ngIf="noRecordFound && workRequests.length == 0">
+  <ion-card>
+    <ion-item class="reject-card">
+      {{'notFound' | translate}}
+    </ion-item>
+  </ion-card>
+</div>
+<div class="list-view-badge">
+    <ion-item class="card-tile" lines="none" *ngFor="let item of workRequests" style="width: 100%;">
+    <div class="card-space" (click)="clickItem(item)">
+      <div class="request-card" [ngClass]="{
+        'card-blue': item.priority === 'NORMAL',
+        'card-red': item.priority === 'CRITICAL',
+        'card-orange': (item.priority == 'IMPORTANT' || item.priority == 'URGENT')
+      }">
+      <div class="job-sec">
+        <ion-row class="sec-1">
+          <ion-col size="9">
+            <div class="field-1">#{{ item.id }}</div>
+          </ion-col>
+          <ion-col size="3">
+            <div class="field-3">
+              <span *ngIf = "item.status === 'Closed'" style="color: #127701;margin-right: 1px;">{{'closed' | translate}}</span>
+              <span *ngIf = " item.status == 'WIP'"style="color: #3c75c6;margin-right: 1px;">{{'WIP' | translate}}</span>
+              <span *ngIf = "item.status == 'Rejected' || item.status == 'Reject'"style="color: #FA2B2B;margin-right: 1px;">{{'Rejected' | translate}}</span>
+              <span *ngIf = "item.status == 'Pending'"style="color: #3c75c6;margin-right: 1px;">{{'Pending' | translate}}</span>
+              <span *ngIf = "!item.requestId && item.status != 'Rejected'"style="color: #3c75c6;margin-right: 1px;">{{'Yet to Create' | translate}}</span>
+            </div>
+          </ion-col>
+        </ion-row>
+        <ion-row class="sec-2">
+          <ion-col size="12">
+            <div class="field-1" style="font-weight: 600;">{{ item.description }}</div>
+          </ion-col>
+        </ion-row>
+
+        <ion-row class="sec-3">
+          <ion-col size="6" >
+            <div class="location-label field-1">
+              <ion-icon name="location" class="location-icon"></ion-icon>
+              <span style="margin-left: 2px; position: relative;top:-2px;"  class="ion-padding-left">{{ item.locationName }}</span>
+            </div>          
+          </ion-col>
+          <ion-col size="6" *ngIf="item && item.assetName"class="location-label field-2">
+            <ion-icon name="server-outline" class="location-icon"></ion-icon>
+              <span class="field-1 ml-p5">{{ item.assetName }}</span>
+          </ion-col>
+
+        </ion-row>
+        <ion-row class="sec-2 mb-1" style="padding-top: 12px!important;">
+          <ion-col size="6">
+            <ion-icon style="color:rgb(126,126,126)" class="location-icon" name="business-outline"></ion-icon>
+            <span style="margin-left: 5px;color:rgb(126,126,126);font-size: 14px;">{{ item.companyName }}</span>
+          </ion-col>
+          <ion-col  size="6">
+            <p style="color:rgb(126,126,126);font-size: 14px;"class="field-3 date-font">{{item.creationDate | date: 'dd MMM yy'}} {{item.creationDate | date: 'shortTime'}}</p>
+          </ion-col>
+        </ion-row>
+        </div>
+      </div>
+    </div>
+    </ion-item>
+</div>
+
+</ion-content>

@@ -1,0 +1,48 @@
+ion-label{
+    opacity: 0.8;
+    margin: 13px 8px 13px 0!important;
+    font-size: 12px!important;
+    padding-left: 14px;
+}
+
+.emoji {
+    ion-col {
+        width: 20%;
+        max-width: 20%;
+        padding: 12px;
+        text-align: center; 
+        div {
+            font-size: 15px;
+            display: table;
+            border: 2px solid gray;
+            border-radius: 50%;
+            padding: 6px;
+            max-height: 52px;
+            max-width: 80px;
+            img {
+                display: table-cell;
+                vertical-align: middle;
+                max-width: 37px;
+                border: 0;
+                width: 37px;
+                height: 37px;
+            }
+        }
+        .emoji-text {
+            font-size: 9px;
+            // color: #c8c6c6;
+        }
+        .em {
+            padding: 20px;
+        }
+        .selected {
+            div {
+                background-color: #ff4953;
+                border: 2px solid #ff4953;
+            }
+            .emoji-text {
+                color: #df1c26;
+            }
+        }
+    }
+}

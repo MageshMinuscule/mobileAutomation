@@ -1,0 +1,35 @@
+{
+  "paths": {
+    "stage": {
+      "tspath": "build/stage/config.ts",
+      "xmlpath": "build/stage/config.xml",
+      "jsonpath": "build/stage/google-services.json",
+      "apkpath": "build/apk/stage/stage.apk"
+    },
+    "qa": {
+      "tspath": "build/qa/config.ts",
+      "xmlpath": "build/qa/config.xml",
+      "jsonpath": "build/qa/google-services.json",
+      "apkpath": "build/apk/qa/qa.apk"
+    },
+    "prod": {
+      "tspath": "build/prod/config.ts",
+      "xmlpath": "build/prod/config.xml",
+      "jsonpath": "build/prod/google-services.json",
+      "apkpath": "build/apk/prod/prod.apk"
+    },
+    "buildpath": "build",
+    "projectpath": "App/mobilecode/cryotos/",
+    "apkPath": "platforms/android/app/build/outputs/apk/release/",
+    "prodApkPath": "build/prod/cryotos.apk",
+    "fcmJsonPath": "platforms/android/"
+  },
+  "hockeyapp": {
+    "token": "c92f0877cbd8409ebb29b0ae937f59b3",
+    "upload_url": "https://rink.hockeyapp.net/api/2/apps/upload",
+    "params": {
+      "notes": "Latest Build",
+      "notify": "2"
+    }
+  }
+}

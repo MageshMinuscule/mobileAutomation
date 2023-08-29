@@ -1,0 +1,16 @@
+
+<ion-item *ngIf="incident.type == 'dateTime'" class="template-field-input" lines="none">
+  <ion-label class="workflow-label" style="opacity: 0.8;font-size: 14px !important;" > {{incident.label}} <span class="req-star" *ngIf="incident.compulsory">*</span>
+  </ion-label>
+  <ion-datetime class=""display-format="DD MMM YYYY HH:mm" [required]="incident.compulsory"[(ngModel)]="incident.value">
+  </ion-datetime>
+  <ion-icon slot="end"name="calendar-number-outline" size="small" color="secondary"></ion-icon>  
+</ion-item>
+
+<ion-item *ngIf="incident.type == 'date'" class="template-field-input" lines="none">
+  <ion-label class="workflow-label" style="opacity: 0.8;font-size: 14px !important;" > {{incident.label}} <span class="req-star" *ngIf="incident.compulsory">*</span>
+  </ion-label>
+  <ion-datetime class="" display-format="DD MMM YYYY" (ionChange)="onChange($event)" [required]="incident.compulsory"[(ngModel)]="incident.value">
+  </ion-datetime>
+  <ion-icon slot="end"name="calendar-number-outline" size="small" color="secondary"></ion-icon>  
+</ion-item>

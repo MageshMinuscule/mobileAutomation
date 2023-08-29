@@ -1,0 +1,218 @@
+<ion-header>
+  <ion-toolbar color="secondary">
+    <ion-title mode="md">{{'Transfer Detail' | translate}}</ion-title>
+    <ion-buttons slot="start">
+      <ion-button (click)="back()">
+        <ion-icon slot="icon-only" name="chevron-back-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content overflow-scroll="false" style="overflow: hidden;" class="no-scroll">
+  <ion-list *ngIf="!loaded">
+    <ion-item>
+      <ion-label>
+        <ion-skeleton-text [animated]="true" style="width: 80%;"></ion-skeleton-text>
+      </ion-label>
+    </ion-item>
+    <ion-item>
+      <ion-label>
+        <ion-skeleton-text [animated]="true" style="width: 80%;"></ion-skeleton-text>
+      </ion-label>
+    </ion-item>
+    <ion-item>
+      <ion-label>
+        <ion-skeleton-text [animated]="true" style="width: 80%;"></ion-skeleton-text>
+      </ion-label>
+    </ion-item>
+    <ion-item>
+      <ion-label>
+        <ion-skeleton-text [animated]="true" style="width: 80%;"></ion-skeleton-text>
+      </ion-label>
+    </ion-item>
+  </ion-list>
+  <div class="border-box">
+    <ion-list class="asset-add" *ngIf="loaded">
+      <ion-label class="header-list ml-p75">{{'Current Status' | translate}}</ion-label>
+      <ion-item class="mt-1">
+        <ion-label class="filter-label" position="floating">{{ "User" | translate }}</ion-label>
+        <ion-input type="text" placeholder="User" (input)="filterUserResult($event)" (ionFocus)="fieldOnFocus('User')"
+          name="workflow" (focusout)="clearResults('User')" [(ngModel)]="user.name" required>
+        </ion-input>
+      </ion-item>
+      <div>
+        <ion-list *ngIf="userListResults" class="search-results max-height">
+          <ion-item *ngFor="let cat of userListResults" (click)="selectUser(cat)" class="ion-padding-start bg-color">
+            {{ cat?.name }}
+          </ion-item>
+        </ion-list>
+      </div>
+
+      <ion-item>
+        <ion-label class="filter-label" position="floating">{{ 'Location' | translate }}</ion-label>
+        <ion-input type="text" placeholder="Location" (input)="filterParentLocationResult($event)"
+          (ionFocus)="fieldOnFocus('location')" name="location" (focusout)="clearResults('location')"
+          [(ngModel)]="location.name" required>
+        </ion-input>
+      </ion-item>
+      <div>
+        <ion-list class="search-results max-height">
+          <ion-item *ngFor="let location of locationResults" (click)="selectLocation(location)"
+            class="ion-padding-end bg-color">
+            {{ location?.name }}
+          </ion-item>
+        </ion-list>
+      </div>
+
+      <ion-row>
+        <ion-button [disabled]="!isEditAssetTransfer" color="secondary" class="save_transfer" (click)="saveAssettransfer()">
+          save</ion-button>
+      </ion-row>
+
+    </ion-list>
+  </div>
+  <div class="seg-class mt-2">
+    <ion-segment value="USER" (ionChange)="tabChange($event)" mode="md">
+      <ion-segment-button value="USER">
+        <ion-label>{{'User' | translate}}</ion-label>
+      </ion-segment-button>
+      <ion-segment-button value="LOCATION">
+        <ion-label>{{'Location' | translate}}</ion-label>
+      </ion-segment-button>
+    </ion-segment>
+  </div>
+
+
+</ion-content>
+<ion-content style="position: relative;">
+
+
+  <div class="margin_table mt-1" *ngIf="assetTransferType == 'LOCATION'">
+
+    <ion-row>
+      <ion-col col-12>
+        <div class="custom-table">
+        <table class="table-list custom-table">
+          <tr style="background-color: #EFEFEF;">
+            <th style="font-weight: 500;">
+              <span>S.no</span>
+            </th>
+            <th style="font-weight: 500;">
+              <span>{{'Location' | translate}}</span>
+            </th>
+            <th style="font-weight: 500;">
+              <span>{{'From Date' | translate}}</span>
+            </th>
+            <th style="font-weight: 500;">
+              <span>{{'To Date' | translate}}</span>
+            </th>
+            <th style="font-weight: 500;">
+              <span>{{'Duration' | translate}}</span>
+            </th>
+          </tr>
+          <tbody *ngIf="assetTransferLocationList">
+            <tr *ngFor="let item of assetTransferLocationList; let i = index "
+              [ngClass]="{'odd-row': i % 2 === 0, 'even-row': i % 2 !== 0}">
+              <td style="font-weight: 400;">
+                <span>
+                  {{ i+1 }}
+                </span>
+              </td>
+              <td style="font-weight: 400;"><span>
+                  {{ item.locationName }}
+                </span></td>
+              <td style="font-weight: 400;">
+                <span>
+                  {{ item.fromDate }}
+                </span>
+              </td>
+              <td style="font-weight: 400;">
+                <span>
+                  {{ item.toDate }}
+                </span>
+              </td>
+              <td style="font-weight: 400;">
+                <span>
+                  {{ item.duration }}
+                </span>
+              </td>
+            </tr>
+            <tr *ngIf="assetTransferLocationList.length == 0">
+              <td colspan="5">
+                <p class="text-center">
+                  <span>No records found...</span>
+                </p>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+        </div>
+      </ion-col>
+    </ion-row>
+  </div>
+  <div class="margin_table mt-1" *ngIf="assetTransferType == 'USER'">
+    <ion-row>
+      <ion-col col-12>
+        <table class="table-list custom-table">
+          <tr style="background-color: #EFEFEF;">
+            <th style="font-weight: 500;">
+              <span>S.no</span>
+            </th>
+            <th style="font-weight: 500;">
+              <span>{{'User' | translate}}</span>
+            </th>
+            <th style="font-weight: 500;">
+              <span>{{'From Date' | translate}}</span>
+            </th>
+            <th style="font-weight: 500;">
+              <span>{{'To Date' | translate}}</span>
+            </th>
+            <th style="font-weight: 500;">
+              <span>{{'Duration' | translate}}</span>
+            </th>
+          </tr>
+          <tbody *ngIf="assetTransferUserList">
+            <tr *ngFor="let item of assetTransferUserList; let i = index "
+              [ngClass]="{'odd-row': i % 2 === 0, 'even-row': i % 2 !== 0}">
+              <td style="font-weight: 400;">
+                <span>
+                  {{ i+1 }}
+                </span>
+              </td>
+              <td style="font-weight: 400; font-size: .81245rem;"><span>
+                  {{ item.userName }}
+                </span></td>
+              <td style="font-weight: 400; font-size: .81245rem;">
+                <span>
+                  {{ item.fromDate }}
+                </span>
+              </td>
+              <td style="font-weight: 400; font-size: .81245rem;">
+                <span>
+                  {{ item.toDate }}
+                </span>
+              </td>
+              <td style="font-weight: 400; font-size: .81245rem;">
+                <span>
+                  {{ item.duration }}
+                </span>
+              </td>
+            </tr>
+            <tr *ngIf="assetTransferUserList.length == 0">
+              <td colspan="5">
+                <p class="text-center">
+                  <span>No records found...</span>
+                </p>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </ion-col>
+    </ion-row>
+  </div>
+  <ion-infinite-scroll threshold="50%" position="bottom" [disabled]=scrollEnd (ionInfinite)="doInfinite($event, assetTransferType)">
+    <ion-infinite-scroll-content loadingSpinner="bubbles" loadingText="Loading more data...">
+    </ion-infinite-scroll-content>
+  </ion-infinite-scroll>
+</ion-content>

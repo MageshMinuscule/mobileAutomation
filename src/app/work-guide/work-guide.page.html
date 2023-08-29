@@ -1,0 +1,92 @@
+<ion-header>
+  <ion-toolbar color="secondary">
+    <ion-title *ngIf="!showSearchBar">Work Guide</ion-title>
+    <ion-buttons slot="start">
+      <ion-button (click)="back()">
+        <ion-icon slot="icon-only" name="chevron-back-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-searchbar #searchBar  style='margin-top:1em !important'*ngIf="showSearchBar" (ionFocus)="focusInput()"type="serach"[(ngModel)]="searchKeyword" [debounce]="3000"
+    show-clear-button="always"  showCancelButton="always" mode="ios"(keyup.enter)="filterResult($event)" (ionCancel)="searchCancel()"(ionClear)="onCancel($event)"
+    [placeholder]="'Search Issue' | translate" [cancel-button-text]="'cancel' | translate" cancel-button-icon="trash">
+    </ion-searchbar>
+    <ion-buttons slot="end" *ngIf="!showSearchBar &&tab == 'Releated Requests'">
+      <ion-button (click)="showSearchBar = !showSearchBar">
+        <ion-icon slot="icon-only" name="search"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-segment (ionChange)="tabChange($event)" value="Releated Requests">
+    <ion-segment-button value="Releated Requests">
+      <ion-label>{{'Releated Requests' | translate}}</ion-label>
+    </ion-segment-button>
+    <ion-segment-button value="Online Resource">
+      <ion-label>{{'Online Resource' | translate}}</ion-label>
+    </ion-segment-button>
+  </ion-segment>
+  <div *ngIf="tab == 'Releated Requests'" >
+    <app-no-record *ngIf="requestAssetHistoryies?.length == 0"></app-no-record>
+    <div  *ngFor="let requestAssetHistory of requestAssetHistoryies" class="box-content">
+      <ion-grid fixed>
+        <ion-row>
+          <ion-col size="6">
+            <ion-col size="4">
+              <img style="width: 2rem;height: 2rem;border:1px solid #3C75C6;border-radius: 15px;top:.5em;position: relative;" *ngIf="requestAssetHistory.signedurl?.length != 0" src="{{requestAssetHistory?.signedurl[0]}}" />
+            </ion-col>
+            <ion-col size="8">
+              <ion-label class="view-list" style="margin-left: .5em ;">{{requestAssetHistory?.userName[0]}}</ion-label>
+            </ion-col>
+              <span *ngIf="requestAssetHistory.signedurl?.length == 0" style="width: 2rem;height: 2rem;border:1px solid #3C75C6;">
+                <ion-icon *ngIf="requestAssetHistory.signedurl?.length == 0" slot="start" name="person"></ion-icon>
+              </span>
+          </ion-col>
+          <ion-col size="6">
+          <span class="content-field-label" style="float:right;font-size: 14px !important;">{{requestAssetHistory.updationDate | date:'mediumDate'}}</span>
+          </ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col size="12" class="label-cont">{{'Releated Wo' | translate}}</ion-col>
+          <ion-col size="12" class="content-value"># {{requestAssetHistory.requestId}}</ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col size="12" class="label-cont">{{'Root Cause' | translate}}</ion-col>
+          <ion-col size="12" class="content-value">{{requestAssetHistory.description}}</ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col size="12" class="label-cont">{{'Corrective Action' | translate}}</ion-col>
+          <ion-col size="12" class="content-value">{{requestAssetHistory.correctiveAction && requestAssetHistory.correctiveAction ? requestAssetHistory.correctiveAction : '-'}}</ion-col>
+        </ion-row>
+      </ion-grid>
+    </div>
+
+  </div>
+
+  <div *ngIf="tab == 'Online Resource'">
+    <div *ngFor="let searchResult of searchResults " class="box-content">
+      <ion-grid fixed>
+        <ion-row>
+          <ion-col size="2">
+            <span>
+              <ion-avatar style="width: 2rem;height: 2rem;border:1px solid #3C75C6;">
+                <img *ngIf="searchResult.favicon" src="{{searchResult.favicon}}" />
+              </ion-avatar>
+            </span>
+          </ion-col>
+          <ion-col size="10">
+            <span class="view-list">{{searchResult.title}}</span>
+          </ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col size="12" (click)="openLink(searchResult.link)" style="color: #3C75C6;">{{searchResult.source}}</ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col size="12" class="content-value">{{searchResult.snippet}}</ion-col>
+        </ion-row>
+      </ion-grid>
+    </div>
+ 
+  </div>
+</ion-content>

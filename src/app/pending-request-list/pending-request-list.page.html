@@ -1,0 +1,161 @@
+  <ion-grid>
+    <div (click)="goDetailPage(incident)" tappable>
+      <!-- workorder -->
+      <div *ngIf="incident.requestType === 'WORK_REQUEST'">
+      <ion-row class="sec-1">
+        <ion-col size="9">
+          <div class="field-1">{{ incident.scheduleName ? incident.scheduleName : incident.requestDescription }}
+          </div>
+          
+        </ion-col>
+        <ion-col size="3">
+        <div class="field-3">
+          <span *ngIf = "incident.requestStatus === 'Closed'" style="color: #127701;margin-right: 1px;">{{'closed' | translate}}</span>
+          <span *ngIf = "incident.requestStatus === 'Draft'" style="color: #3c75c6;margin-right: 1px;">{{'draft' | translate}}</span>
+          <span *ngIf = "incident.requestStatus === 'WIP'" style="color: #3c75c6;margin-right: 1px;">{{'WIP' | translate}}</span>
+          <span *ngIf = "incident.requestStatus === 'New'" style="color: #3c75c6;margin-right: 1px;">{{'new' | translate}}</span>
+          <span *ngIf = "incident.requestStatus === 'Pending'" style="color: #3c75c6;margin-right: 1px;">{{'Pending' | translate}}</span>
+        </div>
+      </ion-col>
+      <ion-col size="12">
+        <div class="field-1">
+          <span class="offline" *ngIf="incident.offline">Offline</span>
+        </div>
+        
+      </ion-col>
+      </ion-row>
+      <ion-row class="sec-2">
+        <ion-col size="6">
+          <div class="field-1">#{{incident && incident.requestKey ? incident.requestKey : incident.requestId}}</div>
+        </ion-col>
+        <ion-col size="6" class="location-label field-1">
+          <ion-icon class="i-size-list"name="business-outline"></ion-icon>
+          <span style="margin-left: 5px; font-weight: 400">{{incident.companyName}}</span>
+        </ion-col>
+      </ion-row>
+      <ion-row class="sec-3" *ngIf="incident.workflowName || incident.assetName" style="padding-bottom: 0px!important;" >
+        <ion-col size="6" class="field-1" *ngIf="incident.assetName">
+          <ion-icon name="server-outline" class="location-icon i-size-list"></ion-icon>
+          <span style="margin-left: 5px;">{{incident.assetName}}</span>
+        </ion-col>
+        <ion-col size="6" class="field-1" *ngIf="incident.workflowName">
+          <div class="field-2">
+            <iconify-icon style="color: #7E7E7E !important;position: relative;top:2px;"icon="mdi:workflow-outline"></iconify-icon>
+            <!-- <ion-icon slot="start" name="git-network-outline"></ion-icon> -->
+            <span class="ml-p25">{{incident.workflowName}}</span>
+          </div>
+        </ion-col>
+      </ion-row>
+      <ion-row class="sec-3">
+        <ion-col size="6" class="field-2">
+          <ion-icon name="location" class="location-icon i-size-list"></ion-icon>
+          <span style="margin-left: 5px;"  class="ion-padding-left">{{incident.locationName}}</span>
+        </ion-col>
+        <ion-col size="4" class="location-label field-1">
+          <iconify-icon style="position: relative;top: 2px !important;"*ngIf="incident.ackReq == true" class="location-icon" icon="bi:clock-history"></iconify-icon>
+          <span *ngIf="incident.ackReq == true" style="margin-left: 5px;"  class="ion-padding-left">{{'Yet to Acknowledge' | translate}}</span>
+          <ion-icon style="position: relative;top: 2px !important;" *ngIf="incident.checkinRequired == true && incident.ackReq == false"  class="location-icon"name="checkmark-done-outline"></ion-icon>
+          <span *ngIf="incident.checkinRequired == true && incident.ackReq == false " style="margin-left: 5px;"  class="ion-padding-left">{{'Check In' | translate}}</span>
+          <ion-icon style="position: relative;top: 2px !important;" *ngIf="incident.checkinRequired == false && incident.ackReq == false" class="location-icon" name="refresh-outline"></ion-icon>
+          <span *ngIf="incident.checkinRequired == false && incident.ackReq == false" style="margin-left: 5px;"  class="ion-padding-left">{{'Update Status' | translate}}</span>
+        </ion-col>
+        <ion-col size="2">
+          <p class="field-3 date-font">{{incident.requestSubmissionDate }} ago</p>
+        </ion-col>
+      </ion-row>
+      </div>
+      <!-- preventive -->
+      <div *ngIf="incident.requestType === 'SCHEDULE_REQUEST'">
+        <ion-row class="sec-1">
+          <ion-col size="9">
+            <div class="field-1">{{ incident.scheduleName ? incident.scheduleName : incident.workflowName }}</div>
+          </ion-col>
+          <ion-col size="3">
+          <div class="field-3">
+            <span *ngIf = "incident.requestStatus === 'Closed'" style="color: #127701;margin-right: 1px;">{{'closed' | translate}}</span>
+            <span *ngIf = "incident.requestStatus === 'Draft'" style="color: #3c75c6;margin-right: 1px;">{{'draft' | translate}}</span>
+            <span *ngIf = "incident.requestStatus === 'WIP'" style="color: #3c75c6;margin-right: 1px;">{{'WIP' | translate}}</span>
+            <span *ngIf = "incident.requestStatus === 'New'" style="color: #3c75c6;margin-right: 1px;">{{'WIP' | translate}}</span>
+            <span *ngIf = "incident.requestStatus === 'Pending'" style="color: #3c75c6;margin-right: 1px;">{{'Pending' | translate}}</span>
+          </div>
+        </ion-col>
+        </ion-row>
+
+        <ion-row class="sec-2">
+          <ion-col size="6">
+            <div class="field-1">#{{incident && incident.requestKey ? incident.requestKey : incident.requestId}}</div>
+          </ion-col>
+          <ion-col size="6" class="location-label field-1">
+            <ion-icon name="location" class="location-icon i-size-list"></ion-icon>
+            <span style="margin-left: 5px;"  class="ion-padding-left">{{incident.locationName}}</span>
+          </ion-col>
+        </ion-row>
+
+        <ion-row class="sec-3" *ngIf="incident.workflowName || incident.assetName"  style="padding-bottom: 0px!important;" >
+          <ion-col size="6" *ngIf="incident.assetName" class="field-1">
+            <ion-icon name="server-outline" class="location-icon i-size-list"></ion-icon>
+            <span style="margin-left: 5px;">{{incident.assetName}}</span>
+          </ion-col>
+          <ion-col size="6"  *ngIf="incident.workflowName"class="field-1">
+            <div class="field-2">
+              <iconify-icon icon="mdi:workflow-outline"></iconify-icon>
+              <span class="ml-p25">{{incident.workflowName}}</span>
+            </div>
+          </ion-col>
+        </ion-row>
+        <ion-row class="sec-3" >
+          <ion-col size="6"  *ngIf="incident.tagId != null" class="location-label field-1">
+            <ion-icon style="position: relative;top: 2px !important;" name="pricetag" class="location-icon"></ion-icon>
+            <span style="margin-left: 5px;"  class="ion-padding-left tag-type " *ngIf="incident.tagId == 1">{{'Daily' | translate}}</span>
+            <span style="margin-left: 5px;"  class="ion-padding-left tag-type " *ngIf="incident.tagId == 2">{{'Weekly' | translate}}</span>
+            <span style="margin-left: 5px;"  class="ion-padding-left tag-type " *ngIf="incident.tagId == 3">{{'Yearly' | translate}}</span>
+            <span style="margin-left: 5px;"  class="ion-padding-left tag-type " *ngIf="incident.tagId == 4">{{'Quarterly' | translate}}</span>
+            <span style="margin-left: 5px;"  class="ion-padding-left tag-type " *ngIf="incident.tagId == 5">{{'Monthly' | translate}}</span>
+            <span style="margin-left: 5px;"  class="ion-padding-left tag-type " *ngIf="incident.tagId == 6">{{' Half Yearly' | translate}}</span>
+            <span style="margin-left: 5px;"  class="ion-padding-left tag-type " *ngIf="incident.tagId == 7">{{'Fortnight' | translate}}</span>
+            <span style="margin-left: 5px;"  class="ion-padding-left tag-type " *ngIf="incident.tagId == 8">{{'Bi Monthly' | translate}}</span>
+          </ion-col>
+
+          
+          <ion-col [size]="incident.tagId != null ? 4 : 10" class="location-label field-1">
+            <iconify-icon style="position: relative;top: 2px !important;"*ngIf="incident.ackReq == true" class="location-icon" icon="bi:clock-history"></iconify-icon>
+            <span *ngIf="incident.ackReq == true" style="margin-left: 5px;"  class="ion-padding-left">{{'Yet to Acknowledge' | translate}}</span>
+            <ion-icon style="position: relative;top: 2px !important;" *ngIf="incident.checkinRequired == true && incident.ackReq == false"  class="location-icon"name="checkmark-done-outline"></ion-icon>
+            <span *ngIf="incident.checkinRequired == true && incident.ackReq == false " style="margin-left: 5px;"  class="ion-padding-left">{{'Check In' | translate}}</span>
+            <ion-icon style="position: relative;top: 2px !important;" *ngIf="incident.checkinRequired == false && incident.ackReq == false" class="location-icon" name="refresh-outline"></ion-icon>
+            <span *ngIf="incident.checkinRequired == false && incident.ackReq == false" style="margin-left: 5px;"  class="ion-padding-left">{{'Update Status' | translate}}</span>
+
+          </ion-col>
+          <ion-col size="2">
+              <p class="date-font field-3" *ngIf="incident.scheduleTime && incident.requestType  == 'SCHEDULE_REQUEST'">
+                 {{incident.scheduleTime}}
+              </p>
+              <p  class="date-font field-3"
+                *ngIf="!incident.scheduleTime && incident.requestSubmissionDate && incident.requestType  == 'SCHEDULE_REQUEST'">
+                {{incident.requestSubmissionDate }}
+              </p>
+          </ion-col>
+        </ion-row>
+        </div>
+      <ion-col size="6" *ngIf="type == 'draft'" (click)="goDetailPage(incident)" tappable>
+        <ion-row>
+          <ion-col class="ack" size="12">
+            <ion-button color="danger" class="ack-button" *ngIf="incident.action == 'saveAsDraft'">
+              {{'draft'| translate}}
+            </ion-button>
+            <ion-button color="primary" class="ack-button" *ngIf="incident.action != 'saveAsDraft'">{{'offlineSync'|
+              translate}}
+            </ion-button>
+          </ion-col>
+        </ion-row>
+      </ion-col>
+    <!-- </ion-row>  -->
+    <div class="tag-view tag-box" *ngIf="incident.tag && type == 'online'">
+      <div class="tag-view tag-container">
+        <div class="tag-view tag-content">
+          <div class="tag-text" [ngStyle]="{'backgroundColor': incident.tag.color }">{{ incident.tag.name }}</div>
+        </div>
+      </div>
+    </div>
+    </div>
+  </ion-grid>

@@ -1,0 +1,12 @@
+<div *ngIf="incident.type == 'staticLink'" style="margin-left:.75em !important;margin-right:.75em !important">
+  <ion-grid>
+      <ion-row class="ion-justify-content-start">
+          <ion-col size="5" class="workflow-label">{{incident.label}}:</ion-col>
+          <ion-col size="7">
+              <a (click)="openLink(incident.value)">
+                  <u>Click to View</u>
+              </a>
+          </ion-col>
+      </ion-row>
+  </ion-grid>
+</div>

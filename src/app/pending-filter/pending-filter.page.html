@@ -1,0 +1,174 @@
+<ion-header>
+  <ion-toolbar color="secondary">
+    <ion-title mode="md">{{'FILTER' | translate}}</ion-title>
+    <ion-buttons slot="end">
+      <ion-button class="buttonStyle" (click)="dismiss()">
+        <ion-icon name="close-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content overflow-scroll="false" >
+  <ion-list *ngIf="!loaded">
+    <ion-item>
+      <ion-label>
+          <ion-skeleton-text [animated]="true" style="width: 80%;"></ion-skeleton-text>
+      </ion-label>
+    </ion-item>
+    <ion-item>
+      <ion-label>
+          <ion-skeleton-text [animated]="true" style="width: 80%;"></ion-skeleton-text>
+      </ion-label>
+    </ion-item>
+    <ion-item>
+      <ion-label>
+          <ion-skeleton-text [animated]="true" style="width: 80%;"></ion-skeleton-text>
+      </ion-label>
+    </ion-item>
+    <ion-item>
+      <ion-label>
+          <ion-skeleton-text [animated]="true" style="width: 80%;"></ion-skeleton-text>
+      </ion-label>
+    </ion-item>
+  </ion-list>
+    <ion-list class="asset-add"  *ngIf="loaded">
+      <ion-item >
+        <ion-label class="filter-label" position="floating">{{ 'Category'| translate}}</ion-label>
+        <ion-input type="text" placeholder="Search for category name" (input)="filterParentCategoryResult($event, 'parent')"
+          (ionFocus)="fieldOnFocus('category')" name="category" (focusout)="clearResults('category')"
+          [(ngModel)]="category.name" required>
+        </ion-input>
+      </ion-item>
+      <ion-list  class="search-results max-height" *ngIf="parentCategoryResults != 0">
+        <ion-item *ngFor="let category of parentCategoryResults" (click)="selectCategory(category, 'parent')"
+          class="ion-padding-end bg-color">
+          {{ category?.name }}
+        </ion-item>
+      </ion-list>
+
+        <ion-item *ngIf="module != 'jobs'">
+          <ion-label class="filter-label" position="floating">{{ 'asset' | translate}}</ion-label>
+          <ion-input type="text" (focusout)="clearResults('asset')" placeholder="Search for asset name(or)asset s.no" (input)="filterAssetsResult($event, '')"
+            (ionFocus)="fieldOnFocus('asset')" name="asset" 
+            [(ngModel)]=" asset.name" required>
+          </ion-input>
+        </ion-item>
+        <ion-list  class="search-results max-height" >
+          <ion-item *ngFor="let asset of assetsResults" (click)="selectAssets(asset, '')"
+            class="ion-padding-end bg-color">
+            {{ asset?.name }}
+          </ion-item>
+        </ion-list>
+
+        <ion-item>
+          <ion-label class="filter-label" position="floating">{{ "workflow" | translate }}</ion-label>
+          <ion-input type="text" placeholder="Search for workflow name" (input)="filterCatResult($event)" (ionFocus)="fieldOnFocus('workflow')"
+              name="workflow" (focusout)="clearResults('workflow')" [(ngModel)]="workflow.name"
+              required>
+          </ion-input>
+      </ion-item>
+      <ion-list class="search-results max-height" >
+          <ion-item *ngFor="let cat of workflowResults" (click)="selectWorkflow(cat, '')"class="ion-padding-start bg-color">
+              {{ cat?.name }}
+          </ion-item>
+      </ion-list>
+
+      <!-- <div *ngFor="let childCategory of childCategories;let idx = index">
+        <ion-item>
+          <ion-label position="floating">{{ childCategory.title | translate }}</ion-label>
+          <ion-input type="text" (input)="filterSubCategoryResult($event, childCategory)"
+            (ionFocus)="fieldOnFocus('subCategory', childCategory)" name="subCategory{{idx}}"
+            (focusout)="clearResults('subCategory', childCategory)" [(ngModel)]="childCategory.name" required>
+          </ion-input>
+        </ion-item>
+        <ion-list class="ion-padding-end" class="search-results">
+          <ion-item *ngFor="let child of childCategory.childs"
+            (click)="selectCategory(child, 'child', childCategory, idx)" class="ion-padding-end">
+            {{ child.name }}
+          </ion-item>
+        </ion-list>
+      </div> -->
+
+      <ion-item>
+        <ion-label class="filter-label" position="floating">{{ 'Location' | translate }}</ion-label>
+        <ion-input type="text" placeholder="Search for location name" (input)="filterParentLocationResult($event, 'parent')"
+          (ionFocus)="fieldOnFocus('location')" name="location" (focusout)="clearResults('location')"
+          [(ngModel)]="location.name" required>
+        </ion-input>
+      </ion-item>
+      <ion-list class="search-results max-height" >
+        <ion-item *ngFor="let location of parentLocationResults" (click)="selectLocation(location, 'parent')"
+          class="ion-padding-end bg-color">
+          {{ location?.name }}
+        </ion-item>
+      </ion-list>
+
+      <div *ngFor="let childLocation of childLocations;let idx = index">
+        <ion-item>
+          <ion-label class="filter-label" position="floating">{{ 'Sub Location' | translate }}</ion-label>
+          <ion-input type="text" (input)="filterSubLocationResult($event, childLocation)"
+            (ionFocus)="fieldOnFocus('subLocation', null, childLocation)" name="subLocation{{idx}}"
+            (focusout)="clearResults('subLocation', null, childLocation)" [(ngModel)]="childLocation.name" required>
+          </ion-input>
+        </ion-item>
+        <ion-list class="search-results max-height">
+          <ion-item *ngFor="let child of childLocation.childs"
+            (click)="selectLocation(child, 'child', childLocation, idx)" class="ion-padding-end bg-color">
+            {{ child?.name }}
+          </ion-item>
+        </ion-list>
+      </div>
+
+      <ion-item>
+        <ion-label class="filter-label" position="floating">{{ 'Customer' | translate }}</ion-label>
+        <ion-input type="text" placeholder="Search for Customer name" (input)="filterCustomerResult($event)"
+          (ionFocus)="fieldOnFocus('customer')" name="customer" (focusout)="clearResults('customer')"
+          [(ngModel)]="customer.name" required>
+        </ion-input>
+      </ion-item>
+      <ion-list class="search-results max-height" >
+        <ion-item *ngFor="let customer of companyResults" (click)="selectCustomer(customer)"
+          class="ion-padding-end bg-color">
+          {{ customer?.name }}
+        </ion-item>
+      </ion-list>
+      
+      <ion-item *ngIf="module == 'jobs'">
+        <ion-label position="floating" class="filter-label">{{ 'status' | translate}}</ion-label>
+        <ion-input type="text" placeholder="Select Status" (input)="filterStatusInvolved($event)"(ionFocus)="fieldOnFocus('statusInvolved')" name="status" (focusout)="clearResults('statusInvolved')"
+        [(ngModel)]="statusName" required></ion-input>
+      </ion-item>
+      <ion-list class="search-results max-height" *ngIf="module == 'jobs'">
+        <ion-item *ngFor="let status of statusResults" (click)="selectStatusInvolved(status)" class="ion-padding-end bg-color">
+          {{status}}
+        </ion-item>
+      </ion-list>
+
+      <ion-item *ngIf="module != 'jobs'">
+        <ion-label position="floating" class="filter-label">{{ 'status' | translate}}</ion-label>
+        <ion-input type="text" placeholder="Select Status" (input)="filterStatus($event)"(ionFocus)="fieldOnFocus('status')" name="status" (focusout)="clearResults('status')"
+        [(ngModel)]="pendingStatus" required></ion-input>
+      </ion-item>
+      <ion-list>
+        <ion-item *ngFor="let status of allStatusResults" (click)="selectStatus(status)" class="ion-padding-end bg-color">
+          {{status}}
+        </ion-item>
+      </ion-list>
+
+    </ion-list>
+    <ion-row *ngIf="loaded">
+      <ion-col size="6">
+        <ion-button class="btn-clr" expand="block" block color="white" type="button"
+          (click)="resetFilter()">
+          {{ 'Reset' | translate }}
+        </ion-button>
+      </ion-col>
+      <ion-col size="6"  >
+        <ion-button (click)="applyFilter()" expand="block" color="secondary">
+          {{ btnTxt | translate }}
+        </ion-button>
+      </ion-col>
+    </ion-row>
+  <!-- </form> -->
+</ion-content>
