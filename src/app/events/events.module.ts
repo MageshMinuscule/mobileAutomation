@@ -4,7 +4,7 @@ import { FormsModule } from '@angular/forms';
 import { IonicModule } from '@ionic/angular';
 import { EventsPageRoutingModule } from './events-routing.module';
 import { EventsPage } from './events.page';
-import { NgCalendarModule  } from 'ionic2-calendar';
+// import { NgCalendarModule  } from 'ionic2-calendar';
 import { TranslateModule } from '@ngx-translate/core';
 
 @NgModule({
