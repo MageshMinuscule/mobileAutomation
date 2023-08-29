@@ -13,7 +13,7 @@ import { TranslateModule } from '@ngx-translate/core';
     FormsModule,
     IonicModule,
     EventsPageRoutingModule,
-    NgCalendarModule,
+    // NgCalendarModule,
     TranslateModule
   ],
   declarations: [EventsPage],

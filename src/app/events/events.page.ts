@@ -61,42 +61,42 @@ export class EventsPage implements OnInit {
   loadEvents() {
     this.eventSource = this.createRandomEvents();
   }
-  onViewTitleChanged(title) {
-    this.viewTitle = title;
-    this.viewTitle = title; var month1 = title.split(" ")[0].toLowerCase();
-    var months = ["january", "february", "march", "april", "may", "june", "july", "august", "september", "october", "november", "december"];
-    let index = months.indexOf(month1);
-    console.log(month1);
-    let val;
-    if (index <= 8 && index >= 0) {
-      let ind = index + 1; val = "0" + ind;
-    } else {
-      val = index + 1;
-    }
-    this.date = title.split(" ")[1] + "-" + val + "-01";
-    console.log(this.date);
-    this.loadEvents();
-  }
-  onCurrentDateChanged(event){
-    var today = new Date();
-    today.setHours(0, 0, 0, 0);
-    event.setHours(0, 0, 0, 0);
-    this.isToday = today.getTime() === event.getTime();
-   }
-   onTimeSelected(ev) {
-   }
-   onEventSelected(event) {
-    let requestId = event.id;
-    console.log(event.id)
-      if (event.title.includes('(PM)')) {
-        let navigationExtras: NavigationExtras = { queryParams: { instanceId: event.id },replaceUrl:true };
-        this.router.navigate(['/schedule-job-instance'],navigationExtras)
-      } else {
-        this.isScheduleRaised = true;
-        this.requestDetailPage(requestId);
-      }
-      console.log('Event selected:' + event.startTime + '-' + event.endTime + ',' + event.title);
-   }
+  // onViewTitleChanged(title) {
+  //   this.viewTitle = title;
+  //   this.viewTitle = title; var month1 = title.split(" ")[0].toLowerCase();
+  //   var months = ["january", "february", "march", "april", "may", "june", "july", "august", "september", "october", "november", "december"];
+  //   let index = months.indexOf(month1);
+  //   console.log(month1);
+  //   let val;
+  //   if (index <= 8 && index >= 0) {
+  //     let ind = index + 1; val = "0" + ind;
+  //   } else {
+  //     val = index + 1;
+  //   }
+  //   this.date = title.split(" ")[1] + "-" + val + "-01";
+  //   console.log(this.date);
+  //   this.loadEvents();
+  // }
+  // onCurrentDateChanged(event){
+  //   var today = new Date();
+  //   today.setHours(0, 0, 0, 0);
+  //   event.setHours(0, 0, 0, 0);
+  //   this.isToday = today.getTime() === event.getTime();
+  //  }
+  //  onTimeSelected(ev) {
+  //  }
+  //  onEventSelected(event) {
+  //   let requestId = event.id;
+  //   console.log(event.id)
+  //     if (event.title.includes('(PM)')) {
+  //       let navigationExtras: NavigationExtras = { queryParams: { instanceId: event.id },replaceUrl:true };
+  //       this.router.navigate(['/schedule-job-instance'],navigationExtras)
+  //     } else {
+  //       this.isScheduleRaised = true;
+  //       this.requestDetailPage(requestId);
+  //     }
+  //     console.log('Event selected:' + event.startTime + '-' + event.endTime + ',' + event.title);
+  //  }
    requestDetailPage(requestId) {
     this.common.displayLoading();
     this.service.getRequestDetail(requestId)

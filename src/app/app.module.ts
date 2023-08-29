@@ -5,7 +5,7 @@ import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { IonicModule, IonicRouteStrategy } from '@ionic/angular';
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
-import { NgCalendarModule } from 'ionic2-calendar';
+// import { NgCalendarModule } from 'ionic2-calendar';
 import { EventsPageModule } from './events/events.module';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { fireBaseConfig } from './config';
@@ -93,7 +93,7 @@ export function HttpLoaderFactory(http: HttpClient) { return new TranslateHttpLo
         deps: [HttpClient],
       },
     }),
-    NgCalendarModule,
+    // NgCalendarModule,
     EventsPageModule,
     TranslateModule,
     // ReactiveFormsModule,
